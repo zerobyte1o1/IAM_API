@@ -1,0 +1,17 @@
+user:
+  create_role:
+    name: a
+    permissions:
+    - permission:
+        id: '1'
+    - permission:
+        id: '3'
+    - permission:
+        id: '4'
+
+  create_user:
+    account: aaaaas
+    isActive: True
+    name: s
+    role:
+    - id: '55'
