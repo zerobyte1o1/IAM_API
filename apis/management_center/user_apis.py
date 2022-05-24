@@ -162,4 +162,4 @@ if __name__ == '__main__':
     # }
     # res = a.get_user_list(args=["data"], kwargs=request_data)
 
-    print(res)
+    #print(res)

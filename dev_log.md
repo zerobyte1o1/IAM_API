@@ -5,3 +5,5 @@
 - 修改基础API--login获取token方面，test3多出了企业码的前端传值。
 ### 2022.5.24
 - scheme生成存在问题，属于sgqlc缺陷，当出现部分__choise__问题时，可以删掉该部分class尝试运行，即可解决。
+- 编写完成除用户权限之外的用户模块api。
+- 修改完成createuser方法的mock data。
