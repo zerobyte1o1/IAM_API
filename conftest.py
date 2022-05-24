@@ -1,6 +1,6 @@
 import pytest
 
-from apis.user_apis import User
+from apis.management_center.user_apis import User
 from case_data.user_data import UserData
 
 

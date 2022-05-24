@@ -13,7 +13,7 @@ class BaseApi:
     url = get_env.get_env()
     account = get_env.get_account()
     password = get_env.get_pwd()
-    tenantCode = get_env.get_tenantCode()
+    tenant_code = get_env.get_tenant_code()
     env_name = get_env.get_env_name()
 
     def __init__(self, proxy_=None):
@@ -44,7 +44,7 @@ class BaseApi:
         :param variables_name: for instance: variables_name="create_product_project_temp"
         :return: json
         """
-        root_path = os.path.abspath(os.path.join(os.getcwd(), ".."))
+        root_path = os.path.abspath(os.path.join(os.getcwd(), "../"))
         path = os.path.join(root_path, "case_data/variables_" + self.env_name + ".yaml")
         variables = yaml.safe_load(open(path))
         res = variables[module_name][variables_name]

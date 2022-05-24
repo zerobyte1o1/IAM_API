@@ -24,7 +24,7 @@ class Env:
 	def get_env_name(self):
 		return self.env["default"]
 
-	def get_tenantCode(self):
+	def get_tenant_code(self):
 		return self.env["env"][self.env["default"]]["tenantCode"]
 if __name__ == "__main__":
 	ge = Env()
