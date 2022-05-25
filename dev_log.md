@@ -7,3 +7,5 @@
 - scheme生成存在问题，属于sgqlc缺陷，当出现部分__choise__问题时，可以删掉该部分class尝试运行，即可解决。
 - 编写完成除用户权限之外的用户模块api。
 - 修改完成createuser方法的mock data。
+### 202.5.25
+- 完成用户模块api设计
