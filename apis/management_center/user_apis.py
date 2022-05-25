@@ -20,6 +20,10 @@ class User(GetTokenHeader):
         return res
 
     def get_user(self, id):
+        """
+        get only one user's base information
+        @param id : tenant id
+        """
         headers = GetTokenHeader.get_headers(self)
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
@@ -29,6 +33,10 @@ class User(GetTokenHeader):
         return res
 
     def roles_info(self, args=None, **kwargs):
+        """
+        @param args: which one you want of roles
+        @param kwargs: etc. filter limit or orderby
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
@@ -42,6 +50,10 @@ class User(GetTokenHeader):
         return res
 
     def create_user(self, variables):
+        """
+        create a user
+        @param variables:dict
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -55,6 +67,9 @@ class User(GetTokenHeader):
             return res
 
     def create_role(self, variables):
+        """
+        @param variables: dict
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -78,7 +93,10 @@ class User(GetTokenHeader):
         res = (op + data).user_list
         return res
 
-    def enable_users(self, ids):
+    def enable_users(self, ids: list):
+        """
+        @param ids:list
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -91,7 +109,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def disable_users(self, ids):
+    def disable_users(self, ids: list):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -104,7 +122,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def delete_users(self, ids):
+    def delete_users(self, ids: list):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -117,7 +135,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def reset_user_password(self, id):
+    def reset_user_password(self, id: str):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -143,23 +161,66 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
+    def get_user_permissions(self, args=None, **kwargs):
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        permissions = op.permissions(
+            filter=eval(f"{kwargs}")
+        )
+        if args:
+            permissions.__fields__(*args)
+        data = endpoint(op)
+        res = (op + data).permissions
+        return res
+
+    def get_direct_authorization_rules_of_user(self, args=None, **kwargs):
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        direct_authorization_rules_of_user = op.direct_authorization_rules_of_user(
+            filter=eval(f"{kwargs['kwargs']['filter']}"),
+            user_id=kwargs['kwargs']['userId']
+        )
+        if args:
+            direct_authorization_rules_of_user.__fields__(*args)
+        data = endpoint(op)
+        res = (op + data).direct_authorization_rules_of_user
+        return res
+
+    def set_authorization_rules_to_user_api(self, variables):
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Mutation)
+        op.set_authorization_rules_to_user(input=variables)
+        data = endpoint(op)
+        try:
+            res = (op + data).set_authorization_rules_to_user
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
+    def remove_authorization_rules_of_user_api(self, ids, userId):
+        """
+        @param ids:[list] rules id
+        @param userId:[str] user id
+        """
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Mutation)
+        op.remove_authorization_rules_of_user(ids=ids, user_id=userId)
+        data = endpoint(op)
+        try:
+            res = (op + data).remove_authorization_rules_of_user
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
 
 if __name__ == '__main__':
     a = User()
-    # res1 = a.get_user()
-    # print(res1.company.id)
-    # res2 = a.get_headers(account="admin", password="teletraan@2022")
-    # request_data = {
-    #     "includeChildrenOrganizations": "true",
-    #     "includeDisabledUsers": "true",
-    #     "isAdmin": "false",
-    #     "organizations": [
-    #         {
-    #             "id": "a1c97533-4149-4a13-bf73-e4a3bf08a25a"
-    #         }
-    #     ],
-    #     "search": ""
-    # }
-    # res = a.get_user_list(args=["data"], kwargs=request_data)
 
-    #print(res)
+    res = a.remove_authorization_rules_of_user_api(["ada1fceb-99e2-43e7-b10e-5b24cb3ebebe"],"ada1fceb-99e2-43e7-b10e-5b24cb3ebebe")
+    print(res)
