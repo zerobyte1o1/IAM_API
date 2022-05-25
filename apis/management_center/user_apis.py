@@ -218,9 +218,23 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
+    def update_authorization_rules_of_user_api(self, variables):
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Mutation)
+        op.update_authorization_rules_of_user(input=variables)
+        data = endpoint(op)
+        try:
+            res = (op + data).update_authorization_rules_of_user
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
 
 if __name__ == '__main__':
     a = User()
 
-    res = a.remove_authorization_rules_of_user_api(["ada1fceb-99e2-43e7-b10e-5b24cb3ebebe"],"ada1fceb-99e2-43e7-b10e-5b24cb3ebebe")
+    res = a.remove_authorization_rules_of_user_api(["ada1fceb-99e2-43e7-b10e-5b24cb3ebebe"],
+                                                   "ada1fceb-99e2-43e7-b10e-5b24cb3ebebe")
     print(res)
