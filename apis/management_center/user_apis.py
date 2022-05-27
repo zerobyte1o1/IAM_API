@@ -8,7 +8,7 @@ from schema.platform_schema import Mutation, Query
 class User(GetTokenHeader):
     def get_me(self):
         """
-        :return:class User; 如果想要company_id, 可以使用:
+        :return:class User; 如果想要tcompany_id, 可以使用:
             res.company.id, res = return
         """
         headers = GetTokenHeader.get_headers(self)
@@ -21,7 +21,7 @@ class User(GetTokenHeader):
 
     def get_user(self, id):
         """
-        get only one user's base information
+        获取user基本信息
         @param id : tenant id
         """
         headers = GetTokenHeader.get_headers(self)
@@ -34,8 +34,8 @@ class User(GetTokenHeader):
 
     def roles_info(self, args=None, **kwargs):
         """
-        @param args: which one you want of roles
-        @param kwargs: etc. filter limit or orderby
+        @param args:
+        @param kwargs:
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
@@ -88,7 +88,7 @@ class User(GetTokenHeader):
         op = Operation(Query)
         user_list = op.user_list(filter=eval(f"{kwargs}"))
         if args:
-            user_list.__fields__(*args)
+            user_list.data.__fields__(*args)
         data = endpoint(op)
         res = (op + data).user_list
         return res
@@ -174,6 +174,20 @@ class User(GetTokenHeader):
         res = (op + data).permissions
         return res
 
+    def get_all_permissions_of_user(self, args=None, **kwargs):
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        direct_authorization_rules_of_user = op.all_permissions_of_user(
+            filter=eval(f"{kwargs['kwargs']['filter']}"),
+            user_id=kwargs['kwargs']['userId']
+        )
+        if args:
+            direct_authorization_rules_of_user.__fields__(*args)
+        data = endpoint(op)
+        res = (op + data).all_permissions_of_user
+        return res
+
     def get_direct_authorization_rules_of_user(self, args=None, **kwargs):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
@@ -183,7 +197,9 @@ class User(GetTokenHeader):
             user_id=kwargs['kwargs']['userId']
         )
         if args:
-            direct_authorization_rules_of_user.__fields__(*args)
+            direct_authorization_rules_of_user.data.__fields__(*args)
+            direct_authorization_rules_of_user.total_count()
+
         data = endpoint(op)
         res = (op + data).direct_authorization_rules_of_user
         return res
@@ -235,6 +251,23 @@ class User(GetTokenHeader):
 if __name__ == '__main__':
     a = User()
 
-    res = a.remove_authorization_rules_of_user_api(["ada1fceb-99e2-43e7-b10e-5b24cb3ebebe"],
-                                                   "ada1fceb-99e2-43e7-b10e-5b24cb3ebebe")
+    # res = a.get_all_permissions_of_user(args=['app'], kwargs={
+    #     "filter": {
+    #         "types": [
+    #             "MENU",
+    #             "PAGE"
+    #         ]
+    #     },
+    #     "userId": "8a19c2dc-b8dc-4633-9bdb-39ee8c0c90d6"
+    # })
+    res = a.get_direct_authorization_rules_of_user( args=["id"],kwargs={
+        "filter": {
+            "permissionTypes": [
+                "PAGE"
+            ]
+        },
+        "limit": 50,
+        "offset": 0,
+        "userId": "3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38"
+    })
     print(res)

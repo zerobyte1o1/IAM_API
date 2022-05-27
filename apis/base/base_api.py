@@ -6,7 +6,7 @@ import yaml
 
 from utils.env import Env
 from utils.switch import Switch
-
+from faker import Faker
 
 class BaseApi:
     get_env = Env()
@@ -15,7 +15,7 @@ class BaseApi:
     password = get_env.get_pwd()
     tenant_code = get_env.get_tenant_code()
     env_name = get_env.get_env_name()
-
+    faker = Faker(locale='zh_CN')
     def __init__(self, proxy_=None):
         switch = Switch()
         is_switch_on = switch.is_proxy_on()

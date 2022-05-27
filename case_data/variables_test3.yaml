@@ -15,3 +15,26 @@ user:
     name: s
     role:
     - id: '55'
+
+  update_user:
+    id: aa
+    isAccountEnabled: true
+    name: s
+    organizations:
+      - id: 'a1c97533-4149-4a13-bf73-e4a3bf08a25a'
+    role:
+      - id: '55'
+    phoneNumber:
+    email:
+    remark:
+
+  set_authorization_rules_to_user:
+    authorizationRules:
+      - dataRange:
+          code: ALL
+          name: 全部数据
+        isAllowed: true
+    user:
+      id:
+    permission:
+      id:
