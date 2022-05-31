@@ -110,6 +110,9 @@ class User(GetTokenHeader):
             return res
 
     def disable_users(self, ids: list):
+        """
+        @param ids : list
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -148,7 +151,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def update_user(self, variables):
+    def update_user(self, variables: dict):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -175,6 +178,9 @@ class User(GetTokenHeader):
         return res
 
     def get_all_permissions_of_user(self, args=None, **kwargs):
+        """
+        获取用户能够获得的所有权限信息
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
@@ -204,7 +210,7 @@ class User(GetTokenHeader):
         res = (op + data).direct_authorization_rules_of_user
         return res
 
-    def set_authorization_rules_to_user_api(self, variables):
+    def set_authorization_rules_to_user_api(self, variables: dict):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -217,7 +223,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def remove_authorization_rules_of_user_api(self, ids, userId):
+    def remove_authorization_rules_of_user_api(self, ids: list, userId: str):
         """
         @param ids:[list] rules id
         @param userId:[str] user id
@@ -234,7 +240,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def update_authorization_rules_of_user_api(self, variables):
+    def update_authorization_rules_of_user_api(self, variables: dict):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -246,6 +252,15 @@ class User(GetTokenHeader):
         except:
             res = data.get("errors")[0].get("message")
             return res
+
+    def get_authorization_rule_and_dependencies(self, rule_id):
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        authorization_rule_and_dependencies=op.authorization_rule_and_dependencies(id=rule_id)
+        data = endpoint(op)
+        res = (op + data).authorization_rule_and_dependencies
+        return res
 
 
 if __name__ == '__main__':
@@ -260,14 +275,17 @@ if __name__ == '__main__':
     #     },
     #     "userId": "8a19c2dc-b8dc-4633-9bdb-39ee8c0c90d6"
     # })
-    res = a.get_direct_authorization_rules_of_user( args=["id"],kwargs={
-        "filter": {
-            "permissionTypes": [
-                "PAGE"
-            ]
-        },
-        "limit": 50,
-        "offset": 0,
-        "userId": "3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38"
-    })
+    # res = a.get_direct_authorization_rules_of_user( args=["id"],kwargs={
+
+    #     "filter": {
+    #         "permissionTypes": [
+    #             "PAGE"
+    #         ]
+    #     },
+    #     "limit": 50,
+    #     "offset": 0,
+    #     "userId": "3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38"
+    # })
+    res = a.get_authorization_rule_and_dependencies("30edb884-252b-4f19-b04f-f8da45e96fc6")
+
     print(res)

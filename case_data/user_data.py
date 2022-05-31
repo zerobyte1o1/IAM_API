@@ -56,27 +56,27 @@ class UserData(BaseApi):
         @param userId:用户id
         @return : 用户拥有的所有权限id集合,['d215d4e7-515b-4e27-a0c5-7254423f2fd8', '43970533-2b57-4d40-8543-d57219ac4695']
         """
-        ids_list=[]
-        res = self.u.get_direct_authorization_rules_of_user(args=["id"],kwargs={
+        ids_list = []
+        res = self.u.get_direct_authorization_rules_of_user(args=["id"], kwargs={
             "filter": {
                 "permissionTypes": [
-                    "FEATURE"
+                    "PAGE"
                 ]
             },
             "userId": userId
         }
-        )
+                                                            )
         for ar in res.data:
-            print(ar["id"])
             ids_list.append(ar["id"])
         return ids_list
 
     def get_one_permissions_of_user(self, userId):
         """
+
         @param userId: 用户id
         @return 获取最后一个用户能获取范围内的权限id
         """
-        res = a.get_all_permissions_of_user(args=['id'], kwargs={
+        res = self.u.get_all_permissions_of_user(args=["id"], kwargs={
             "filter": {
                 "types": [
                     "MENU",
@@ -85,20 +85,37 @@ class UserData(BaseApi):
             },
             "userId": userId
         })
-        return res[-1]['id']
+        return res[-2]["id"]
 
     def set_authorization_rules_to_user(self, userId):
         """
+        为user添加一个权限
         @param userId:用户id
         @return : 只有一条权限的用户配置权限variables
         """
         rule_id = self.get_one_permissions_of_user(userId)
         variables_temp = self.get_variables(module_name="user", variables_name="set_authorization_rules_to_user")
         args = [
-            ("authorizationRules", [{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission":{"id":rule_id}, "isAllowed":True}]),
+            ("authorizationRules",
+             [{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission": {"id": rule_id}, "isAllowed": True}]),
             ("user", {"id": userId})
         ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
+        return variables
+
+    def update_authorization_rules_of_user(self, userId):
+        data_tange = []
+        rule_id = self.get_direct_authorization_rules_id_of_user(userId)[0]
+        data = self.u.get_authorization_rule_and_dependencies(rule_id)
+        for i in range(len(data)):
+            data_tange.append({
+                "dataRange": {
+                    "code": data[i].data_range["code"],
+                    "name": data[i].data_range["name"]
+                },
+                "id": data[i].id
+            })
+        variables = {"authorizationRules": data_tange, "user": {"id": userId}}
         return variables
 
 
@@ -107,7 +124,10 @@ if __name__ == '__main__':
     # print(s.create_user())
     a = User()
 
-    data = UserData().get_direct_authorization_rules_id_of_user("3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38")
-    print(data)
+    # data = UserData().get_direct_authorization_rules_id_of_user("3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38")
+    # print(data)
     # res = a.set_authorization_rules_to_user_api(data)
     # print(res)
+    data = UserData().update_authorization_rules_of_user("811f4e59-4086-40cf-b5db-9b0a9a124917")
+    res= a.update_authorization_rules_of_user_api(data)
+    print(res)

@@ -13,6 +13,8 @@ user:
     account: aaaaas
     isAccountEnabled: true
     name: s
+    organizations:
+       - id: 'e921b11a-2410-45fd-9b26-965595854185'
     role:
     - id: '55'
 
