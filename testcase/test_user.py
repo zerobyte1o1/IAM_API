@@ -73,7 +73,6 @@ class TestUser:
         data = self.datadir.set_authorization_rules_to_user(pre_user)
         self.user.set_authorization_rules_to_user_api(data)
         rule_ids = self.datadir.get_direct_authorization_rules_id_of_user(pre_user)
-        print(rule_ids)
         res = self.user.remove_authorization_rules_of_user_api(rule_ids, pre_user)
         assert_that(res, equal_to(True))
 
@@ -81,8 +80,6 @@ class TestUser:
     def test_update_update_authorization_rules_of_user(self, pre_user):
         data = self.datadir.set_authorization_rules_to_user(pre_user)
         self.user.set_authorization_rules_to_user_api(data)
-        rule_id = self.datadir.get_direct_authorization_rules_id_of_user(pre_user)
-        print(rule_id)
-        update_dict = UserData().update_authorization_rules_of_user(rule_id)
+        update_dict = UserData().update_authorization_rules_of_user(pre_user)
         res = self.user.update_authorization_rules_of_user_api(update_dict)
-        print( res)
+        assert_that(res, equal_to(True))

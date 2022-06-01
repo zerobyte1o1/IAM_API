@@ -83,6 +83,9 @@ class User(GetTokenHeader):
             return res
 
     def get_user_list(self, args=None, **kwargs):
+        """
+        获取用户列表数据
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
@@ -95,7 +98,9 @@ class User(GetTokenHeader):
 
     def enable_users(self, ids: list):
         """
+        启用用户
         @param ids:list
+        @return: True or False
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
@@ -111,7 +116,9 @@ class User(GetTokenHeader):
 
     def disable_users(self, ids: list):
         """
+        禁用用户
         @param ids : list
+        @return: True or False
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
@@ -126,6 +133,11 @@ class User(GetTokenHeader):
             return res
 
     def delete_users(self, ids: list):
+        """
+        删除用户
+        @param ids: list,用户id集合
+        @return: True or False
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -139,6 +151,11 @@ class User(GetTokenHeader):
             return res
 
     def reset_user_password(self, id: str):
+        """
+        重置用户密码
+        @param id:用户id
+        @return: True or False
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -152,6 +169,11 @@ class User(GetTokenHeader):
             return res
 
     def update_user(self, variables: dict):
+        """
+        更新用户信息
+        @param variables: 更新用户请求数据
+        @return: True or False
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -165,6 +187,9 @@ class User(GetTokenHeader):
             return res
 
     def get_user_permissions(self, args=None, **kwargs):
+        """
+        获取已添加规则
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
@@ -211,6 +236,11 @@ class User(GetTokenHeader):
         return res
 
     def set_authorization_rules_to_user_api(self, variables: dict):
+        """
+        为用户添加权限规则
+        @param variables:dict
+        @return: True or False
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -225,8 +255,10 @@ class User(GetTokenHeader):
 
     def remove_authorization_rules_of_user_api(self, ids: list, userId: str):
         """
+        删除用户的一条权限规则
         @param ids:[list] rules id
         @param userId:[str] user id
+        @return: True or False
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
@@ -241,6 +273,11 @@ class User(GetTokenHeader):
             return res
 
     def update_authorization_rules_of_user_api(self, variables: dict):
+        """
+        更新用户的一条权限规则
+        @param variables:更新用户请求数据
+        @return: True or False
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
@@ -254,10 +291,16 @@ class User(GetTokenHeader):
             return res
 
     def get_authorization_rule_and_dependencies(self, rule_id):
+        """
+        获取一条规则的详细数据
+        @param rule_id:已添加规则id
+        @return: True or False
+
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
-        authorization_rule_and_dependencies=op.authorization_rule_and_dependencies(id=rule_id)
+        authorization_rule_and_dependencies = op.authorization_rule_and_dependencies(id=rule_id)
         data = endpoint(op)
         res = (op + data).authorization_rule_and_dependencies
         return res

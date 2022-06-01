@@ -74,9 +74,9 @@ class UserData(BaseApi):
         """
 
         @param userId: 用户id
-        @return 获取最后一个用户能获取范围内的权限id
+        @return 获取一个用户能获取范围内的权限id
         """
-        res = self.u.get_all_permissions_of_user(args=["id"], kwargs={
+        res = self.u.get_all_permissions_of_user(args=["dependencies", "id"], kwargs={
             "filter": {
                 "types": [
                     "MENU",
@@ -85,7 +85,9 @@ class UserData(BaseApi):
             },
             "userId": userId
         })
-        return res[-2]["id"]
+        for i in range(len(res)):
+            if res[i]["dependencies"]:
+                return res[i]["id"]
 
     def set_authorization_rules_to_user(self, userId):
         """
@@ -104,6 +106,11 @@ class UserData(BaseApi):
         return variables
 
     def update_authorization_rules_of_user(self, userId):
+        """
+        获取用户已添加规则的单条数据并转换为请求格式
+        @param userId: 用户的id
+        @return: updata用户请求数据
+        """
         data_tange = []
         rule_id = self.get_direct_authorization_rules_id_of_user(userId)[0]
         data = self.u.get_authorization_rule_and_dependencies(rule_id)
@@ -128,6 +135,8 @@ if __name__ == '__main__':
     # print(data)
     # res = a.set_authorization_rules_to_user_api(data)
     # print(res)
-    data = UserData().update_authorization_rules_of_user("811f4e59-4086-40cf-b5db-9b0a9a124917")
-    res= a.update_authorization_rules_of_user_api(data)
-    print(res)
+    # data = UserData().update_authorization_rules_of_user("0c84960e-d04c-4c2d-9bc3-62eb860633ba")
+    # print(data)
+    # res = a.update_authorization_rules_of_user_api(data)
+    rule_id = UserData().get_one_permissions_of_user("8a19c2dc-b8dc-4633-9bdb-39ee8c0c90d6")
+    print(rule_id)
