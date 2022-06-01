@@ -53,6 +53,7 @@ class UserData(BaseApi):
 
     def get_direct_authorization_rules_id_of_user(self, userId):
         """
+        获取用户的所有已添加的权限规则id
         @param userId:用户id
         @return : 用户拥有的所有权限id集合,['d215d4e7-515b-4e27-a0c5-7254423f2fd8', '43970533-2b57-4d40-8543-d57219ac4695']
         """
@@ -72,7 +73,7 @@ class UserData(BaseApi):
 
     def get_one_permissions_of_user(self, userId):
         """
-
+        获取一个用户能够添加的权限规则的id
         @param userId: 用户id
         @return 获取一个用户能获取范围内的权限id
         """
@@ -85,6 +86,7 @@ class UserData(BaseApi):
             },
             "userId": userId
         })
+        #确保规则含有dependencies，否则updata规则时会出现参数缺失情况
         for i in range(len(res)):
             if res[i]["dependencies"]:
                 return res[i]["id"]
