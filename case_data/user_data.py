@@ -19,6 +19,22 @@ class UserData(BaseApi):
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
+    def user_list_filter(self, org_ids, include_children_organizations=None, include_disabled_users=None):
+        """
+        @param first:组织id
+        @param second: [booleam]是否需要包括子组织的user
+        @param third: [booleam]是否需要包括禁用用户
+        """
+        variables_temp = self.get_variables(module_name="user", variables_name="user_list")
+        args = [("organizations", org_ids)]
+        if include_children_organizations is not None:
+            args.append(("includeChildrenOrganizations", include_children_organizations))
+        if include_disabled_users is not None:
+            args.append(("includeDisabledUsers", include_disabled_users))
+
+        variables = self.modify_variables(target_json=variables_temp, args=args)
+        return variables
+
     def create_user(self):
         user_account = self.mock.mock_data("account")
         user_name = self.mock.mock_data("name")
@@ -86,7 +102,7 @@ class UserData(BaseApi):
             },
             "userId": userId
         })
-        #确保规则含有dependencies，否则updata规则时会出现参数缺失情况
+        # 确保规则含有dependencies，否则updata规则时会出现参数缺失情况
         for i in range(len(res)):
             if res[i]["dependencies"]:
                 return res[i]["id"]
@@ -140,5 +156,5 @@ if __name__ == '__main__':
     # data = UserData().update_authorization_rules_of_user("0c84960e-d04c-4c2d-9bc3-62eb860633ba")
     # print(data)
     # res = a.update_authorization_rules_of_user_api(data)
-    rule_id = UserData().get_one_permissions_of_user("8a19c2dc-b8dc-4633-9bdb-39ee8c0c90d6")
+    rule_id = UserData().user_list_filter(123, True, True)
     print(rule_id)

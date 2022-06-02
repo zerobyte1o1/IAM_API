@@ -329,6 +329,14 @@ if __name__ == '__main__':
     #     "offset": 0,
     #     "userId": "3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38"
     # })
-    res = a.get_authorization_rule_and_dependencies("30edb884-252b-4f19-b04f-f8da45e96fc6")
+    res = a.get_user_list(kwargs={
+        "includeChildrenOrganizations": False,
+        "includeDisabledUsers": False,
+        "organizations": [
+            {
+                "id": "bca437b6-dce7-40b4-9b08-b5908e8708a1"
+            }
+        ]
+    })
 
     print(res)

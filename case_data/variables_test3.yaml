@@ -40,3 +40,25 @@ user:
       id:
     permission:
       id:
+
+  user_list:
+    includeChildrenOrganizations: False,
+    includeDisabledUsers: False
+    organizations:
+      - id:
+
+organization:
+  create_organization:
+    code:
+    manger:
+      id:
+    name:
+    parent:
+      id:
+
+  update_organization:
+    code:
+    id:
+    manager:
+      id:
+    name:
