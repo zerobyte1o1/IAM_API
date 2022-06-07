@@ -2,11 +2,11 @@ from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 
 from apis.base.get_token_headers import GetTokenHeader
-from schema.platform_schema import Mutation, Query
+from schema.platform_schema import Mutation, Query, OrganizationListFilterInput
 
 
 class Organization(GetTokenHeader):
-    def get_organization_list(self, args=None, **kwargs):
+    def get_organization_list(self,variables:dict ):
         """
         查看组织下的子组织
         @return: 返回子组织，若不需要子组织下的组织，创建过滤数据时get_organization_list_ask(False)
@@ -14,11 +14,10 @@ class Organization(GetTokenHeader):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
+        print(variables)
         organization_list = op.organization_list(
-            filter=eval(f"{kwargs}")
+            filter=variables
         )
-        if args:
-            organization_list.data.__fields__(*args)
         data = endpoint(op)
         res = (op + data).organization_list
         return res
@@ -57,7 +56,7 @@ class Organization(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def update_Organization_api(self, variables:dict):
+    def update_organization_api(self, variables:dict):
         """
         更新组织
         @param variables: [dict]
@@ -66,10 +65,10 @@ class Organization(GetTokenHeader):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)
-        op.update_Organization(input=variables)
+        op.update_organization(input=variables)
         data = endpoint(op)
         try:
-            res = (op + data).update_Organization
+            res = (op + data).update_organization
             return res
         except:
             res = data.get("errors")[0].get("message")
@@ -95,9 +94,11 @@ class Organization(GetTokenHeader):
 
 
 if __name__ == '__main__':
-    a = Organization().get_organization_list(kwargs={
-        "id": "a1c97533-4149-4a13-bf73-e4a3bf08a25a",
-        "isChildrenIncluded": True
-    })
-    b = Organization().get_organization_tree_nodes(["id"])
-    print(b)
+    # a = Organization().get_organization_list(kwargs={
+    #     "id": "a1c97533-4149-4a13-bf73-e4a3bf08a25a",
+    #     "isChildrenIncluded": True
+    # })
+    # b = Organization().get_organization_tree_nodes()[0].id
+    # print(b)
+    a=Organization().get_organization_list({'id': 'a1c97533-4149-4a13-bf73-e4a3bf08a25a', 'isChildrenIncluded': True})
+    print(a)

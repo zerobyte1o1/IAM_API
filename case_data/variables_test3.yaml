@@ -42,15 +42,15 @@ user:
       id:
 
   user_list:
-    includeChildrenOrganizations: False,
-    includeDisabledUsers: False
+    includeChildrenOrganizations: false
+    includeDisabledUsers: false
     organizations:
       - id:
 
 organization:
   create_organization:
     code:
-    manger:
+    manager:
       id:
     name:
     parent:

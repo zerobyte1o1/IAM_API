@@ -17,6 +17,10 @@ class BaseApi:
     env_name = get_env.get_env_name()
     faker = Faker(locale='zh_CN')
     def __init__(self, proxy_=None):
+        """
+
+        @rtype: object
+        """
         switch = Switch()
         is_switch_on = switch.is_proxy_on()
         if is_switch_on is True:

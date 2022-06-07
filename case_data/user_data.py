@@ -1,11 +1,14 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.user_apis import User
+from apis.management_center.organization_apis import Organization
 from utils.mock import Mock
 
 
 class UserData(BaseApi):
     mock = Mock()
     u = User()
+    org=Organization()
+    org_id = org.get_organization_tree_nodes()[0]["id"]
     role_name = mock.mock_data("role")
     role_id = u.roles_info().data[0].id
 
@@ -39,9 +42,11 @@ class UserData(BaseApi):
         user_account = self.mock.mock_data("account")
         user_name = self.mock.mock_data("name")
         variables_temp = self.get_variables(module_name="user", variables_name="create_user")
+
         args = [("account", user_account),
                 ("name", user_name),
-                ("roles", [{"id": self.role_id}])
+                ("roles", [{"id": self.role_id}]),
+                ("organizations",[{"id":self.org_id}])
                 ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
@@ -62,7 +67,8 @@ class UserData(BaseApi):
                 ("roles", [{"id": self.role_id}]),
                 ("email", fake_email),
                 ("phoneNumber", fake_phone),
-                ("remark", fake_remark)
+                ("remark", fake_remark),
+                ("organizations",[{"id":self.org_id}])
                 ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables

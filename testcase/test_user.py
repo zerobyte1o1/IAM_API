@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 from hamcrest import *
@@ -35,6 +33,7 @@ class TestUser:
         res = self.user.update_user(data)
         assert_that(res, equal_to(True))
 
+
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/36", name="重置用户密码")
     def test_reset_user_password(self, pre_user):
         res = self.user.reset_user_password(pre_user)
@@ -53,6 +52,7 @@ class TestUser:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/39", name="查看用户详情")
     def test_user(self, pre_user):
+        print(pre_user)
         res = self.user.get_user(pre_user)
         assert_that(res.account, starts_with("account"))
 

@@ -2,7 +2,7 @@ from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 
 from apis.base.get_token_headers import GetTokenHeader
-from schema.platform_schema import Mutation, Query
+from schema.platform_schema import *
 
 
 class User(GetTokenHeader):
@@ -82,16 +82,14 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def get_user_list(self, args=None, **kwargs):
+    def get_user_list(self,variables):
         """
         获取用户列表数据
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
-        user_list = op.user_list(filter=eval(f"{kwargs}"))
-        if args:
-            user_list.data.__fields__(*args)
+        user_list = op.user_list(filter=variables)
         data = endpoint(op)
         res = (op + data).user_list
         return res
@@ -329,14 +327,15 @@ if __name__ == '__main__':
     #     "offset": 0,
     #     "userId": "3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38"
     # })
-    res = a.get_user_list(kwargs={
-        "includeChildrenOrganizations": False,
-        "includeDisabledUsers": False,
-        "organizations": [
-            {
-                "id": "bca437b6-dce7-40b4-9b08-b5908e8708a1"
-            }
-        ]
-    })
+    # res = a.get_user_list({
+    #     "includeChildrenOrganizations": False,
+    #     "includeDisabledUsers": False,
+    #     "organizations": [
+    #         {
+    #             "id": "a1c97533-4149-4a13-bf73-e4a3bf08a25a"
+    #         }
+    #     ]
+    # })
+    res=a.get_user("ada2c2ec0-ab6f-475e-a2b5-acd12c1e5222")
 
     print(res)
