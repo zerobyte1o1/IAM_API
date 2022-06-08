@@ -9,12 +9,10 @@ class Organization(GetTokenHeader):
     def get_organization_list(self,variables:dict ):
         """
         查看组织下的子组织
-        @return: 返回子组织，若不需要子组织下的组织，创建过滤数据时get_organization_list_ask(False)
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
-        print(variables)
         organization_list = op.organization_list(
             filter=variables
         )

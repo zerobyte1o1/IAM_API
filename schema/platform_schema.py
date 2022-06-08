@@ -969,7 +969,7 @@ class UserListFilter(sgqlc.types.Input):
     role = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(IntIDInput)), graphql_name='role')
     search = sgqlc.types.Field(String, graphql_name='search')
     search_name = sgqlc.types.Field(String, graphql_name='searchName')
-    type =None
+    type = None
     uid = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='uid')
 
 

@@ -47,13 +47,13 @@ class OrganizationData(BaseApi):
     def update_organization_ask(self, org_id):
         """
         生成更新组织的请求数据
-        @param org_id: 组织id [{"id":id}]
+        @param org_id: 组织id [{"id":id}] 注意该组织必须有user存在
         @return:返回
         """
         variables_temp = self.get_variables(module_name="organization", variables_name="update_organization")
-        if org_id is None:
-            org_id = org.get_organization_tree_nodes()[-1]["id"]
-        user_list_filter=self.user_data.user_list_filter(org_ids=[{"id": org_id}])
+
+        org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
+        user_list_filter=self.user_data.user_list_filter(org_ids=[{"id": org_gen_id}])
         org_user = self.user.get_user_list(user_list_filter).data[0].id
         args = [
             ("name", self.mock.mock_data("organization")),
@@ -71,5 +71,5 @@ if __name__ == '__main__':
     # Organization().update_organization_api(a)
 
     # # res = org.get_organization_tree_nodes()
-    b=OrganizationData().get_organization_list_ask()
+    b=OrganizationData().update_organization_ask("caadea35-3c71-4636-a575-fb696cc72b1b")
     print(b)
