@@ -26,6 +26,8 @@ class TestUser:
         create_user_dict = self.datadir.create_user()
         res = self.user.create_user(create_user_dict)
         assert_that(type(res.password), equal_to(str))
+        self.user.disable_users([res.user_id])
+        self.user.delete_users([res.user_id])
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/35", name="查看用户详情")
     def test_update_user(self, pre_user):
@@ -52,7 +54,6 @@ class TestUser:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/39", name="查看用户详情")
     def test_user(self, pre_user):
-        print(pre_user)
         res = self.user.get_user(pre_user)
         assert_that(res.account, starts_with("account"))
 
@@ -64,7 +65,9 @@ class TestUser:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/42", name="添加用户权限")
     def test_set_authorization_rules_to_user(self, pre_user):
+        print(pre_user)
         data = self.datadir.set_authorization_rules_to_user(pre_user)
+        print(data)
         res = self.user.set_authorization_rules_to_user_api(data)
         assert_that(res, equal_to(True))
 

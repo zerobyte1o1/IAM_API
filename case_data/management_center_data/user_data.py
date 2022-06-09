@@ -1,32 +1,23 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.user_apis import User
 from apis.management_center.organization_apis import Organization
+from apis.management_center.role_apis import Role
 from utils.mock import Mock
 
 
 class UserData(BaseApi):
     mock = Mock()
     u = User()
-    org=Organization()
+    role = Role()
+    org = Organization()
     org_id = org.get_organization_tree_nodes()[0]["id"]
-    role_name = mock.mock_data("role")
-    role_id = u.roles_info().data[0].id
-
-    def role_count(self):
-        res = self.u.roles_info(args=["total_count"])
-        return res.total_count
-
-    def create_role(self):
-        variables_temp = self.get_variables(module_name="user", variables_name="create_role")
-        args = [("name", self.role_name)]
-        variables = self.modify_variables(target_json=variables_temp, args=args)
-        return variables
+    role_id = role.get_role_list().data[0].id
 
     def user_list_filter(self, org_ids, include_children_organizations=None, include_disabled_users=None):
         """
-        @param first:组织id
-        @param second: [booleam]是否需要包括子组织的user
-        @param third: [booleam]是否需要包括禁用用户
+        @param include_disabled_users: [booleam]是否需要包括禁用用户
+        @param include_children_organizations: [booleam]是否需要包括子组织的user
+        @param org_ids: 组织id
         """
         variables_temp = self.get_variables(module_name="user", variables_name="user_list")
         args = [("organizations", org_ids)]
@@ -46,7 +37,7 @@ class UserData(BaseApi):
         args = [("account", user_account),
                 ("name", user_name),
                 ("roles", [{"id": self.role_id}]),
-                ("organizations",[{"id":self.org_id}])
+                ("organizations", [{"id": self.org_id}])
                 ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
@@ -68,7 +59,7 @@ class UserData(BaseApi):
                 ("email", fake_email),
                 ("phoneNumber", fake_phone),
                 ("remark", fake_remark),
-                ("organizations",[{"id":self.org_id}])
+                ("organizations", [{"id": self.org_id}])
                 ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
@@ -87,18 +78,18 @@ class UserData(BaseApi):
                 ]
             },
             "userId": userId
-        }
-                                                            )
+        })
         for ar in res.data:
             ids_list.append(ar["id"])
         return ids_list
 
-    def get_one_permissions_of_user(self, userId):
+    def get_one_permissions_of_user(self):
         """
         获取一个用户能够添加的权限规则的id
         @param userId: 用户id
         @return 获取一个用户能获取范围内的权限id
         """
+        user_Id = self.u.get_me().id
         res = self.u.get_all_permissions_of_user(args=["dependencies", "id"], kwargs={
             "filter": {
                 "types": [
@@ -106,7 +97,7 @@ class UserData(BaseApi):
                     "PAGE"
                 ]
             },
-            "userId": userId
+            "userId": user_Id
         })
         # 确保规则含有dependencies，否则updata规则时会出现参数缺失情况
         for i in range(len(res)):
@@ -119,7 +110,8 @@ class UserData(BaseApi):
         @param userId:用户id
         @return : 只有一条权限的用户配置权限variables
         """
-        rule_id = self.get_one_permissions_of_user(userId)
+        rule_id = self.get_one_permissions_of_user()
+
         variables_temp = self.get_variables(module_name="user", variables_name="set_authorization_rules_to_user")
         args = [
             ("authorizationRules",
@@ -162,5 +154,5 @@ if __name__ == '__main__':
     # data = UserData().update_authorization_rules_of_user("0c84960e-d04c-4c2d-9bc3-62eb860633ba")
     # print(data)
     # res = a.update_authorization_rules_of_user_api(data)
-    rule_id = UserData().user_list_filter(123, True, True)
+    rule_id = UserData().set_authorization_rules_to_user("fb30b847-7cc2-4b74-95d3-e7861a67056a")
     print(rule_id)
