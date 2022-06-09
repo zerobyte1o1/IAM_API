@@ -3,7 +3,7 @@ import pytest
 from hamcrest import *
 
 from apis.management_center.user_apis import User
-from case_data.user_data import UserData
+from case_data.management_center_data.user_data import UserData
 
 
 class TestUser:
@@ -65,9 +65,7 @@ class TestUser:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/42", name="添加用户权限")
     def test_set_authorization_rules_to_user(self, pre_user):
-        print(pre_user)
         data = self.datadir.set_authorization_rules_to_user(pre_user)
-        print(data)
         res = self.user.set_authorization_rules_to_user_api(data)
         assert_that(res, equal_to(True))
 

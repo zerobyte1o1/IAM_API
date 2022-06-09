@@ -1,14 +1,4 @@
 user:
-  create_role:
-    name: a
-    permissions:
-    - permission:
-        id: '1'
-    - permission:
-        id: '3'
-    - permission:
-        id: '4'
-
   create_user:
     account: aaaaas
     isAccountEnabled: true
@@ -35,11 +25,12 @@ user:
       - dataRange:
           code: ALL
           name: 全部数据
+        permission:
+          id: tpadmin:tenant-view:page
         isAllowed: true
     user:
       id:
-    permission:
-      id:
+
 
   user_list:
     includeChildrenOrganizations: false
@@ -62,3 +53,22 @@ organization:
     manager:
       id:
     name:
+
+role:
+  create_role:
+    name: a
+    description: 描述
+
+  update_role:
+    description:
+    name:
+    id:
+
+  set_authorization_rules_to_user:
+    authorizationRules:
+      - dataRange:
+          code: ALL
+          name: 全部数据
+        isAllowed: true
+    role:
+      id:

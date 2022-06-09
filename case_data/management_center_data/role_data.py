@@ -1,6 +1,6 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.role_apis import Role
-from case_data.user_data import UserData
+from case_data.management_center_data.user_data import UserData
 from apis.management_center.user_apis import User
 from utils.mock import Mock
 
@@ -30,7 +30,7 @@ class RoleData(BaseApi):
         @return:
         """
         variables_temp = self.get_variables(module_name="role", variables_name="update_role")
-        args = [("name", self.role_name), ("description", self.faker.text(max_nb_chars=20)), ("id", id)]
+        args = [("name", self.role_name), ("description", self.faker.text(max_nb_chars=20)), ("id", role_id)]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -40,8 +40,7 @@ class RoleData(BaseApi):
         @param roleId:角色id
         @return : 只有一条权限的角色配置权限variables
         """
-        user_Id = self.user.get_me().id
-        rule_id = self.userdata.get_one_permissions_of_user(user_Id)
+        rule_id = self.userdata.get_one_permissions_of_user()
         variables_temp = self.get_variables(module_name="role", variables_name="set_authorization_rules_to_user")
         args = [
             ("authorizationRules",
@@ -53,5 +52,5 @@ class RoleData(BaseApi):
 
 
 if __name__ == '__main__':
-    a = RoleData().set_authorization_rules_to_role("4ef43438-50fa-4b15-9036-f742aa370fce")
+    a = RoleData().set_authorization_rules_to_role("7873981c-3ec2-495c-9353-1b86f7bef6b6")
     print(a)

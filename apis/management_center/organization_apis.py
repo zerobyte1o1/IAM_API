@@ -98,5 +98,5 @@ if __name__ == '__main__':
     # })
     # b = Organization().get_organization_tree_nodes()[0].id
     # print(b)
-    a=Organization().get_organization_list({'id': 'a1c97533-4149-4a13-bf73-e4a3bf08a25a', 'isChildrenIncluded': True})
+    a=Organization().get_organization_tree_nodes()
     print(a)

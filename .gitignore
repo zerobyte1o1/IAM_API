@@ -1,2 +1,5 @@
 *.pyc
 .idea/
+
+schema/platform_schema.py
+schema/platform_schema.json

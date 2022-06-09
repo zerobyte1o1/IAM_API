@@ -1,7 +1,7 @@
 import pytest
 
 from apis.management_center.user_apis import User
-from case_data.user_data import UserData
+from case_data.management_center_data.user_data import UserData
 
 
 def pytest_collection_modifyitems(items):

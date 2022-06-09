@@ -2,7 +2,7 @@ from apis.base.base_api import BaseApi
 from apis.management_center.organization_apis import Organization
 from utils.mock import Mock
 from apis.management_center.user_apis import User
-from case_data.user_data import UserData
+from case_data.management_center_data.user_data import UserData
 
 class OrganizationData(BaseApi):
     org = Organization()

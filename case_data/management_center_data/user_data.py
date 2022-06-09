@@ -86,7 +86,6 @@ class UserData(BaseApi):
     def get_one_permissions_of_user(self):
         """
         获取一个用户能够添加的权限规则的id
-        @param userId: 用户id
         @return 获取一个用户能获取范围内的权限id
         """
         user_Id = self.u.get_me().id

@@ -32,22 +32,7 @@ class User(GetTokenHeader):
         res = (op + data).user
         return res
 
-    def roles_info(self, args=None, **kwargs):
-        """
-        @param args:
-        @param kwargs:
-        """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
-        op = Operation(Query)
-        users_info = op.role_list(
-            filter=eval(f"{kwargs}")
-        )
-        if args:
-            users_info.__fields__(*args)
-        data = endpoint(op)
-        res = (op + data).role_list
-        return res
+
 
     def create_user(self, variables):
         """
@@ -66,21 +51,7 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def create_role(self, variables):
-        """
-        @param variables: dict
-        """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
-        op = Operation(Mutation)
-        op.create_role(input=variables)
-        data = endpoint(op)
-        try:
-            res = (op + data).create_role
-            return res
-        except:
-            res = data.get("errors")[0].get("message")
-            return res
+
 
     def get_user_list(self,variables):
         """
@@ -184,9 +155,9 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def get_user_permissions(self, args=None, **kwargs):
+    def get_permissions(self, args=None, **kwargs):
         """
-        获取已添加规则
+        获取已添加规
         """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
