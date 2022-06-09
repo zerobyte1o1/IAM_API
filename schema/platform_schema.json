@@ -10401,6 +10401,15 @@
                 "name": "Boolean",
                 "ofType": null
               }
+            },
+            {
+              "defaultValue": null,
+              "name": "search",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             }
           ],
           "interfaces": null,

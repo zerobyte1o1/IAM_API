@@ -613,9 +613,10 @@ class OldRoleFilterInput(sgqlc.types.Input):
 
 class OrganizationListFilterInput(sgqlc.types.Input):
     __schema__ = platform_schema
-    __field_names__ = ('id', 'is_children_included')
+    __field_names__ = ('id', 'is_children_included', 'search')
     id = sgqlc.types.Field(String, graphql_name='id')
     is_children_included = sgqlc.types.Field(Boolean, graphql_name='isChildrenIncluded')
+    search = sgqlc.types.Field(String, graphql_name='search')
 
 
 class OrganizationTreeNodeFilterInput(sgqlc.types.Input):
