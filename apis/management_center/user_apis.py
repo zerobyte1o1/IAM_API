@@ -278,35 +278,6 @@ class User(GetTokenHeader):
 if __name__ == '__main__':
     a = User()
 
-    # res = a.get_all_permissions_of_user(args=['app'], kwargs={
-    #     "filter": {
-    #         "types": [
-    #             "MENU",
-    #             "PAGE"
-    #         ]
-    #     },
-    #     "userId": "8a19c2dc-b8dc-4633-9bdb-39ee8c0c90d6"
-    # })
-    # res = a.get_direct_authorization_rules_of_user( args=["id"],kwargs={
-
-    #     "filter": {
-    #         "permissionTypes": [
-    #             "PAGE"
-    #         ]
-    #     },
-    #     "limit": 50,
-    #     "offset": 0,
-    #     "userId": "3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38"
-    # })
-    # res = a.get_user_list({
-    #     "includeChildrenOrganizations": False,
-    #     "includeDisabledUsers": False,
-    #     "organizations": [
-    #         {
-    #             "id": "a1c97533-4149-4a13-bf73-e4a3bf08a25a"
-    #         }
-    #     ]
-    # })
-    res=a.get_user("ada2c2ec0-ab6f-475e-a2b5-acd12c1e5222")
+    res=a.get_user_list("")
 
     print(res)

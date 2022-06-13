@@ -6,12 +6,12 @@ from apis.management_center.organization_apis import Organization
 from case_data.management_center_data.organization_data import OrganizationData
 
 
-class TestOrganization():
+class TestOrganization:
     def setup(self):
         self.org = Organization()
         self.data = OrganizationData()
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def pre_org(self):
         org = Organization()
         data = OrganizationData()

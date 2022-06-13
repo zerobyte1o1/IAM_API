@@ -72,3 +72,46 @@ role:
         isAllowed: true
     role:
       id:
+
+authentication:
+  create_oauth2:
+    accessTokenAttributePath :  http://teletraan.io 
+    accountAttributePath :  account  
+    authorizationUrl :  http://teletraan.io  
+    clientAuthenticationMethod :  BASIC_HTTP_AUTHENTICATION_SCHEME  
+    clientId :  asdasgwf21rdvevwe  
+    clientSecret :  dskjhehi0qhh  
+    doUpdateLocalUserInfoWhenLogin : true 
+    emailAttributePath :  email  
+    isActive : true 
+    name :  teletraan外部认证  
+    nameAttributePath :  name  
+    phoneNumberAttributePath :  phone  
+    scope :  http://teletraan.io  
+    supportState : true 
+    tokenResponseFormat :  JSON  
+    tokenUrl :  http://teletraan.io  
+    userInfoAuthenticationMethod :  BASIC_HTTP_AUTHENTICATION_SCHEME  
+    userInfoRequestMethod :  POST  
+    userInfoResponseFormat :  FORM  
+    userInfoUrl :  http://teletraan.io
+
+  create_oidc1:
+    accountAttributePath  :   account
+    clientId  :   d2qdscs
+    clientSecret  :   3faevewv
+    configurationUrl  :   http://teletraan.io
+    doUpdateLocalUserInfoWhenLogin  : true
+    emailAttributePath  :   email
+    isActive  : true
+    kind  :   OPENID_CONNECT_1
+    name  :   teletraan外部认证
+    nameAttributePath  :   name
+    phoneNumberAttributePath  :   phone
+    scope  :   asdasdsadasd
+
+log:
+  role_list_filter:
+    end:
+    search:
+    start:

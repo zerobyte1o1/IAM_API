@@ -56,7 +56,7 @@ class BaseApi:
         res = variables[module_name][variables_name]
         return res
 
-    def modify_variables(self, target_json, args: list):
+    def modify_variables(self, target_json, args: list = None):
         """
         CAUTION: 只支持一级字段;
 
@@ -66,8 +66,9 @@ class BaseApi:
         :return: Json after modified
         """
         json_temp = target_json
-        for (target, change_to) in args:
-            json_temp[target] = change_to
+        if args is not None:
+            for (target, change_to) in args:
+                json_temp[target] = change_to
         return json_temp
 
 

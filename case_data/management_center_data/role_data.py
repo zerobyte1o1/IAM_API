@@ -13,6 +13,10 @@ class RoleData(BaseApi):
     userdata = UserData()
 
     def role_count(self):
+        """
+        计算现有角色数量
+        @return: [int] 角色数量
+        """
         res = self.role.get_role_list(args=["total_count"])
         return res.total_count
 
@@ -27,7 +31,7 @@ class RoleData(BaseApi):
         """
 
         @param role_id: 被修改的角色id
-        @return:
+        @return:  [dict] 更新请求数据
         """
         variables_temp = self.get_variables(module_name="role", variables_name="update_role")
         args = [("name", self.role_name), ("description", self.faker.text(max_nb_chars=20)), ("id", role_id)]
