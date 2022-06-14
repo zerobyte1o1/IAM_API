@@ -13,7 +13,7 @@ class Organization(GetTokenHeader):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
-        organization_list = op.organization_list(
+        op.organization_list(
             filter=variables
         )
         data = endpoint(op)

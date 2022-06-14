@@ -16,12 +16,10 @@ class TestAuthentication:
         au = Authentication()
         au_data = AuthenticationData()
         res = au.authentication_configuration_api()
-        print(res)
         if "id" not in res:
             create_data = au_data.get_oauth2_ask()
             au.create_oauth2_authentication_configuration_api(create_data)
             res = au.authentication_configuration_api()
-            print(res)
         yield res["id"]
         if au.authentication_configuration_api() is not None:
             au.delete_authentication_configuration_api(res["id"])

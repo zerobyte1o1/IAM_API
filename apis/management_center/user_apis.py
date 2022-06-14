@@ -60,7 +60,7 @@ class User(GetTokenHeader):
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Query)
-        user_list = op.user_list(filter=variables)
+        op.user_list(filter=variables)
         data = endpoint(op)
         res = (op + data).user_list
         return res

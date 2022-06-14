@@ -41,7 +41,7 @@ class TestOrganization:
         res = self.org.update_organization_api(org_data)
         assert_that(res, equal_to(True))
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/48", name="删除")
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/48", name="删除组织")
     def test_delete_organization(self, pre_org):
         res = self.org.delete_organization_api(pre_org)
         assert_that(res, equal_to(True))

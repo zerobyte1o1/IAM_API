@@ -4,6 +4,7 @@ import urllib.request as ur
 
 import yaml
 
+import urllib3
 from utils.env import Env
 from utils.switch import Switch
 from faker import Faker
@@ -23,6 +24,8 @@ class BaseApi:
 
         @rtype: object
         """
+
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         switch = Switch()
         is_switch_on = switch.is_proxy_on()
         if is_switch_on is True:
