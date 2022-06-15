@@ -14,10 +14,10 @@ class TestLog:
     def test_log_list(self):
         data=self.log_data.get_log_list_filter(search="null")
         res=self.log.get_log_list(data)
-        assert_that(len(res)>0)
+        assert_that('data' in res)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/60", name="日志筛选")
     def test_log_list_admin(self):
         data = self.log_data.get_log_list_filter()
         res = self.log.get_log_list(data)
-        assert_that(len(res) > 0)
+        assert_that('data' in res)

@@ -46,7 +46,7 @@ class TestAuthentication:
     def test_create_oauth2_authentication_configuration(self):
         create_data = self.au_data.get_oauth2_ask()
         res = self.au.create_oauth2_authentication_configuration_api(create_data)
-        assert_that(type(res), equal_to(str))
+        assert_that("-" in res)
         au_id = self.au.authentication_configuration_api()["id"]
         self.au.delete_authentication_configuration_api(au_id)
 

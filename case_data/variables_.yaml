@@ -115,3 +115,39 @@ log:
     end:
     search:
     start:
+      
+tenant:
+  create_tenant:
+    address  :   月明路33号
+    city  :
+      id  :   140200000000
+    code  :   0998888
+    county  :
+      id  :   140212000000
+    email  : null
+    industry  :
+      id  :   c1a42f05-7134-4738-a5b6-df0dff22b287
+    name  :   w'q'e'w'q'e
+    phone  : null
+    province  :
+      id  :   140000000000
+    type  :   COMPANY
+    uscc  :   e'q'we
+
+  update_tenant:
+    address: 月明路33号
+    email: null
+    name: w'q'e'w'q'e
+    phone: null
+    type: COMPANY
+    uscc: e'q'we
+    id:
+
+  create_tenant_owner:
+    account: account121
+    email: null
+    name: name
+    phoneNumber: null
+    remark: 本成员为企业拥有者
+    tenant:
+      id:

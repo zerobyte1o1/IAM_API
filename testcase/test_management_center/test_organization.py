@@ -32,7 +32,7 @@ class TestOrganization:
     def test_create_organization(self):
         data_create_org = self.data.create_organization_ask()
         org_id = self.org.create_organization_api(data_create_org)
-        assert_that(type(org_id), equal_to(str))
+        assert_that('-' in org_id)
         self.org.delete_organization_api(org_id)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/47", name="修改组织")

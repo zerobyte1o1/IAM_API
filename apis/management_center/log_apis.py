@@ -7,6 +7,11 @@ from schema.platform_schema import *
 
 class Log(GetTokenHeader):
     def get_log_list(self,filter):
+        """
+        获取日志信息
+        @param filter: loglist请求的filter
+        @return: 返回所有日志详情
+        """
         query = """query LogList($filter: LogListFilterInput, $limit: Int, $offset: Int, $orderBy: [String!]) {
                       LogList(filter: $filter, limit: $limit, offset: $offset, orderBy: $orderBy) {
                         totalCount

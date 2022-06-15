@@ -9,8 +9,14 @@ class LogData(BaseApi):
     user = User()
 
     def get_log_list_filter(self, end=None, search=None, start=None):
+        """
+        生成loglist的filter
+        @param end: 结束时间，默认为今天结束
+        @param search: 用户名查询，默认为当前操作账号的用户名
+        @param start: 开始时间，默认为7天前
+        @return:生成loglist的filter
+        """
         account = self.user.get_me().account
-
         if start is None:
             start = int(
                 time.mktime(time.strptime(str(datetime.date.today() + datetime.timedelta(days=-6)), '%Y-%m-%d'))) * 1000
