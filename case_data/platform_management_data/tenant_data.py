@@ -65,18 +65,18 @@ class TenantData(BaseApi):
         @return: dict
         """
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant_owner")
-        args = [("account",self.faker.name()),
-                ("email",self.faker.email),
-                ("phoneNumber",self.faker.phone_number()),
-                ("tenant",{"id":tenant_id})]
+        args = [("account", self.faker.name()),
+                ("email", self.faker.email()),
+                ("phoneNumber", self.faker.phone_number()),
+                ("tenant", {"id": tenant_id})]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
-
 
 
 if __name__ == '__main__':
     td = TenantData()
     ta = TenantApi()
-    # data = td.un_assign_tenant_apps_ask("5d9730b6-7e75-4a22-8b00-9b088e4d7fea")
-    res = ta.reset_tenant_owner_password_api(tenantId="5d9730b6-7e75-4a22-8b00-9b088e4d7fea",userId="07e63da4-1661-411b-bb2f-5c4304c3dd13")
+    data = td.create_tenant_owner_ask("5d9730b6-7e75-4a22-8b00-9b088e4d7fea")
+    print(data)
+    res = ta.create_tenant_owner_api(data)
     print(res)

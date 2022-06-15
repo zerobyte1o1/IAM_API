@@ -126,7 +126,7 @@ class TenantApi(GetTokenHeader):
         """
         创建企业拥有者
         @param variables: 创建owner请求数据
-        @return:passwoed and userId
+        @return: password and userId
         """
         headers = GetTokenHeader.get_headers(self)
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
@@ -187,7 +187,7 @@ class TenantApi(GetTokenHeader):
         """
         headers = GetTokenHeader.get_headers(self)
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
-        op = Operation(Query)
+        op = Operation(Mutation)
         op.disable_tenant(id=tenant_id)
         data = endpoint(op)
         res = (op + data).disable_tenant
@@ -201,7 +201,7 @@ class TenantApi(GetTokenHeader):
         """
         headers = GetTokenHeader.get_headers(self)
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
-        op = Operation(Query)
+        op = Operation(Mutation)
         op.enable_tenant(id=tenant_id)
         data = endpoint(op)
         res = (op + data).enable_tenant
@@ -215,7 +215,7 @@ class TenantApi(GetTokenHeader):
         """
         headers = GetTokenHeader.get_headers(self)
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
-        op = Operation(Query)
+        op = Operation(Mutation)
         op.delete_tenant(id=tenant_id)
         data = endpoint(op)
         res = (op + data).delete_tenant
@@ -224,5 +224,5 @@ class TenantApi(GetTokenHeader):
 
 if __name__ == '__main__':
     a = TenantApi()
-    res = a.get_my_tenant_app_list(args=["id"])
-    print(res)
+    res = a.get_tenant("5d9730b6-7e75-4a22-8b00-e4d7fea")
+    print(len(res))
