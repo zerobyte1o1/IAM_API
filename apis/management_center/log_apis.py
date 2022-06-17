@@ -1,12 +1,13 @@
+import requests
 from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
-import requests
+
 from apis.base.get_token_headers import GetTokenHeader
-from schema.platform_schema import *
+from schema.platform_schema import Query
 
 
 class Log(GetTokenHeader):
-    def get_log_list(self,filter):
+    def get_log_list(self, filter):
         """
         获取日志信息
         @param filter: loglist请求的filter
@@ -46,9 +47,9 @@ class Log(GetTokenHeader):
 
 if __name__ == '__main__':
     a = Log()
-    res = a.get_log_list( {
-    "end": 1655222399999,
-    "search":'admin',
-    "start": 1654617600000
-  })
+    res = a.get_log_list({
+        "end": 1655222399999,
+        "search": 'admin',
+        "start": 1654617600000
+    })
     print(res)

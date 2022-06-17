@@ -2,18 +2,18 @@ import allure
 import pytest
 from hamcrest import *
 
-from apis.platform_management.tenant_api import TenantApi
+from apis.platform_management.tenant_apis import Tenant
 from case_data.platform_management_data.tenant_data import TenantData
 
 
 class TestTenant:
     def setup(self):
-        self.tenant = TenantApi()
+        self.tenant = Tenant()
         self.tenant_data = TenantData()
 
     @pytest.fixture(scope="class")
     def pre_tenant(self):
-        tenant = TenantApi()
+        tenant = Tenant()
         tenant_data = TenantData()
         create_data = tenant_data.create_tenant_ask()
         tenant_id = tenant.create_tenant_api(create_data)
@@ -36,6 +36,24 @@ class TestTenant:
     def test_assign_tenant_apps(self, pre_tenant):
         data = self.tenant_data.assign_tenant_apps_ask(pre_tenant)
         res = self.tenant.assign_tenant_apps_api(data)
+        assert_that(res, equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/83", name="编辑企业权限")
+    def test_set_permissions_to_tenant(self, pre_tenant):
+        data = self.tenant_data.set_permissions_to_tenant_ask(pre_tenant)
+        res = self.tenant.set_permissions_to_tenant_api(data)
+        assert_that(res, equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/84", name="添加消息模板")
+    def test_add_meta_templates_to_tenant(self, pre_tenant):
+        data = self.tenant_data.add_meta_templates_to_tenant_ask(pre_tenant)
+        res = self.tenant.add_meta_templates_to_tenant_api(data)
+        assert_that(res, equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/85", name="删除消息模板")
+    def test_delete_message_templates_of_tenant(self, pre_tenant):
+        data = self.tenant_data.delete_message_templates_of_tenant_ask(pre_tenant)
+        res = self.tenant.delete_message_templates_of_tenant_api(data)
         assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/74", name="企业删除app")

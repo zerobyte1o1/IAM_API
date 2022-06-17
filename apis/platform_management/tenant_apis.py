@@ -5,7 +5,7 @@ from apis.base.get_token_headers import GetTokenHeader
 from schema.platform_schema import *
 
 
-class TenantApi(GetTokenHeader):
+class Tenant(GetTokenHeader):
 
     def get_tenant_list(self, tenant_name=None):
         """
@@ -179,7 +179,7 @@ class TenantApi(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def disable_tenant_api(self,tenant_id):
+    def disable_tenant_api(self, tenant_id):
         """
         禁用企业
         @param tenant_id: 企业id
@@ -193,7 +193,7 @@ class TenantApi(GetTokenHeader):
         res = (op + data).disable_tenant
         return res
 
-    def enable_tenant_api(self,tenant_id):
+    def enable_tenant_api(self, tenant_id):
         """
         启用企业
         @param tenant_id: 企业id
@@ -207,7 +207,7 @@ class TenantApi(GetTokenHeader):
         res = (op + data).enable_tenant
         return res
 
-    def delete_tenant_api(self,tenant_id):
+    def delete_tenant_api(self, tenant_id):
         """
         删除企业
         @param tenant_id: 企业id
@@ -221,8 +221,113 @@ class TenantApi(GetTokenHeader):
         res = (op + data).delete_tenant
         return res
 
+    def assignable_permissions_of_tenant_api(self, tenant_id):
+        """
+        查询出所有企业可以被添加的权限
+        @param tenant_id: 企业id
+        @return:
+        """
+        headers = GetTokenHeader.get_headers(self)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        assignable_permissions_of_tenant = op.assignable_permissions_of_tenant(filter={"types": ["MENU"]},
+                                                                               tenant_id=tenant_id)
+        assignable_permissions_of_tenant.__fields__("id")
+        data = endpoint(op)
+        return data["data"]["assignablePermissionsOfTenant"]
+
+    def permissions_of_tenant_api(self, tenant_id):
+        """
+        查询出企业已经添加的权限
+        @param tenant_id: 企业id
+        @return:
+        """
+        headers = GetTokenHeader.get_headers(self)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        permissions_of_tenant = op.permissions_of_tenant(filter={"types": ["MENU"]},
+                                                         tenant_id=tenant_id)
+        permissions_of_tenant.__fields__("id")
+        data = endpoint(op)
+        return data["data"]["permissionsOfTenant"]
+
+    def set_permissions_to_tenant_api(self, variables):
+        """
+        设置企业权限
+        @param variables:已配置好的未添加的单一权限
+        @return: Ture or False
+        """
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Mutation)
+        op.set_permissions_to_tenant(input=variables)
+        data = endpoint(op)
+        try:
+            res = (op + data).set_permissions_to_tenant
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
+    def get_assignable_meta_template_list_of_tenant(self, tenant_id):
+        """
+        获得一个可添加的应用模板
+        @param tenant_id:企业id
+        @return:返回一个模板id
+        """
+        headers = GetTokenHeader.get_headers(self)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        op.assignable_meta_template_list_of_tenant(tenant_id=tenant_id)
+        data = endpoint(op)
+        res = (op + data).assignable_meta_template_list_of_tenant
+        return res["data"][0].id
+
+    def add_meta_templates_to_tenant_api(self, variables):
+        """
+        添加应用模板
+        @param variables:
+        @return: True or False
+        """
+        headers = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Mutation)
+        op.add_meta_templates_to_tenant(ids=variables["ids"],
+                                        tenant_id=variables["tenantId"])
+        data = endpoint(op)
+        try:
+            res = (op + data).add_meta_templates_to_tenant
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
+    def get_message_template_list_of_tenant(self, tenant_id):
+        """
+        获取所有已添加的应用模板
+        @param tenant_id:企业id
+        @return:
+        """
+        headers = GetTokenHeader.get_headers(self)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        op.message_template_list_of_tenant(tenant_id=tenant_id)
+        data = endpoint(op)
+        res = (op + data).message_template_list_of_tenant
+        return res
+
+    def delete_message_templates_of_tenant_api(self, variables):
+        headers = GetTokenHeader.get_headers(self)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Mutation)
+        op.delete_message_templates_of_tenant(ids=variables["ids"],
+                                              tenant_id=variables["tenantId"])
+        data = endpoint(op)
+        res = (op + data).delete_message_templates_of_tenant
+        return res
+
 
 if __name__ == '__main__':
-    a = TenantApi()
-    res = a.get_tenant("5d9730b6-7e75-4a22-8b00-e4d7fea")
-    print(len(res))
+    a = Tenant()
+    res = a.get_message_template_list_of_tenant("5990efbf-845b-4d4a-b156-5f0b8b72133b")
+    print(res)

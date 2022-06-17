@@ -2,7 +2,7 @@ from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 
 from apis.base.get_token_headers import GetTokenHeader
-from schema.platform_schema import Mutation, Query, OrganizationListFilterInput
+from schema.platform_schema import Mutation, Query
 
 
 class Organization(GetTokenHeader):
