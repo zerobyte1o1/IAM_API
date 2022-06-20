@@ -218,4 +218,9 @@ meta_template:
         meta_channel_id: inbox
     status: ENABLED
     tenantId:
-    
+
+
+meta_management:
+  update_meta_management:
+    description:
+    id:

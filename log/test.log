@@ -1,3 +1,0 @@
-2022-06-20 14:06:34 [ERROR] GraphQL query failed with 1 errors (base.py:213)
-2022-06-20 14:06:34 [INFO] Error #0: (base.py:220)
-2022-06-20 14:06:34 [INFO]    | Template with id 7ce90117-9506-4f86-b080-7bca7e73fec8 not found (base.py:222)

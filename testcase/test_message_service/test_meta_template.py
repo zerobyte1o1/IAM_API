@@ -21,7 +21,7 @@ class TestMetaTemplate:
         try:
             meta_template.update_status_of_template_api(template_id, "DISABLED")
             meta_template.delete_meta_template_api(template_id)
-        except:
+        except ValueError:
             pass
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/86", name="创建模板")
@@ -47,14 +47,14 @@ class TestMetaTemplate:
         assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/90", name="禁用模板")
-    def test_close_status_of_template_api(self,pre_template):
-        res=self.meta_template.update_status_of_template_api(pre_template,"DISABLED")
-        assert_that(res,equal_to(True))
+    def test_close_status_of_template_api(self, pre_template):
+        res = self.meta_template.update_status_of_template_api(pre_template, "DISABLED")
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/89", name="启用模板")
-    def test_open_status_of_template_api(self,pre_template):
-        res=self.meta_template.update_status_of_template_api(pre_template,"ENABLED")
-        assert_that(res,equal_to(True))
+    def test_open_status_of_template_api(self, pre_template):
+        res = self.meta_template.update_status_of_template_api(pre_template, "ENABLED")
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/91", name="删除推送模板")
     def test_delete_meta_template_api(self, pre_template):
