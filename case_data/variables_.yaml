@@ -4,9 +4,9 @@ user:
     isAccountEnabled: true
     name: s
     organizations:
-       - id: 'e921b11a-2410-45fd-9b26-965595854185'
+      - id: 'e921b11a-2410-45fd-9b26-965595854185'
     role:
-    - id: '55'
+      - id: '55'
 
   update_user:
     id: aa
@@ -75,64 +75,64 @@ role:
 
 authentication:
   create_oauth2:
-    accessTokenAttributePath :  http://teletraan.io 
-    accountAttributePath :  account  
-    authorizationUrl :  http://teletraan.io  
-    clientAuthenticationMethod :  BASIC_HTTP_AUTHENTICATION_SCHEME  
-    clientId :  asdasgwf21rdvevwe  
-    clientSecret :  dskjhehi0qhh  
-    doUpdateLocalUserInfoWhenLogin : true 
-    emailAttributePath :  email  
-    isActive : true 
-    name :  teletraan外部认证  
-    nameAttributePath :  name  
-    phoneNumberAttributePath :  phone  
-    scope :  http://teletraan.io  
-    supportState : true 
-    tokenResponseFormat :  JSON  
-    tokenUrl :  http://teletraan.io  
-    userInfoAuthenticationMethod :  BASIC_HTTP_AUTHENTICATION_SCHEME  
-    userInfoRequestMethod :  POST  
-    userInfoResponseFormat :  FORM  
-    userInfoUrl :  http://teletraan.io
+    accessTokenAttributePath: http://teletraan.io
+    accountAttributePath: account
+    authorizationUrl: http://teletraan.io
+    clientAuthenticationMethod: BASIC_HTTP_AUTHENTICATION_SCHEME
+    clientId: asdasgwf21rdvevwe
+    clientSecret: dskjhehi0qhh
+    doUpdateLocalUserInfoWhenLogin: true
+    emailAttributePath: email
+    isActive: true
+    name: teletraan外部认证
+    nameAttributePath: name
+    phoneNumberAttributePath: phone
+    scope: http://teletraan.io
+    supportState: true
+    tokenResponseFormat: JSON
+    tokenUrl: http://teletraan.io
+    userInfoAuthenticationMethod: BASIC_HTTP_AUTHENTICATION_SCHEME
+    userInfoRequestMethod: POST
+    userInfoResponseFormat: FORM
+    userInfoUrl: http://teletraan.io
 
   create_oidc1:
-    accountAttributePath  :   account
-    clientId  :   d2qdscs
-    clientSecret  :   3faevewv
-    configurationUrl  :   http://teletraan.io
-    doUpdateLocalUserInfoWhenLogin  : true
-    emailAttributePath  :   email
-    isActive  : true
-    kind  :   OPENID_CONNECT_1
-    name  :   teletraan外部认证
-    nameAttributePath  :   name
-    phoneNumberAttributePath  :   phone
-    scope  :   asdasdsadasd
+    accountAttributePath: account
+    clientId: d2qdscs
+    clientSecret: 3faevewv
+    configurationUrl: http://teletraan.io
+    doUpdateLocalUserInfoWhenLogin: true
+    emailAttributePath: email
+    isActive: true
+    kind: OPENID_CONNECT_1
+    name: teletraan外部认证
+    nameAttributePath: name
+    phoneNumberAttributePath: phone
+    scope: asdasdsadasd
 
 log:
   role_list_filter:
     end:
     search:
     start:
-      
+
 tenant:
   create_tenant:
-    address  :   月明路33号
-    city  :
-      id  :   140200000000
-    code  :   0998888
-    county  :
-      id  :   140212000000
-    email  : null
-    industry  :
-      id  :   c1a42f05-7134-4738-a5b6-df0dff22b287
-    name  :   w'q'e'w'q'e
-    phone  : null
-    province  :
-      id  :   140000000000
-    type  :   COMPANY
-    uscc  :   e'q'we
+    address: 月明路33号
+    city:
+      id: 140200000000
+    code: 0998888
+    county:
+      id: 140212000000
+    email: null
+    industry:
+      id: c1a42f05-7134-4738-a5b6-df0dff22b287
+    name: w'q'e'w'q'e
+    phone: null
+    province:
+      id: 140000000000
+    type: COMPANY
+    uscc: e'q'we
 
   update_tenant:
     address: 月明路33号
@@ -151,3 +151,71 @@ tenant:
     remark: 本成员为企业拥有者
     tenant:
       id:
+
+meta_template:
+  create_meta_template:
+    app: f58c2e04-0ab6-4bea-b465-acd92d25dbd4
+    contents:
+      - targets:
+          - code: 123
+            description: null
+            example: 12
+            isTarget: true
+            name: 123
+        template: 模板内容
+        url: http://www.baidu.com
+    description: 模板说明
+    event: 触发事件44
+    fields:
+      - code: 123
+        description: null
+        example: 12
+        isTarget: true
+        name: 123
+      - code: 234
+        description: null
+        example: 43
+        isTarget: true
+        name: 234
+    name: 模板名称
+    pushSchedule:
+      type: IMMEDIATELY
+    renderStyles:
+      - config: null
+        kind: TEXT
+        meta_channel_id: inbox
+
+  update_meta_template:
+    contents:
+      - targets:
+          - code: 1232
+            description: nuasasdasd
+            example: 122
+            isTarget: true
+            name: 1232
+        template: 模板内容
+        url: http://www.baidu.com
+    description: 模板说明
+    event: 触发事件
+    fields:
+      - code: 123
+        description: asdasdasd
+        example: 12
+        isTarget: true
+        name: name2
+      - code: 234
+        description: asfafa
+        example: 43
+        isTarget: true
+        name: name1
+    id:
+    name: 模板名称
+    pushSchedule:
+      type: IMMEDIATELY
+    renderStyles:
+      - config: null
+        kind: TEXT
+        meta_channel_id: inbox
+    status: ENABLED
+    tenantId:
+    
