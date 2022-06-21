@@ -60,7 +60,6 @@ class TestAuthentication:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/70", name="更新OAUTH2.0认证")
     def test_update_oauth2_authentication_configuration(self, pre_auth):
-        print(pre_auth)
         update_data = self.au_data.get_oauth2_ask(pre_auth)
         res = self.au.update_oauth2_authentication_configuration_api(update_data)
         assert_that(res, equal_to(True))
