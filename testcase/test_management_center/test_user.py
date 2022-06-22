@@ -7,7 +7,7 @@ from case_data.management_center_data.user_data import UserData
 
 
 class TestUser:
-    def setup(self):
+    def setup_class(self):
         self.datadir = UserData()
         self.user = User()
 

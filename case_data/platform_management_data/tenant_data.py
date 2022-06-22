@@ -1,9 +1,11 @@
 from apis.base.base_api import BaseApi
 from apis.platform_management.tenant_apis import Tenant
+from utils.mock import Mock
 
 
 class TenantData(BaseApi):
     tenant = Tenant()
+    mock = Mock()
 
     def create_tenant_ask(self):
         """
@@ -69,7 +71,7 @@ class TenantData(BaseApi):
         @return: dict
         """
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant_owner")
-        args = [("account", self.faker.name()),
+        args = [("account", self.mock.mock_data("owner")),
                 ("email", self.faker.email()),
                 ("phoneNumber", self.faker.phone_number()),
                 ("tenant", {"id": tenant_id})]
@@ -79,14 +81,14 @@ class TenantData(BaseApi):
     def set_permissions_to_tenant_ask(self, tenant_id):
         all_permissions = self.tenant.assignable_permissions_of_tenant_api(tenant_id)
         added_permissions = self.tenant.permissions_of_tenant_api(tenant_id)
-        permission_id = [i for i in all_permissions if i not in added_permissions][-1]
+        permission_id = [i for i in all_permissions if i not in added_permissions]
         variables = {
-            "permissions": [permission_id],
+            "permissions": permission_id,
             "tenant": {"id": tenant_id}
         }
         return variables
 
-    def add_meta_templates_to_tenant_ask(self,tenant_id ):
+    def add_meta_templates_to_tenant_ask(self, tenant_id):
         permission_id = self.tenant.get_assignable_meta_template_list_of_tenant(tenant_id)
         variables = {
             "ids": [permission_id],
@@ -106,5 +108,5 @@ class TenantData(BaseApi):
 if __name__ == '__main__':
     td = TenantData()
     ta = Tenant()
-    data = td.assign_tenant_apps_ask("45b2b0c9-a58c-44db-a283-bff863db5ade")
+    data = td.set_permissions_to_tenant_ask("b7a49f3d-0277-4748-85f8-5fff9c2c8180")
     print(data)

@@ -1,9 +1,6 @@
 import requests
-from sgqlc.endpoint.http import HTTPEndpoint
-from sgqlc.operation import Operation
 
 from apis.base.get_token_headers import GetTokenHeader
-from schema.platform_schema import Query
 
 
 class Log(GetTokenHeader):
@@ -41,7 +38,8 @@ class Log(GetTokenHeader):
                         __typename
                       }
                     }"""
-        request = requests.post(self.url, headers=self.get_headers(),json={'query': query,'variables':{'filter':filter}},verify=False)
+        request = requests.post(self.url, headers=self.get_headers(),
+                                json={'query': query, 'variables': {'filter': filter}}, verify=False)
         return request.json()
 
 

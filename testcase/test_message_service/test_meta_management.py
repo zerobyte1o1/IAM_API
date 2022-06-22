@@ -9,7 +9,7 @@ from case_data.message_service.media_management_data import MediaManagementData
 
 
 class TestMetaManagement:
-    def setup(self):
+    def setup_class(self):
         self.data = MediaManagementData()
         self.media_management = MediaManagement()
 

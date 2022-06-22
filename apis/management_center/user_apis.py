@@ -6,13 +6,21 @@ from schema.platform_schema import *
 
 
 class User(GetTokenHeader):
+    def __init__(self, **kwargs):
+        super().__init__()
+        if kwargs:
+            self.headers = self.get_headers(account=kwargs["account"],
+                                            password=kwargs["password"],
+                                            tenant_code=kwargs["tenant_code"])
+        else:
+            self.headers = self.get_headers()
+
     def get_me(self):
         """
         :return:class User; 如果想要tcompany_id, 可以使用:
             res.company.id, res = return
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.me()
         data = endpoint(op)
@@ -24,23 +32,19 @@ class User(GetTokenHeader):
         获取user基本信息
         @param id : tenant id
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.user(id=id)
         data = endpoint(op)
         res = (op + data).user
         return res
 
-
-
     def create_user(self, variables):
         """
         create a user
         @param variables:dict
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_user(input=variables)
         data = endpoint(op)
@@ -51,14 +55,11 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-
-
-    def get_user_list(self,variables):
+    def get_user_list(self, variables):
         """
         获取用户列表数据
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.user_list(filter=variables)
         data = endpoint(op)
@@ -71,8 +72,7 @@ class User(GetTokenHeader):
         @param ids:list
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.enable_users(ids=ids)
         data = endpoint(op)
@@ -89,8 +89,7 @@ class User(GetTokenHeader):
         @param ids : list
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.disable_users(ids=ids)
         data = endpoint(op)
@@ -107,8 +106,7 @@ class User(GetTokenHeader):
         @param ids: list,用户id集合
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_users(ids=ids)
         data = endpoint(op)
@@ -125,8 +123,7 @@ class User(GetTokenHeader):
         @param id:用户id
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.reset_user_password(id=id)
         data = endpoint(op)
@@ -143,8 +140,7 @@ class User(GetTokenHeader):
         @param variables: 更新用户请求数据
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_user(input=variables)
         data = endpoint(op)
@@ -159,8 +155,7 @@ class User(GetTokenHeader):
         """
         获取已添加规
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         permissions = op.permissions(
             filter=eval(f"{kwargs}")
@@ -175,8 +170,7 @@ class User(GetTokenHeader):
         """
         获取用户能够获得的所有权限信息
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         direct_authorization_rules_of_user = op.all_permissions_of_user(
             filter=eval(f"{kwargs['kwargs']['filter']}"),
@@ -187,10 +181,9 @@ class User(GetTokenHeader):
         data = endpoint(op)
         res = (op + data).all_permissions_of_user
         return res
-
     def get_direct_authorization_rules_of_user(self, args=None, **kwargs):
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         direct_authorization_rules_of_user = op.direct_authorization_rules_of_user(
             filter=eval(f"{kwargs['kwargs']['filter']}"),
@@ -210,8 +203,7 @@ class User(GetTokenHeader):
         @param variables:dict
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.set_authorization_rules_to_user(input=variables)
         data = endpoint(op)
@@ -229,8 +221,7 @@ class User(GetTokenHeader):
         @param userId:[str] user id
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.remove_authorization_rules_of_user(ids=ids, user_id=userId)
         data = endpoint(op)
@@ -247,8 +238,7 @@ class User(GetTokenHeader):
         @param variables:更新用户请求数据
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_authorization_rules_of_user(input=variables)
         data = endpoint(op)
@@ -266,8 +256,7 @@ class User(GetTokenHeader):
         @return: True or False
 
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         authorization_rule_and_dependencies = op.authorization_rule_and_dependencies(id=rule_id)
         data = endpoint(op)
@@ -278,6 +267,6 @@ class User(GetTokenHeader):
 if __name__ == '__main__':
     a = User()
 
-    res=a.get_user_list("")
+    res = a.get_user_list("")
 
     print(res)

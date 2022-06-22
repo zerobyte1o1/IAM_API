@@ -36,7 +36,6 @@ class UserData(BaseApi):
 
         args = [("account", user_account),
                 ("name", user_name),
-                ("roles", [{"id": self.role_id}]),
                 ("organizations", [{"id": self.org_id}])
                 ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -55,7 +54,6 @@ class UserData(BaseApi):
         variables_temp = self.get_variables(module_name="user", variables_name="update_user")
         args = [("id", user_id),
                 ("name", user_name),
-                ("roles", [{"id": self.role_id}]),
                 ("email", fake_email),
                 ("phoneNumber", fake_phone),
                 ("remark", fake_remark),

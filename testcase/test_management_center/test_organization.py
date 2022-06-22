@@ -7,7 +7,7 @@ from case_data.management_center_data.organization_data import OrganizationData
 
 
 class TestOrganization:
-    def setup(self):
+    def setup_class(self):
         self.org = Organization()
         self.data = OrganizationData()
 

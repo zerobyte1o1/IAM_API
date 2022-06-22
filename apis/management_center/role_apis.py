@@ -8,6 +8,7 @@ from schema.platform_schema import *
 class Role(GetTokenHeader):
     def get_role_list(self, args=None, **kwargs):
         """
+        获取角色列表
         @param args:list [""]
         @param kwargs: dict
         """
@@ -25,6 +26,7 @@ class Role(GetTokenHeader):
 
     def create_role(self, variables):
         """
+        创建角色
         @param variables: dict
         """
         headers = self.get_headers()
@@ -57,6 +59,11 @@ class Role(GetTokenHeader):
             return res
 
     def delete_role(self, ids):
+        """
+        删除角色
+        @param ids:[list]
+        @return: True or False
+        """
         headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
         op = Operation(Mutation)

@@ -7,7 +7,7 @@ from case_data.platform_management_data.tenant_data import TenantData
 
 
 class TestTenant:
-    def setup(self):
+    def setup_class(self):
         self.tenant = Tenant()
         self.tenant_data = TenantData()
 

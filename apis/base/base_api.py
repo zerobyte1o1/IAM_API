@@ -53,7 +53,8 @@ class BaseApi:
         :param variables_name: for instance: variables_name="create_product_project_temp"
         :return: json
         """
-        root_path = os.path.abspath(os.path.join(os.getcwd(), "../../"))
+        root_path = os.path.abspath(os.path.join(os.getcwd()))
+        # pytest执行需要删除../../
         path = os.path.join(root_path, "case_data/variables_.yaml")
         variables = yaml.safe_load(open(path))
         res = variables[module_name][variables_name]

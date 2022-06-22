@@ -5,8 +5,7 @@ user:
     name: s
     organizations:
       - id: 'e921b11a-2410-45fd-9b26-965595854185'
-    role:
-      - id: '55'
+
 
   update_user:
     id: aa
@@ -14,8 +13,6 @@ user:
     name: s
     organizations:
       - id: 'a1c97533-4149-4a13-bf73-e4a3bf08a25a'
-    role:
-      - id: '55'
     phoneNumber:
     email:
     remark:
@@ -115,6 +112,17 @@ log:
     end:
     search:
     start:
+
+message:
+  set_channels_of_message_template:
+    channelIds: ["inbox"]
+    messageTemplateId:
+    tenantId:
+
+  set_channel_of_message_templates:
+    channelId: inbox
+    messageTemplateIds:
+    tenantId:
 
 tenant:
   create_tenant:
@@ -219,8 +227,8 @@ meta_template:
     status: ENABLED
     tenantId:
 
-
 meta_management:
   update_meta_management:
     description:
     id:
+

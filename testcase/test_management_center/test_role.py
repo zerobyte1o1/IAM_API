@@ -8,7 +8,7 @@ from case_data.management_center_data.role_data import RoleData
 
 class TestRole:
 
-    def setup(self):
+    def setup_class(self):
         self.role = Role()
         self.data = RoleData()
 
