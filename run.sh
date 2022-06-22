@@ -1,5 +1,5 @@
-pytest testcase/ --alluredir=./result
+pytest testcase/ --alluredir=./result --clean-alluredir
 
-/opt/homebrew/bin/allure generate ./result -o ./result/report/
+/opt/homebrew/bin/allure generate ./result -c -o ./result/report/
 
-/opt/homebrew/bin/allure open -h 127.0.0.1 -p 8080 ./result/report/
+/opt/homebrew/bin/allure serve ./result/ -p 8080

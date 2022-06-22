@@ -22,9 +22,9 @@
 ```shell
 pytest testcase/ --alluredir=./result
 # 需更换至运行环境的allure路径
-/opt/homebrew/bin/allure generate ./result -o ./result/report/
+/opt/homebrew/bin/allure generate ./result -c -o ./result/report/
 
-/opt/homebrew/bin/allure open -h 127.0.0.1 -p 8080 ./result/report/
+/opt/homebrew/bin/allure serve ./result/ -p 8080
 ```
 
 # 代码调试说明
