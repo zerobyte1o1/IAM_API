@@ -21,7 +21,7 @@ class TestAuthentication:
             au.create_oauth2_authentication_configuration_api(create_data)
             res = au.authentication_configuration_api()
         yield res["id"]
-        if au.authentication_configuration_api() is not None:
+        if len(au.authentication_configuration_api()) != 0:
             au.delete_authentication_configuration_api(res["id"])
 
     @pytest.fixture(scope="function")
@@ -34,13 +34,10 @@ class TestAuthentication:
             au.create_open_idconnect1_authentication_configuration_api(create_data)
             res = au.authentication_configuration_api()
         yield res["id"]
-        if au.authentication_configuration_api() is not None:
+        if len(au.authentication_configuration_api()) != 0:
             au.delete_authentication_configuration_api(res["id"])
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/67", name="重置认证")
-    def test_delete_authentication_configuration(self, pre_auth):
-        res = self.au.delete_authentication_configuration_api(pre_auth)
-        assert_that(res, equal_to(True))
+
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/68", name="创建OAUTH2.0认证")
     def test_create_oauth2_authentication_configuration(self):
@@ -68,4 +65,9 @@ class TestAuthentication:
     def test_update_open_idconnect1_authentication_configuration(self, pre_oidc):
         update_data = self.au_data.get_oidc1_ask(pre_oidc)
         res = self.au.update_open_idconnect1_authentication_configuration_api(update_data)
+        assert_that(res, equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/67", name="重置认证")
+    def test_delete_authentication_configuration(self, pre_auth):
+        res = self.au.delete_authentication_configuration_api(pre_auth)
         assert_that(res, equal_to(True))
