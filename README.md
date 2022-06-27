@@ -28,10 +28,5 @@ pytest testcase/ --alluredir=./result
 ```
 
 # 代码调试说明
-- 调试单个测试用例时，需要将apis/base/base.py文件的56行进行更改
-```python
-# run.sh 运行时
-root_path = os.path.abspath(os.path.join(os.getcwd()))
-# 手动调试脚本时
-root_path = os.path.abspath(os.path.join(os.getcwd(),"../../"))
-```
+- 调试单个测试用例时，在utils/env.yml文件中将debug改为True即可。
+- run.py 运行时改为False

@@ -17,6 +17,7 @@ class BaseApi:
     password = get_env.get_pwd()
     tenant_code = get_env.get_tenant_code()
     env_name = get_env.get_env_name()
+    env_debug=get_env.get_debug()
     faker = Faker(locale='zh_CN')
 
     def __init__(self, proxy_=None):
@@ -53,7 +54,10 @@ class BaseApi:
         :param variables_name: for instance: variables_name="create_product_project_temp"
         :return: json
         """
-        root_path = os.path.abspath(os.path.join(os.getcwd()))
+        if self.env_debug is True:
+            root_path = os.path.abspath(os.path.join(os.getcwd(),"../../"))
+        else:
+            root_path = os.path.abspath(os.path.join(os.getcwd()))
         # pytest执行需要删除../../
         path = os.path.join(root_path, "case_data/variables_.yaml")
         variables = yaml.safe_load(open(path))
