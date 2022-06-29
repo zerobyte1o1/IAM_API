@@ -1,8 +1,5 @@
 *.pyc
 .idea/
 
-schema/platform_schema.py
-schema/platform_schema.json
-
 result
 apis/platform_management/demo.py
