@@ -34,7 +34,8 @@ class User(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        op.user(id=id)
+        ox=op.user(id=id)
+        print(ox)
         data = endpoint(op)
         res = (op + data).user
         return res
@@ -267,6 +268,6 @@ class User(GetTokenHeader):
 if __name__ == '__main__':
     a = User()
 
-    res = a.get_user_list("")
+    res = a.get_user("3d327a12-89d3-41b6-93e7-42b668d5e455")
 
     print(res)
