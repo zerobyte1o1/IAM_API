@@ -959,74 +959,6 @@
         },
         {
           "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "opinion",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "ApproveChangeBorrowInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "remark",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "ApproveThingCalibrateInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
           "fields": [
             {
               "args": [],
@@ -1296,6 +1228,74 @@
           "inputFields": [
             {
               "defaultValue": null,
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "opinion",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "ApproveChangeBorrowInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "remark",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "ApproveThingCalibrateInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
               "name": "app",
               "type": {
                 "kind": "NON_NULL",
@@ -1376,6 +1376,42 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "AssignTenantAppsInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "name": "token",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "name": "userId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "AuthInfo",
           "possibleTypes": null
         },
         {
@@ -2254,42 +2290,6 @@
           "fields": [
             {
               "args": [],
-              "name": "token",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "name": "userId",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "OBJECT",
-          "name": "AuthInfo",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
               "name": "dataRanges",
               "type": {
                 "kind": "NON_NULL",
@@ -2481,22 +2481,6 @@
           "possibleTypes": null
         },
         {
-          "enumValues": [
-            {
-              "name": "CODE128"
-            },
-            {
-              "name": "QRCODE"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "BarCodeType",
-          "possibleTypes": null
-        },
-        {
           "enumValues": null,
           "fields": [
             {
@@ -2670,6 +2654,22 @@
           "interfaces": [],
           "kind": "OBJECT",
           "name": "BIResult",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": [
+            {
+              "name": "CODE128"
+            },
+            {
+              "name": "QRCODE"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "BarCodeType",
           "possibleTypes": null
         },
         {
@@ -4143,6 +4143,91 @@
           "interfaces": null,
           "kind": "ENUM",
           "name": "ChangeBorrowTrigger",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "email",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "newPassword",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "verifyCode",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "ChangeMyPasswordByEmailVerificationInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "newPassword",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "verifyCode",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "ChangeMyPasswordByVerifyCodeInput",
           "possibleTypes": null
         },
         {
@@ -6259,25 +6344,6 @@
         },
         {
           "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "full",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "countryFilter",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
           "fields": [
             {
               "args": [],
@@ -6748,42 +6814,6 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "CreateDepositoryInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
-              "name": "password",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "name": "userId",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "OBJECT",
-          "name": "CreatedUserInfo",
           "possibleTypes": null
         },
         {
@@ -9028,6 +9058,15 @@
             },
             {
               "defaultValue": null,
+              "name": "password",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
               "name": "phoneNumber",
               "type": {
                 "kind": "SCALAR",
@@ -11149,6 +11188,15 @@
             },
             {
               "defaultValue": null,
+              "name": "password",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
               "name": "phoneNumber",
               "type": {
                 "kind": "SCALAR",
@@ -11186,6 +11234,42 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "CreateUserInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "name": "password",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "name": "userId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "CreatedUserInfo",
           "possibleTypes": null
         },
         {
@@ -17159,6 +17243,60 @@
           ],
           "interfaces": null,
           "kind": "INPUT_OBJECT",
+          "name": "IsEAMUCCFieldExistsFilterInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "company",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "IDInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "isLock",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "name",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "type",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
           "name": "IsEamFieldExistsFilterInput",
           "possibleTypes": null
         },
@@ -17273,60 +17411,6 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "IsEamSparePartWarehouseExistsFilter",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "company",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "IDInput",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "isLock",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "name",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "type",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "IsEAMUCCFieldExistsFilterInput",
           "possibleTypes": null
         },
         {
@@ -17527,72 +17611,6 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "IsSparePartExistsInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "date",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Timestamp",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "item",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "CreateSparePartOutboundItemInput",
-                      "ofType": null
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "remark",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "IssueSparePartClaimInput",
           "possibleTypes": null
         },
         {
@@ -18264,6 +18282,72 @@
         {
           "enumValues": null,
           "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "date",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Timestamp",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "item",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "CreateSparePartOutboundItemInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "remark",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "IssueSparePartClaimInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
           "inputFields": null,
           "interfaces": null,
           "kind": "SCALAR",
@@ -18513,113 +18597,6 @@
           "fields": [
             {
               "args": [],
-              "name": "kind",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "LoginConfigurationKind",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "kind": "INTERFACE",
-          "name": "LoginConfiguration",
-          "possibleTypes": [
-            {
-              "kind": "OBJECT",
-              "name": "OAuth2LoginConfiguration",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "OpenIDConnect1LoginConfiguration",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "SystemLoginConfiguration",
-              "ofType": null
-            }
-          ]
-        },
-        {
-          "enumValues": [
-            {
-              "name": "OAUTH_2"
-            },
-            {
-              "name": "OPENID_CONNECT_1"
-            },
-            {
-              "name": "SYSTEM"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "LoginConfigurationKind",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "account",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "password",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "tenantCode",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "LoginInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
               "name": "data",
               "type": {
                 "kind": "NON_NULL",
@@ -18728,6 +18705,163 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "LogListFilterInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "email",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "newPassword",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "password",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "verifyCode",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "LoginByEmailInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "name": "kind",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "LoginConfigurationKind",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "INTERFACE",
+          "name": "LoginConfiguration",
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "OAuth2LoginConfiguration",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "OpenIDConnect1LoginConfiguration",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SystemLoginConfiguration",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "enumValues": [
+            {
+              "name": "OAUTH_2"
+            },
+            {
+              "name": "OPENID_CONNECT_1"
+            },
+            {
+              "name": "SYSTEM"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "LoginConfigurationKind",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "account",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "password",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "tenantCode",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "LoginInput",
           "possibleTypes": null
         },
         {
@@ -20583,6 +20717,33 @@
               "args": [
                 {
                   "defaultValue": null,
+                  "name": "verifyCode",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "bindMyEmail",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
                   "name": "id",
                   "type": {
                     "kind": "NON_NULL",
@@ -20623,6 +20784,60 @@
                 }
               ],
               "name": "changeMyPassword",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ChangeMyPasswordByEmailVerificationInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "changeMyPasswordByEmailVerification",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ChangeMyPasswordByVerifyCodeInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "changeMyPasswordByVerifyCode",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -25191,6 +25406,33 @@
               }
             },
             {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "LoginByEmailInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "loginByEmail",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AuthInfo",
+                  "ofType": null
+                }
+              }
+            },
+            {
               "args": [],
               "name": "logout",
               "type": {
@@ -26127,6 +26369,33 @@
                 }
               ],
               "name": "saveThingRepair",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "email",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "sendIdentityVerifyCodeToEmail",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -27638,6 +27907,68 @@
                 }
               ],
               "name": "unStarApp",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "ids",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "SCALAR",
+                          "name": "String",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "name": "unbindEmailOfUsers",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "verifyCode",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "unbindMyEmail",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -35496,6 +35827,60 @@
               "args": [
                 {
                   "defaultValue": null,
+                  "name": "email",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "isEmailExists",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "email",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "isEmailVerified",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
                   "name": "filter",
                   "type": {
                     "kind": "NON_NULL",
@@ -36288,9 +36673,13 @@
                   "defaultValue": null,
                   "name": "userId",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
                   }
                 }
               ],
@@ -48787,25 +49176,6 @@
           "possibleTypes": null
         },
         {
-          "enumValues": [
-            {
-              "name": "FIRST"
-            },
-            {
-              "name": "PRESENT"
-            },
-            {
-              "name": "SECOND"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "SparePartReviewerLevel",
-          "possibleTypes": null
-        },
-        {
           "enumValues": null,
           "fields": null,
           "inputFields": [
@@ -48861,6 +49231,25 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "SparePartReviewInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": [
+            {
+              "name": "FIRST"
+            },
+            {
+              "name": "PRESENT"
+            },
+            {
+              "name": "SECOND"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "SparePartReviewerLevel",
           "possibleTypes": null
         },
         {
@@ -50278,6 +50667,61 @@
           "inputFields": [
             {
               "defaultValue": null,
+              "name": "thing",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "IDInput",
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "SubThingListFilterInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "company",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "IDInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "thingCategory",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "IntIDInput",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "SubThingUccListFilterInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
               "name": "calibrateAt",
               "type": {
                 "kind": "SCALAR",
@@ -50417,61 +50861,6 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "SubmitThingCalibrateInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "thing",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "IDInput",
-                    "ofType": null
-                  }
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "SubThingListFilterInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "company",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "IDInput",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "thingCategory",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "IntIDInput",
-                "ofType": null
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "SubThingUccListFilterInput",
           "possibleTypes": null
         },
         {
@@ -50634,35 +51023,6 @@
           "fields": [
             {
               "args": [],
-              "name": "kind",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "LoginConfigurationKind",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "LoginConfiguration",
-              "ofType": null
-            }
-          ],
-          "kind": "OBJECT",
-          "name": "SystemLoginConfiguration",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": [
-            {
-              "args": [],
               "name": "data",
               "type": {
                 "kind": "NON_NULL",
@@ -50700,6 +51060,35 @@
           "interfaces": [],
           "kind": "OBJECT",
           "name": "SystemLogList",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "name": "kind",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "LoginConfigurationKind",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "LoginConfiguration",
+              "ofType": null
+            }
+          ],
+          "kind": "OBJECT",
+          "name": "SystemLoginConfiguration",
           "possibleTypes": null
         },
         {
@@ -55012,41 +55401,6 @@
           "possibleTypes": null
         },
         {
-          "enumValues": [
-            {
-              "name": "KEEPER"
-            },
-            {
-              "name": "OFFICER"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "ThingBorrowReviewer",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": [
-            {
-              "name": "FIRST"
-            },
-            {
-              "name": "PRESENT"
-            },
-            {
-              "name": "SECOND"
-            }
-          ],
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "kind": "ENUM",
-          "name": "ThingBorrowReviewerLevel",
-          "possibleTypes": null
-        },
-        {
           "enumValues": null,
           "fields": null,
           "inputFields": [
@@ -55111,6 +55465,41 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "ThingBorrowReviewInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": [
+            {
+              "name": "KEEPER"
+            },
+            {
+              "name": "OFFICER"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "ThingBorrowReviewer",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": [
+            {
+              "name": "FIRST"
+            },
+            {
+              "name": "PRESENT"
+            },
+            {
+              "name": "SECOND"
+            }
+          ],
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "ENUM",
+          "name": "ThingBorrowReviewerLevel",
           "possibleTypes": null
         },
         {
@@ -65959,38 +66348,6 @@
           "inputFields": [
             {
               "defaultValue": null,
-              "name": "company",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "IDInput",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "key",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "uccStackDataFilter",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
               "name": "app",
               "type": {
                 "kind": "NON_NULL",
@@ -70584,55 +70941,6 @@
           "inputFields": [
             {
               "defaultValue": null,
-              "name": "calibrateMethod",
-              "type": {
-                "kind": "ENUM",
-                "name": "CalibrateMethod",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "calibrateRepeat",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "CalibrateRepeatInput",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  }
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "UpdateThingsInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
               "name": "executionAt",
               "type": {
                 "kind": "SCALAR",
@@ -70715,6 +71023,55 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "UpdateThingUCCInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "calibrateMethod",
+              "type": {
+                "kind": "ENUM",
+                "name": "CalibrateMethod",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "calibrateRepeat",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CalibrateRepeatInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "UpdateThingsInput",
           "possibleTypes": null
         },
         {
@@ -71024,6 +71381,86 @@
           "inputFields": [
             {
               "defaultValue": null,
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "item",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UseSparePartClaimItemInput",
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "UseSparePartClaimInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "sparePart",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "IntIDInput",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "usedThing",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UsedSparePartClaimThingInput",
+                    "ofType": null
+                  }
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "UseSparePartClaimItemInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
               "name": "quantity",
               "type": {
                 "kind": "NON_NULL",
@@ -71120,6 +71557,19 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "name": "emailIsVerified",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
               }
             },
             {
@@ -71490,41 +71940,6 @@
           "inputFields": [
             {
               "defaultValue": null,
-              "name": "company",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "IntIDInput",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "currentOnly",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "department",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "IntIDInput",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            {
-              "defaultValue": null,
               "name": "ids",
               "type": {
                 "kind": "LIST",
@@ -71535,84 +71950,6 @@
                   "ofType": {
                     "kind": "INPUT_OBJECT",
                     "name": "StringIDInput",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "isActive",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "role",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "IntIDInput",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "search",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "searchName",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "type",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "ENUM",
-                    "name": "UserType",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "uid",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
                     "ofType": null
                   }
                 }
@@ -71769,86 +72106,6 @@
           "interfaces": null,
           "kind": "ENUM",
           "name": "UserType",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "id",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "item",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "UseSparePartClaimItemInput",
-                    "ofType": null
-                  }
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "UseSparePartClaimInput",
-          "possibleTypes": null
-        },
-        {
-          "enumValues": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "defaultValue": null,
-              "name": "sparePart",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "IntIDInput",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "name": "usedThing",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "UsedSparePartClaimThingInput",
-                    "ofType": null
-                  }
-                }
-              }
-            }
-          ],
-          "interfaces": null,
-          "kind": "INPUT_OBJECT",
-          "name": "UseSparePartClaimItemInput",
           "possibleTypes": null
         },
         {
@@ -72192,6 +72449,57 @@
           "interfaces": null,
           "kind": "INPUT_OBJECT",
           "name": "WriteoffSparePartReceiptInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "full",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "countryFilter",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "company",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "IDInput",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "key",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "uccStackDataFilter",
           "possibleTypes": null
         },
         {
