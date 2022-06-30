@@ -41,5 +41,3 @@ class TestMessage:
         res= self.message.deactivate_message_channel_api("inbox")
         assert_that(res,equal_to(True))
 
-    def test_sdad(self):
-        pass
