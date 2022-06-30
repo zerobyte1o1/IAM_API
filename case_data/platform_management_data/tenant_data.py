@@ -12,13 +12,17 @@ class TenantData(BaseApi):
 
         @return: dict
         """
+        industry_id=self.tenant.get_tenant_industry_tree_nodes()[0].id
+        print(industry_id)
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant")
         args = [("address", self.faker.address()),
                 ("code", self.faker.ean8()),
                 ("email", self.faker.email()),
                 ("name", self.faker.company()),
                 ("phone", self.faker.phone_number()),
-                ("uscc", self.faker.ean13())]
+                ("uscc", self.faker.ean13()),
+                ("industry",{"id":industry_id})]
+
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -108,5 +112,5 @@ class TenantData(BaseApi):
 if __name__ == '__main__':
     td = TenantData()
     ta = Tenant()
-    data = td.set_permissions_to_tenant_ask("b7a49f3d-0277-4748-85f8-5fff9c2c8180")
+    data = td.create_tenant_ask()
     print(data)

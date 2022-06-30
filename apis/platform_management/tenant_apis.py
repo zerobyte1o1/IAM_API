@@ -21,6 +21,15 @@ class Tenant(GetTokenHeader):
         res = (op + data).tenant_list.data
         return res
 
+    def get_tenant_industry_tree_nodes(self):
+        headers = GetTokenHeader.get_headers(self)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        op = Operation(Query)
+        op.tenant_industry_tree_nodes()
+        data = endpoint(op)
+        res = (op + data).tenant_industry_tree_nodes
+        return res
+
     def create_tenant_api(self, variables):
         """
         创建企业
