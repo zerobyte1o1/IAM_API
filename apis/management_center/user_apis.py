@@ -267,6 +267,6 @@ class User(GetTokenHeader):
 if __name__ == '__main__':
     a = User()
 
-    res = a.get_user("3d327a12-89d3-41b6-93e7-42b668d5e455")
-
+    # res = a.get_user("3d327a12-89d3-41b6-93e7-42b668d5e455")
+    res = a.get_me()
     print(res)
