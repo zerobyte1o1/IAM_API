@@ -142,7 +142,7 @@ class UserData(BaseApi):
 if __name__ == '__main__':
     # s = UserData()
     # print(s.create_user())
-    a = User()
+    a = UserData()
 
     # data = UserData().get_direct_authorization_rules_id_of_user("3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38")
     # print(data)
@@ -151,6 +151,5 @@ if __name__ == '__main__':
     # data = UserData().update_authorization_rules_of_user("0c84960e-d04c-4c2d-9bc3-62eb860633ba")
     # print(data)
     # res = a.update_authorization_rules_of_user_api(data)
-    rule_id = UserData().user_list_filter("a1c97533-4149-4a13-bf73-e4a3bf08a25a")
-    res=a.get_user_list(rule_id)
+    res=a.create_user()
     print(res)

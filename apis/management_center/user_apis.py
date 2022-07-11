@@ -22,6 +22,7 @@ class User(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
+
         op.me()
         data = endpoint(op)
         res = (op + data).me
@@ -34,7 +35,7 @@ class User(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        ox=op.user(id=id)
+        op.user(id=id)
         data = endpoint(op)
         res = (op + data).user
         return res
