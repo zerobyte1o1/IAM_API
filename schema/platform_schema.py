@@ -33,6 +33,11 @@ class AuthenticationSourceKind(sgqlc.types.Enum):
     __choices__ = ('LDAP_3', 'OAUTH_2', 'OPENID_CONNECT_1', 'SAML_2')
 
 
+class BacklogStatus(sgqlc.types.Enum):
+    __schema__ = platform_schema
+    __choices__ = ('FINISHED', 'PENDING')
+
+
 Boolean = sgqlc.types.Boolean
 
 class ChannelStatus(sgqlc.types.Enum):
@@ -114,6 +119,16 @@ class ResponseFormat(sgqlc.types.Enum):
     __choices__ = ('FORM', 'JSON')
 
 
+class StaffJobStatus(sgqlc.types.Enum):
+    __schema__ = platform_schema
+    __choices__ = ('ARCHIVED', 'ON_THE_JOB', 'RESIGNED', 'TO_BE_HIRED')
+
+
+class StaffJobType(sgqlc.types.Enum):
+    __schema__ = platform_schema
+    __choices__ = ('FORMAL', 'INFORMAL')
+
+
 String = sgqlc.types.String
 
 class TableFieldGroup(sgqlc.types.Enum):
@@ -171,6 +186,13 @@ class UserInfoRequestMethod(sgqlc.types.Enum):
 ########################################################################
 # Input Objects
 ########################################################################
+class AddBacklogToUsers(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('backlog', 'users')
+    backlog = sgqlc.types.Field(sgqlc.types.non_null('BacklogInput'), graphql_name='backlog')
+    users = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput'))), graphql_name='users')
+
+
 class ApiFilterInput(sgqlc.types.Input):
     __schema__ = platform_schema
     __field_names__ = ('search',)
@@ -203,11 +225,22 @@ class AssignTenantAppsInput(sgqlc.types.Input):
     tenant = sgqlc.types.Field(sgqlc.types.non_null('StringIDInput'), graphql_name='tenant')
 
 
+class AuthorizationRuleAndDependenciesOfUserFilterInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('id', 'permission_types', 'user_id')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    permission_types = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(PermissionType)), graphql_name='permissionTypes')
+    user_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userId')
+
+
 class AuthorizationRuleFilterInput(sgqlc.types.Input):
     __schema__ = platform_schema
-    __field_names__ = ('is_leaf_only', 'permission_types')
+    __field_names__ = ('app_ids', 'is_leaf_only', 'permission_types', 'require_data_ranges', 'search')
+    app_ids = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='appIds')
     is_leaf_only = sgqlc.types.Field(Boolean, graphql_name='isLeafOnly')
     permission_types = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(PermissionType)), graphql_name='permissionTypes')
+    require_data_ranges = sgqlc.types.Field(Boolean, graphql_name='requireDataRanges')
+    search = sgqlc.types.Field(String, graphql_name='search')
 
 
 class BIFilterInput(sgqlc.types.Input):
@@ -219,6 +252,23 @@ class BIFilterInput(sgqlc.types.Input):
     metric = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='metric')
     series = sgqlc.types.Field(String, graphql_name='series')
     start = sgqlc.types.Field(Timestamp, graphql_name='start')
+
+
+class BacklogFieldDataInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('key', 'value')
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='key')
+    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='value')
+
+
+class BacklogInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('data', 'group', 'id', 'title', 'url')
+    data = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(BacklogFieldDataInput)), graphql_name='data')
+    group = sgqlc.types.Field(sgqlc.types.non_null('StringIDInput'), graphql_name='group')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    title = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='title')
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='url')
 
 
 class ChangeMyPasswordByEmailVerificationInput(sgqlc.types.Input):
@@ -464,6 +514,29 @@ class CreateRoleInput(sgqlc.types.Input):
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 
+class CreateStaffAccountInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('account', 'id', 'is_account_enabled', 'password', 'roles')
+    account = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='account')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    is_account_enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isAccountEnabled')
+    password = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='password')
+    roles = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput')), graphql_name='roles')
+
+
+class CreateStaffInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('avatar', 'email', 'job_status', 'job_type', 'name', 'organizations', 'phone_number', 'remark')
+    avatar = sgqlc.types.Field('IDInput', graphql_name='avatar')
+    email = sgqlc.types.Field(String, graphql_name='email')
+    job_status = sgqlc.types.Field(sgqlc.types.non_null(StaffJobStatus), graphql_name='jobStatus')
+    job_type = sgqlc.types.Field(sgqlc.types.non_null(StaffJobType), graphql_name='jobType')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    organizations = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput'))), graphql_name='organizations')
+    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
+    remark = sgqlc.types.Field(String, graphql_name='remark')
+
+
 class CreateTenantInput(sgqlc.types.Input):
     __schema__ = platform_schema
     __field_names__ = ('address', 'city', 'code', 'county', 'email', 'industry', 'name', 'phone', 'province', 'type', 'uscc')
@@ -584,6 +657,14 @@ class LoginByEmailInput(sgqlc.types.Input):
     verify_code = sgqlc.types.Field(String, graphql_name='verifyCode')
 
 
+class LoginByPhoneNumberInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('phone_number', 'tenant_code', 'verify_code')
+    phone_number = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='phoneNumber')
+    tenant_code = sgqlc.types.Field(String, graphql_name='tenantCode')
+    verify_code = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='verifyCode')
+
+
 class LoginInput(sgqlc.types.Input):
     __schema__ = platform_schema
     __field_names__ = ('account', 'password', 'tenant_code')
@@ -615,6 +696,14 @@ class MetaTemplateListInput(sgqlc.types.Input):
     __schema__ = platform_schema
     __field_names__ = ('search',)
     search = sgqlc.types.Field(String, graphql_name='search')
+
+
+class MyBacklogGroupFilterInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('apps', 'groups', 'status')
+    apps = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput')), graphql_name='apps')
+    groups = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput')), graphql_name='groups')
+    status = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(BacklogStatus)), graphql_name='status')
 
 
 class MyTenantAppListFilterInput(sgqlc.types.Input):
@@ -656,6 +745,13 @@ class OrganizationTreeNodeFilterInput(sgqlc.types.Input):
     search = sgqlc.types.Field(String, graphql_name='search')
 
 
+class PageListFilterInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('apps', 'search')
+    apps = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput')), graphql_name='apps')
+    search = sgqlc.types.Field(String, graphql_name='search')
+
+
 class PermissionDataRangeInput(sgqlc.types.Input):
     __schema__ = platform_schema
     __field_names__ = ('code', 'name')
@@ -665,8 +761,11 @@ class PermissionDataRangeInput(sgqlc.types.Input):
 
 class PermissionFilterInput(sgqlc.types.Input):
     __schema__ = platform_schema
-    __field_names__ = ('ids', 'types')
+    __field_names__ = ('app_keys', 'ids', 'is_leaf_only', 'require_data_ranges', 'types')
+    app_keys = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='appKeys')
     ids = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='ids')
+    is_leaf_only = sgqlc.types.Field(Boolean, graphql_name='isLeafOnly')
+    require_data_ranges = sgqlc.types.Field(Boolean, graphql_name='requireDataRanges')
     types = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(PermissionType)), graphql_name='types')
 
 
@@ -757,6 +856,17 @@ class SetUCCStackDataInput(sgqlc.types.Input):
     company = sgqlc.types.Field(IDInput, graphql_name='company')
     data = sgqlc.types.Field(JSON, graphql_name='data')
     key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='key')
+
+
+class StaffListFilterInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('include_children_organizations', 'job_status', 'job_type', 'organizations', 'search', 'search_by')
+    include_children_organizations = sgqlc.types.Field(Boolean, graphql_name='includeChildrenOrganizations')
+    job_status = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(StaffJobStatus)), graphql_name='jobStatus')
+    job_type = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(StaffJobType)), graphql_name='jobType')
+    organizations = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('StringIDInput')), graphql_name='organizations')
+    search = sgqlc.types.Field(String, graphql_name='search')
+    search_by = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='searchBy')
 
 
 class StarAppInput(sgqlc.types.Input):
@@ -1075,6 +1185,20 @@ class UpdateRoleInput(sgqlc.types.Input):
     name = sgqlc.types.Field(String, graphql_name='name')
 
 
+class UpdateStaffInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('avatar', 'email', 'id', 'job_status', 'job_type', 'name', 'organizations', 'phone_number', 'remark')
+    avatar = sgqlc.types.Field(IDInput, graphql_name='avatar')
+    email = sgqlc.types.Field(String, graphql_name='email')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    job_status = sgqlc.types.Field(StaffJobStatus, graphql_name='jobStatus')
+    job_type = sgqlc.types.Field(StaffJobType, graphql_name='jobType')
+    name = sgqlc.types.Field(String, graphql_name='name')
+    organizations = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(StringIDInput)), graphql_name='organizations')
+    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
+    remark = sgqlc.types.Field(String, graphql_name='remark')
+
+
 class UpdateTenantInput(sgqlc.types.Input):
     __schema__ = platform_schema
     __field_names__ = ('address', 'city', 'code', 'county', 'email', 'id', 'industry', 'name', 'phone', 'province', 'uscc')
@@ -1120,8 +1244,16 @@ class UserFilterInput(sgqlc.types.Input):
 
 class UserListFilter(sgqlc.types.Input):
     __schema__ = platform_schema
-    __field_names__ = ('ids',)
+    __field_names__ = ('company', 'current_only', 'department', 'ids', 'is_active', 'role', 'search', 'search_name', 'uid')
+    company = sgqlc.types.Field(IntIDInput, graphql_name='company')
+    current_only = sgqlc.types.Field(Boolean, graphql_name='currentOnly')
+    department = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(IntIDInput)), graphql_name='department')
     ids = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(StringIDInput)), graphql_name='ids')
+    is_active = sgqlc.types.Field(Boolean, graphql_name='isActive')
+    role = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(IntIDInput)), graphql_name='role')
+    search = sgqlc.types.Field(String, graphql_name='search')
+    search_name = sgqlc.types.Field(String, graphql_name='searchName')
+    uid = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='uid')
 
 
 class countryFilter(sgqlc.types.Input):
@@ -1273,10 +1405,10 @@ class AuthenticationSource(sgqlc.types.Interface):
 
 class Authorization(sgqlc.types.Type):
     __schema__ = platform_schema
-    __field_names__ = ('data_ranges', 'is_allowed', 'permission_id')
+    __field_names__ = ('data_ranges', 'is_allowed', 'permission')
     data_ranges = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='dataRanges')
     is_allowed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isAllowed')
-    permission_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='permissionId')
+    permission = sgqlc.types.Field(sgqlc.types.non_null('Permission'), graphql_name='permission')
 
 
 class AuthorizationRule(sgqlc.types.Type):
@@ -1286,6 +1418,13 @@ class AuthorizationRule(sgqlc.types.Type):
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
     is_allowed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isAllowed')
     permission = sgqlc.types.Field(sgqlc.types.non_null('Permission'), graphql_name='permission')
+
+
+class AuthorizationRuleDependentBy(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('dependencies', 'id')
+    dependencies = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(AuthorizationRule)), graphql_name='dependencies')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
 
 
 class AuthorizationRuleList(sgqlc.types.Type):
@@ -1310,6 +1449,42 @@ class BIResult(sgqlc.types.Type):
     metric = sgqlc.types.Field(String, graphql_name='metric')
     timestamp = sgqlc.types.Field(Timestamp, graphql_name='timestamp')
     value = sgqlc.types.Field(Float, graphql_name='value')
+
+
+class Backlog(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('created_at', 'data', 'group_id', 'id', 'status', 'title', 'updated_at', 'url')
+    created_at = sgqlc.types.Field(sgqlc.types.non_null(Timestamp), graphql_name='createdAt')
+    data = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('BacklogFieldData')), graphql_name='data')
+    group_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='groupId')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    status = sgqlc.types.Field(sgqlc.types.non_null(BacklogStatus), graphql_name='status')
+    title = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='title')
+    updated_at = sgqlc.types.Field(sgqlc.types.non_null(Timestamp), graphql_name='updatedAt')
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='url')
+
+
+class BacklogFieldData(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('key', 'value')
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='key')
+    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='value')
+
+
+class BacklogFieldMeta(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('key', 'style')
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='key')
+    style = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='style')
+
+
+class BacklogGroup(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('app', 'fields', 'id', 'name')
+    app = sgqlc.types.Field(sgqlc.types.non_null(App), graphql_name='app')
+    fields = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(BacklogFieldMeta)), graphql_name='fields')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
 
 
 class City(sgqlc.types.Type):
@@ -1403,13 +1578,14 @@ class CreatedUserInfo(sgqlc.types.Type):
 
 class Department(sgqlc.types.Type):
     __schema__ = platform_schema
-    __field_names__ = ('code', 'id', 'is_deleted', 'level', 'manager', 'name', 'parent_id', 'path_name')
+    __field_names__ = ('code', 'id', 'is_deleted', 'level', 'manager', 'name', 'organization_id', 'parent_id', 'path_name')
     code = sgqlc.types.Field(String, graphql_name='code')
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
     is_deleted = sgqlc.types.Field(Boolean, graphql_name='isDeleted')
     level = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='level')
     manager = sgqlc.types.Field('User', graphql_name='manager')
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    organization_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='organizationId')
     parent_id = sgqlc.types.Field(ID, graphql_name='parentID')
     path_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='pathName')
 
@@ -1587,7 +1763,7 @@ class MetaTemplateList(sgqlc.types.Type):
 
 class Mutation(sgqlc.types.Type):
     __schema__ = platform_schema
-    __field_names__ = ('_dummy', 'active_message_channel', 'add_meta_templates_to_tenant', 'assign_app_permissions', 'assign_tenant_apps', 'bind_my_email', 'change_my_password', 'change_my_password_by_email_verification', 'change_my_password_by_verify_code', 'company_login', 'configure_authentication_source_ldap3', 'configure_authentication_source_oauth2', 'configure_authentication_source_open_idconnect1', 'configure_authentication_source_saml2', 'create_app_version', 'create_company_bidatasource', 'create_enterprise_app', 'create_file', 'create_files', 'create_image', 'create_images', 'create_market_file', 'create_market_files', 'create_meta_template', 'create_oauth2_authentication_configuration', 'create_open_idconnect1_authentication_configuration', 'create_organization', 'create_role', 'create_tenant', 'create_tenant_owner', 'create_user', 'deactivate_message_channel', 'delete_app_version', 'delete_authentication_configuration', 'delete_company_bidatasource', 'delete_enterprise_apps', 'delete_message_templates_of_tenant', 'delete_meta_template', 'delete_organization', 'delete_role', 'delete_table_fields_config', 'delete_tenant', 'delete_users', 'disable_tenant', 'disable_users', 'duplicate_uccform_structure', 'enable_tenant', 'enable_users', 'login', 'login_by_email', 'logout', 'offline_app_version', 'online_app_version', 'overwrite_message_template', 'read_all_inbox_messages', 'read_inbox_messages', 'remove_authorization_rules_of_user', 'reset_app_client_secret', 'reset_authentication_source', 'reset_tenant_owner_password', 'reset_user_password', 'send_identity_verify_code_to_email', 'set_admin_users', 'set_authorization_rules_to_role', 'set_authorization_rules_to_user', 'set_channel_of_message_templates', 'set_channels_of_message_template', 'set_permissions_to_tenant', 'set_table_column_setting', 'set_table_fields_config', 'set_table_fixed_fields_config', 'set_uccform_structure', 'set_uccstack_data', 'set_workbench', 'star_app', 'transfer_tenant_owner', 'un_assign_app_permissions', 'un_assign_tenant_apps', 'un_star_app', 'unbind_email_of_users', 'unbind_my_email', 'unset_admin_users', 'update_app_version', 'update_authorization_rules_of_user', 'update_enterprise_app', 'update_me', 'update_meta_channel', 'update_meta_template', 'update_oauth2_authentication_configuration', 'update_open_idconnect1_authentication_configuration', 'update_organization', 'update_role', 'update_status_of_template', 'update_tenant', 'update_user', 'visit_app', 'visit_menu')
+    __field_names__ = ('_dummy', 'active_message_channel', 'add_meta_templates_to_tenant', 'archive_staff', 'assign_app_permissions', 'assign_tenant_apps', 'bind_my_email', 'bind_my_phone_number', 'change_my_password', 'change_my_password_by_email_verification', 'change_my_password_by_verify_code', 'company_login', 'configure_authentication_source_ldap3', 'configure_authentication_source_oauth2', 'configure_authentication_source_open_idconnect1', 'configure_authentication_source_saml2', 'create_app_version', 'create_company_bidatasource', 'create_enterprise_app', 'create_file', 'create_files', 'create_image', 'create_images', 'create_market_file', 'create_market_files', 'create_meta_template', 'create_oauth2_authentication_configuration', 'create_open_idconnect1_authentication_configuration', 'create_organization', 'create_role', 'create_staff', 'create_staff_account', 'create_tenant', 'create_tenant_owner', 'create_user', 'deactivate_message_channel', 'delete_app_version', 'delete_authentication_configuration', 'delete_company_bidatasource', 'delete_enterprise_apps', 'delete_message_templates_of_tenant', 'delete_meta_template', 'delete_organization', 'delete_role', 'delete_staff', 'delete_table_fields_config', 'delete_tenant', 'delete_users', 'disable_accounts', 'disable_tenant', 'duplicate_uccform_structure', 'enable_accounts', 'enable_tenant', 'hire_staff', 'login', 'login_by_email', 'login_by_phone_number', 'logout', 'offline_app_version', 'online_app_version', 'overwrite_message_template', 'read_all_inbox_messages', 'read_inbox_messages', 'rehire_staff', 'remove_authorization_rules_of_user', 'reset_app_client_secret', 'reset_authentication_source', 'reset_tenant_owner_password', 'reset_user_password', 'resign_staff', 'restore_staff', 'send_identity_verify_code_to_email', 'send_identity_verify_code_to_my_phone_number', 'send_identity_verify_code_to_phone_number', 'set_admin_users', 'set_authorization_rules_data_range_of_role', 'set_authorization_rules_data_range_of_user', 'set_authorization_rules_to_role', 'set_authorization_rules_to_user', 'set_channel_of_message_templates', 'set_channels_of_message_template', 'set_permissions_to_tenant', 'set_stared_pages', 'set_table_column_setting', 'set_table_fields_config', 'set_table_fixed_fields_config', 'set_uccform_structure', 'set_uccstack_data', 'set_workbench', 'star_app', 'star_pages', 'transfer_tenant_owner', 'un_assign_app_permissions', 'un_assign_tenant_apps', 'un_star_app', 'un_star_pages', 'unbind_email_of_users', 'unbind_my_email', 'unbind_my_phone_number', 'unbind_phone_number_of_users', 'unset_admin_users', 'update_app_version', 'update_authorization_rule', 'update_authorization_rules_of_user', 'update_enterprise_app', 'update_me', 'update_meta_channel', 'update_meta_template', 'update_oauth2_authentication_configuration', 'update_open_idconnect1_authentication_configuration', 'update_organization', 'update_role', 'update_staff', 'update_status_of_template', 'update_tenant', 'update_user', 'visit_app', 'visit_menu')
     _dummy = sgqlc.types.Field(Boolean, graphql_name='_dummy')
     active_message_channel = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='activeMessageChannel', args=sgqlc.types.ArgDict((
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
@@ -1596,6 +1772,10 @@ class Mutation(sgqlc.types.Type):
     add_meta_templates_to_tenant = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='addMetaTemplatesToTenant', args=sgqlc.types.ArgDict((
         ('ids', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='ids', default=None)),
         ('tenant_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='tenantId', default=None)),
+))
+    )
+    archive_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='archiveStaff', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
     assign_app_permissions = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='assignAppPermissions', args=sgqlc.types.ArgDict((
@@ -1607,6 +1787,10 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     bind_my_email = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='bindMyEmail', args=sgqlc.types.ArgDict((
+        ('verify_code', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='verifyCode', default=None)),
+))
+    )
+    bind_my_phone_number = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='bindMyPhoneNumber', args=sgqlc.types.ArgDict((
         ('verify_code', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='verifyCode', default=None)),
 ))
     )
@@ -1698,6 +1882,14 @@ class Mutation(sgqlc.types.Type):
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateRoleInput), graphql_name='input', default=None)),
 ))
     )
+    create_staff = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='createStaff', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateStaffInput), graphql_name='input', default=None)),
+))
+    )
+    create_staff_account = sgqlc.types.Field(sgqlc.types.non_null(CreatedUserInfo), graphql_name='createStaffAccount', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateStaffAccountInput), graphql_name='input', default=None)),
+))
+    )
     create_tenant = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='createTenant', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateTenantInput), graphql_name='input', default=None)),
 ))
@@ -1747,6 +1939,10 @@ class Mutation(sgqlc.types.Type):
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
+    delete_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='deleteStaff', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     delete_table_fields_config = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='deleteTableFieldsConfig', args=sgqlc.types.ArgDict((
         ('key', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='key', default=None)),
 ))
@@ -1759,23 +1955,27 @@ class Mutation(sgqlc.types.Type):
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
-    disable_tenant = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='disableTenant', args=sgqlc.types.ArgDict((
-        ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
+    disable_accounts = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='disableAccounts', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
-    disable_users = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='disableUsers', args=sgqlc.types.ArgDict((
-        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+    disable_tenant = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='disableTenant', args=sgqlc.types.ArgDict((
+        ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
 ))
     )
     duplicate_uccform_structure = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='duplicateUCCFormStructure', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(DuplicateUCCFormStructureInput), graphql_name='input', default=None)),
 ))
     )
+    enable_accounts = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='enableAccounts', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     enable_tenant = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='enableTenant', args=sgqlc.types.ArgDict((
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
 ))
     )
-    enable_users = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='enableUsers', args=sgqlc.types.ArgDict((
+    hire_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='hireStaff', args=sgqlc.types.ArgDict((
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
@@ -1785,6 +1985,10 @@ class Mutation(sgqlc.types.Type):
     )
     login_by_email = sgqlc.types.Field(sgqlc.types.non_null(AuthInfo), graphql_name='loginByEmail', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(LoginByEmailInput), graphql_name='input', default=None)),
+))
+    )
+    login_by_phone_number = sgqlc.types.Field(sgqlc.types.non_null(AuthInfo), graphql_name='loginByPhoneNumber', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(LoginByPhoneNumberInput), graphql_name='input', default=None)),
 ))
     )
     logout = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='logout')
@@ -1805,6 +2009,10 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     read_inbox_messages = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='readInboxMessages', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
+    rehire_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='rehireStaff', args=sgqlc.types.ArgDict((
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
@@ -1830,12 +2038,33 @@ class Mutation(sgqlc.types.Type):
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
 ))
     )
+    resign_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='resignStaff', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
+    restore_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='restoreStaff', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     send_identity_verify_code_to_email = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='sendIdentityVerifyCodeToEmail', args=sgqlc.types.ArgDict((
         ('email', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='email', default=None)),
 ))
     )
+    send_identity_verify_code_to_my_phone_number = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='sendIdentityVerifyCodeToMyPhoneNumber')
+    send_identity_verify_code_to_phone_number = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='sendIdentityVerifyCodeToPhoneNumber', args=sgqlc.types.ArgDict((
+        ('phone_number', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='phoneNumber', default=None)),
+))
+    )
     set_admin_users = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setAdminUsers', args=sgqlc.types.ArgDict((
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
+    set_authorization_rules_data_range_of_role = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setAuthorizationRulesDataRangeOfRole', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(SetAuthorizationRulesToRoleInput), graphql_name='input', default=None)),
+))
+    )
+    set_authorization_rules_data_range_of_user = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setAuthorizationRulesDataRangeOfUser', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(SetAuthorizationRulesToUserInput), graphql_name='input', default=None)),
 ))
     )
     set_authorization_rules_to_role = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setAuthorizationRulesToRole', args=sgqlc.types.ArgDict((
@@ -1860,6 +2089,10 @@ class Mutation(sgqlc.types.Type):
     )
     set_permissions_to_tenant = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setPermissionsToTenant', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(SetPermissionToTenantInput), graphql_name='input', default=None)),
+))
+    )
+    set_stared_pages = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setStaredPages', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
     set_table_column_setting = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='setTableColumnSetting', args=sgqlc.types.ArgDict((
@@ -1890,6 +2123,10 @@ class Mutation(sgqlc.types.Type):
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(StarAppInput), graphql_name='input', default=None)),
 ))
     )
+    star_pages = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='starPages', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     transfer_tenant_owner = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='transferTenantOwner', args=sgqlc.types.ArgDict((
         ('target_user_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='targetUserId', default=None)),
 ))
@@ -1906,6 +2143,10 @@ class Mutation(sgqlc.types.Type):
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(UnStarAppInput), graphql_name='input', default=None)),
 ))
     )
+    un_star_pages = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='unStarPages', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     unbind_email_of_users = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='unbindEmailOfUsers', args=sgqlc.types.ArgDict((
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
@@ -1914,12 +2155,24 @@ class Mutation(sgqlc.types.Type):
         ('verify_code', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='verifyCode', default=None)),
 ))
     )
+    unbind_my_phone_number = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='unbindMyPhoneNumber', args=sgqlc.types.ArgDict((
+        ('verify_code', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='verifyCode', default=None)),
+))
+    )
+    unbind_phone_number_of_users = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='unbindPhoneNumberOfUsers', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     unset_admin_users = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='unsetAdminUsers', args=sgqlc.types.ArgDict((
         ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
 ))
     )
     update_app_version = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='updateAppVersion', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(UpdateAppVersionInput), graphql_name='input', default=None)),
+))
+    )
+    update_authorization_rule = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='updateAuthorizationRule', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(UpdateAuthorizationRuleInput))), graphql_name='input', default=None)),
 ))
     )
     update_authorization_rules_of_user = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='updateAuthorizationRulesOfUser', args=sgqlc.types.ArgDict((
@@ -1958,6 +2211,10 @@ class Mutation(sgqlc.types.Type):
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(UpdateRoleInput), graphql_name='input', default=None)),
 ))
     )
+    update_staff = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='updateStaff', args=sgqlc.types.ArgDict((
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(UpdateStaffInput), graphql_name='input', default=None)),
+))
+    )
     update_status_of_template = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='updateStatusOfTemplate', args=sgqlc.types.ArgDict((
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
         ('status', sgqlc.types.Arg(sgqlc.types.non_null(TemplateStatus), graphql_name='status', default=None)),
@@ -1979,6 +2236,14 @@ class Mutation(sgqlc.types.Type):
         ('code', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='code', default=None)),
 ))
     )
+
+
+class MyBacklogGroup(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('count', 'data', 'group')
+    count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='count')
+    data = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Backlog))), graphql_name='data')
+    group = sgqlc.types.Field(sgqlc.types.non_null(BacklogGroup), graphql_name='group')
 
 
 class OldRole(sgqlc.types.Type):
@@ -2030,6 +2295,23 @@ class OrganizationList(sgqlc.types.Type):
     total_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='totalCount')
 
 
+class Page(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('app', 'avatar', 'id', 'name', 'url')
+    app = sgqlc.types.Field(sgqlc.types.non_null(App), graphql_name='app')
+    avatar = sgqlc.types.Field(Image, graphql_name='avatar')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='url')
+
+
+class PageList(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('data', 'total_count')
+    data = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Page))), graphql_name='data')
+    total_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='totalCount')
+
+
 class Permission(sgqlc.types.Type):
     __schema__ = platform_schema
     __field_names__ = ('apis', 'app', 'data_ranges', 'dependencies', 'id', 'name', 'parent_id', 'path_name', 'type')
@@ -2066,7 +2348,7 @@ class PushSchedule(sgqlc.types.Type):
 
 class Query(sgqlc.types.Type):
     __schema__ = platform_schema
-    __field_names__ = ('log_list', 'admin_user_list', 'all_authorization_rules_of_role', 'all_permissions_of_user', 'apis', 'app_groups', 'app_menu_list', 'app_version_list', 'assignable_managers_of_organization', 'assignable_meta_template_list_of_tenant', 'assignable_permissions_of_tenant', 'assigned_permissions_of_app', 'authentication_configuration', 'authentication_source', 'authorization_rule_and_dependencies', 'authorization_rule_dependent_by', 'bi_issue_issue', 'children_of_department', 'cities', 'city_companies', 'companies', 'company_bidatasource_list', 'company_bidatasource_tree', 'counties', 'countries', 'department_by_id_and_level', 'department_list', 'department_tree', 'direct_authorization_rules_of_user', 'inbox_message', 'inbox_message_list', 'is_create_app_version_allowed', 'is_email_exists', 'is_email_verified', 'is_permission_changed_of_latest_app_version', 'login_configuration', 'managed_organizations_of_user', 'me', 'menu_visit_history_list', 'message_channels_of_tenant', 'message_template_list_of_tenant', 'meta_channels', 'meta_template', 'meta_template_event_exists', 'meta_template_list', 'my_app_list', 'my_tenant', 'my_tenant_app_list', 'my_tenant_development_app_list', 'organization', 'organization_by_code', 'organization_by_id_and_level', 'organization_code_exists', 'organization_list', 'organization_name_exists_in_siblings', 'organization_tree_nodes', 'permissions', 'permissions_of_tenant', 'provinces', 'recent_app', 'role', 'role_list', 'role_name_exists', 'root_organization', 'stared_apps', 'system_log_action', 'system_log_list', 'table_column_setting', 'table_fields_config', 'table_fixed_fields_config', 'tenant', 'tenant_app_list', 'tenant_code_exists', 'tenant_industry_tree_nodes', 'tenant_list', 'tenant_name_exists', 'tenant_uscc_exists', 'ucc_form_structure', 'ucc_form_structure_json_schema', 'ucc_stack_data', 'unread_message_apps', 'upload_config', 'upload_configs', 'user', 'user_account_exists', 'user_list', 'workbench', 'workbench_card_data', 'workbench_card_option')
+    __field_names__ = ('log_list', 'admin_user_list', 'all_authorization_rules_of_role', 'all_authorizations_of_user', 'all_permissions_of_user', 'apis', 'app_groups', 'app_menu_list', 'app_version_exists', 'app_version_list', 'assignable_managers_of_organization', 'assignable_meta_template_list_of_tenant', 'assignable_permissions_of_tenant', 'assigned_permissions_of_app', 'authentication_configuration', 'authentication_source', 'authorization_rule_and_dependencies', 'authorization_rule_and_dependencies_of_user', 'authorization_rule_dependent_by', 'bi_issue_issue', 'children_of_department', 'cities', 'city_companies', 'companies', 'company_bidatasource_list', 'company_bidatasource_tree', 'counties', 'countries', 'department_by_id_and_level', 'department_list', 'department_tree', 'dependency_of_permissions', 'direct_authorization_rules_of_user', 'inbox_message', 'inbox_message_list', 'is_create_app_version_allowed', 'is_email_exists', 'is_email_verified', 'is_permission_changed_of_latest_app_version', 'is_phone_number_exists', 'is_phone_number_verified', 'login_configuration', 'managed_organizations_of_user', 'me', 'menu_visit_history_list', 'message_channels_of_tenant', 'message_template_list_of_tenant', 'meta_channels', 'meta_template', 'meta_template_event_exists', 'meta_template_list', 'my_app_list', 'my_backlog_groups', 'my_stared_page', 'my_tenant', 'my_tenant_app_list', 'my_tenant_development_app_list', 'organization', 'organization_by_code', 'organization_by_id_and_level', 'organization_code_exists', 'organization_list', 'organization_name_exists_in_siblings', 'organization_tree_nodes', 'page_list', 'permissions', 'permissions_of_tenant', 'provinces', 'recent_app', 'role', 'role_list', 'role_name_exists', 'root_organization', 'staff_list', 'stared_apps', 'system_log_action', 'system_log_list', 'table_column_setting', 'table_fields_config', 'table_fixed_fields_config', 'tenant', 'tenant_app_list', 'tenant_code_exists', 'tenant_industry_tree_nodes', 'tenant_list', 'tenant_name_exists', 'tenant_uscc_exists', 'ucc_form_structure', 'ucc_form_structure_json_schema', 'ucc_stack_data', 'unread_message_apps', 'upload_config', 'upload_configs', 'user', 'user_account_exists', 'user_list', 'workbench', 'workbench_card_data', 'workbench_card_option')
     log_list = sgqlc.types.Field(sgqlc.types.non_null('LogList'), graphql_name='LogList', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(LogListFilterInput, graphql_name='filter', default=None)),
         ('limit', sgqlc.types.Arg(Int, graphql_name='limit', default=None)),
@@ -2085,6 +2367,11 @@ class Query(sgqlc.types.Type):
         ('role_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='roleId', default=None)),
 ))
     )
+    all_authorizations_of_user = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Authorization))), graphql_name='allAuthorizationsOfUser', args=sgqlc.types.ArgDict((
+        ('filter', sgqlc.types.Arg(PermissionFilterInput, graphql_name='filter', default=None)),
+        ('user_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='userId', default=None)),
+))
+    )
     all_permissions_of_user = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Permission))), graphql_name='allPermissionsOfUser', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(PermissionFilterInput, graphql_name='filter', default=None)),
         ('user_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='userId', default=None)),
@@ -2100,6 +2387,11 @@ class Query(sgqlc.types.Type):
         ('limit', sgqlc.types.Arg(Int, graphql_name='limit', default=None)),
         ('offset', sgqlc.types.Arg(Int, graphql_name='offset', default=None)),
         ('order_by', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='orderBy', default=None)),
+))
+    )
+    app_version_exists = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='appVersionExists', args=sgqlc.types.ArgDict((
+        ('app_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='AppId', default=None)),
+        ('app_version', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='appVersion', default=None)),
 ))
     )
     app_version_list = sgqlc.types.Field(sgqlc.types.non_null(AppVersionList), graphql_name='appVersionList', args=sgqlc.types.ArgDict((
@@ -2139,8 +2431,13 @@ class Query(sgqlc.types.Type):
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='id', default=None)),
 ))
     )
-    authorization_rule_dependent_by = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(AuthorizationRule))), graphql_name='authorizationRuleDependentBy', args=sgqlc.types.ArgDict((
-        ('rule_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='ruleId', default=None)),
+    authorization_rule_and_dependencies_of_user = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(AuthorizationRule)), graphql_name='authorizationRuleAndDependenciesOfUser', args=sgqlc.types.ArgDict((
+        ('filter', sgqlc.types.Arg(sgqlc.types.non_null(AuthorizationRuleAndDependenciesOfUserFilterInput), graphql_name='filter', default=None)),
+))
+    )
+    authorization_rule_dependent_by = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(AuthorizationRuleDependentBy))), graphql_name='authorizationRuleDependentBy', args=sgqlc.types.ArgDict((
+        ('rule_ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ruleIds', default=None)),
+        ('user_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='userId', default=None)),
 ))
     )
     bi_issue_issue = sgqlc.types.Field(sgqlc.types.list_of(BIResult), graphql_name='biIssueIssue', args=sgqlc.types.ArgDict((
@@ -2194,6 +2491,10 @@ class Query(sgqlc.types.Type):
         ('filter', sgqlc.types.Arg(DepartmentTreeFilter, graphql_name='filter', default=None)),
 ))
     )
+    dependency_of_permissions = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Permission)), graphql_name='dependencyOfPermissions', args=sgqlc.types.ArgDict((
+        ('ids', sgqlc.types.Arg(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='ids', default=None)),
+))
+    )
     direct_authorization_rules_of_user = sgqlc.types.Field(sgqlc.types.non_null(AuthorizationRuleList), graphql_name='directAuthorizationRulesOfUser', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(AuthorizationRuleFilterInput, graphql_name='filter', default=None)),
         ('limit', sgqlc.types.Arg(Int, graphql_name='limit', default=None)),
@@ -2229,8 +2530,17 @@ class Query(sgqlc.types.Type):
         ('app_id', sgqlc.types.Arg(String, graphql_name='appId', default=None)),
 ))
     )
+    is_phone_number_exists = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isPhoneNumberExists', args=sgqlc.types.ArgDict((
+        ('phone_number', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='phoneNumber', default=None)),
+))
+    )
+    is_phone_number_verified = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isPhoneNumberVerified', args=sgqlc.types.ArgDict((
+        ('phone_number', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='phoneNumber', default=None)),
+))
+    )
     login_configuration = sgqlc.types.Field(sgqlc.types.non_null(LoginConfiguration), graphql_name='loginConfiguration', args=sgqlc.types.ArgDict((
-        ('tenant_code', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='tenantCode', default=None)),
+        ('tenant_code', sgqlc.types.Arg(String, graphql_name='tenantCode', default=None)),
+        ('tenant_id', sgqlc.types.Arg(String, graphql_name='tenantId', default=None)),
 ))
     )
     managed_organizations_of_user = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Organization)), graphql_name='managedOrganizationsOfUser', args=sgqlc.types.ArgDict((
@@ -2276,6 +2586,15 @@ class Query(sgqlc.types.Type):
     my_app_list = sgqlc.types.Field(sgqlc.types.non_null(AppList), graphql_name='myAppList', args=sgqlc.types.ArgDict((
         ('limit', sgqlc.types.Arg(Int, graphql_name='limit', default=None)),
         ('offset', sgqlc.types.Arg(Int, graphql_name='offset', default=None)),
+))
+    )
+    my_backlog_groups = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(MyBacklogGroup))), graphql_name='myBacklogGroups', args=sgqlc.types.ArgDict((
+        ('filter', sgqlc.types.Arg(MyBacklogGroupFilterInput, graphql_name='filter', default=None)),
+))
+    )
+    my_stared_page = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Page))), graphql_name='myStaredPage', args=sgqlc.types.ArgDict((
+        ('filter', sgqlc.types.Arg(PageListFilterInput, graphql_name='filter', default=None)),
+        ('order_by', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='orderBy', default=None)),
 ))
     )
     my_tenant = sgqlc.types.Field(sgqlc.types.non_null('Tenant'), graphql_name='myTenant')
@@ -2326,6 +2645,13 @@ class Query(sgqlc.types.Type):
         ('filter', sgqlc.types.Arg(OrganizationTreeNodeFilterInput, graphql_name='filter', default=None)),
 ))
     )
+    page_list = sgqlc.types.Field(sgqlc.types.non_null(PageList), graphql_name='pageList', args=sgqlc.types.ArgDict((
+        ('filter', sgqlc.types.Arg(PageListFilterInput, graphql_name='filter', default=None)),
+        ('limit', sgqlc.types.Arg(Int, graphql_name='limit', default=None)),
+        ('offset', sgqlc.types.Arg(Int, graphql_name='offset', default=None)),
+        ('order_by', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='orderBy', default=None)),
+))
+    )
     permissions = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Permission)), graphql_name='permissions', args=sgqlc.types.ArgDict((
         ('filter', sgqlc.types.Arg(PermissionFilterInput, graphql_name='filter', default=None)),
         ('order_by', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='orderBy', default=None)),
@@ -2357,6 +2683,13 @@ class Query(sgqlc.types.Type):
 ))
     )
     root_organization = sgqlc.types.Field(sgqlc.types.non_null(Organization), graphql_name='rootOrganization')
+    staff_list = sgqlc.types.Field(sgqlc.types.non_null('StaffList'), graphql_name='staffList', args=sgqlc.types.ArgDict((
+        ('filter', sgqlc.types.Arg(StaffListFilterInput, graphql_name='filter', default=None)),
+        ('limit', sgqlc.types.Arg(Int, graphql_name='limit', default=None)),
+        ('offset', sgqlc.types.Arg(Int, graphql_name='offset', default=None)),
+        ('order_by', sgqlc.types.Arg(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='orderBy', default=None)),
+))
+    )
     stared_apps = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(App))), graphql_name='staredApps')
     system_log_action = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))), graphql_name='systemLogAction', args=sgqlc.types.ArgDict((
         ('company_id', sgqlc.types.Arg(ID, graphql_name='companyId', default=None)),
@@ -2495,6 +2828,31 @@ class RoleList(sgqlc.types.Type):
     __schema__ = platform_schema
     __field_names__ = ('data', 'total_count')
     data = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Role))), graphql_name='data')
+    total_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='totalCount')
+
+
+class Staff(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('avatar', 'created_at', 'email', 'id', 'job_status', 'job_type', 'name', 'organizations', 'phone_number', 'remark', 'tenant', 'updated_at', 'user')
+    avatar = sgqlc.types.Field(Image, graphql_name='avatar')
+    created_at = sgqlc.types.Field(sgqlc.types.non_null(Timestamp), graphql_name='createdAt')
+    email = sgqlc.types.Field(String, graphql_name='email')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    job_status = sgqlc.types.Field(sgqlc.types.non_null(StaffJobStatus), graphql_name='jobStatus')
+    job_type = sgqlc.types.Field(sgqlc.types.non_null(StaffJobType), graphql_name='jobType')
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
+    organizations = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Organization))), graphql_name='organizations')
+    phone_number = sgqlc.types.Field(String, graphql_name='phoneNumber')
+    remark = sgqlc.types.Field(String, graphql_name='remark')
+    tenant = sgqlc.types.Field(sgqlc.types.non_null('Tenant'), graphql_name='tenant')
+    updated_at = sgqlc.types.Field(sgqlc.types.non_null(Timestamp), graphql_name='updatedAt')
+    user = sgqlc.types.Field('User', graphql_name='user')
+
+
+class StaffList(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('data', 'total_count')
+    data = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Staff))), graphql_name='data')
     total_count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='totalCount')
 
 
@@ -2755,7 +3113,7 @@ class UploadConfig(sgqlc.types.Type):
 
 class User(sgqlc.types.Type):
     __schema__ = platform_schema
-    __field_names__ = ('account', 'all_authorizations', 'avatar', 'created_at', 'email', 'email_is_verified', 'id', 'is_account_enabled', 'is_admin', 'is_user_enabled', 'name', 'organizations', 'phone_number', 'remark', 'roles', 'tenant', 'updated_at')
+    __field_names__ = ('account', 'all_authorizations', 'avatar', 'created_at', 'email', 'email_is_verified', 'id', 'is_account_enabled', 'is_admin', 'is_phone_number_verified', 'is_user_enabled', 'name', 'organizations', 'phone_number', 'remark', 'roles', 'tenant', 'updated_at')
     account = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='account')
     all_authorizations = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Authorization))), graphql_name='allAuthorizations')
     avatar = sgqlc.types.Field(Image, graphql_name='avatar')
@@ -2765,6 +3123,7 @@ class User(sgqlc.types.Type):
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
     is_account_enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isAccountEnabled')
     is_admin = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isAdmin')
+    is_phone_number_verified = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isPhoneNumberVerified')
     is_user_enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name='isUserEnabled')
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     organizations = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Organization))), graphql_name='organizations')
@@ -2773,6 +3132,14 @@ class User(sgqlc.types.Type):
     roles = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Role))), graphql_name='roles')
     tenant = sgqlc.types.Field(sgqlc.types.non_null(Tenant), graphql_name='tenant')
     updated_at = sgqlc.types.Field(sgqlc.types.non_null(Timestamp), graphql_name='updatedAt')
+
+
+class UserBacklog(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('backlog_id', 'id', 'user_id')
+    backlog_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='backlogId')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    user_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userId')
 
 
 class UserList(sgqlc.types.Type):
@@ -2787,6 +3154,15 @@ class UserStaredApp(sgqlc.types.Type):
     __field_names__ = ('app_id', 'id', 'user_id')
     app_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='appId')
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    user_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userId')
+
+
+class UserStaredPage(sgqlc.types.Type):
+    __schema__ = platform_schema
+    __field_names__ = ('id', 'page_id', 'rank', 'user_id')
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='id')
+    page_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='pageId')
+    rank = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='rank')
     user_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='userId')
 
 
@@ -2903,7 +3279,8 @@ class OpenIDConnect1LoginConfiguration(sgqlc.types.Type, LoginConfiguration):
 
 class SystemLoginConfiguration(sgqlc.types.Type, LoginConfiguration):
     __schema__ = platform_schema
-    __field_names__ = ()
+    __field_names__ = ('tenant_code',)
+    tenant_code = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='tenantCode')
 
 
 
