@@ -5,6 +5,15 @@ from schema.platform_schema import Mutation
 
 
 class GetTokenHeader(BaseApi):
+    def __init__(self, **kwargs):
+        super().__init__()
+        if kwargs:
+            self.headers = self.get_headers(account=kwargs["account"],
+                                            password=kwargs["password"],
+                                            tenant_code=kwargs["tenant_code"])
+        else:
+            self.headers = self.get_headers()
+
     def get_token(self, account=BaseApi.account, password=BaseApi.password, tenant_code=BaseApi.tenant_code):
         headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
         endpoint = HTTPEndpoint(url=self.url, base_headers=headers, timeout=3)

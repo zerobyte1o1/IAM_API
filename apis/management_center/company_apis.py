@@ -5,12 +5,6 @@ from schema.platform_schema import *
 
 
 class Company(GetTokenHeader):
-    def __init__(self, **kwargs):
-        super().__init__()
-        if kwargs:
-            self.headers = self.get_headers(account=kwargs["account"], password=kwargs["password"], tenant_code=kwargs["tenant_code"])
-        else:
-            self.headers=self.get_headers()
 
     def get_admin_user_list(self):
         """

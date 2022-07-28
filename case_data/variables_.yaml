@@ -6,7 +6,6 @@ user:
     organizations:
       - id: 'e921b11a-2410-45fd-9b26-965595854185'
 
-
   update_user:
     id: aa
     isAccountEnabled: true
@@ -34,6 +33,33 @@ user:
     includeDisabledUsers: false
     organizations:
       - id:
+staff:
+  staff_list:
+    includeChildrenOrganizations: true
+    organizations:
+    search:
+    searchBy:
+      - name
+      - account
+      - phoneNumber
+      - email
+  create_staff:
+    email:
+    jobStatus: TO_BE_HIRED
+    jobType: FORMAL
+    name:
+    organizations:
+    phoneNumber:
+    remark:
+  update_staff:
+    email:
+    jobStatus: TO_BE_HIRED
+    jobType: FORMAL
+    name:
+    organizations:
+    phoneNumber:
+    remark:
+    id:
 
 organization:
   create_organization:
