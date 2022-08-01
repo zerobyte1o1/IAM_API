@@ -36,7 +36,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def update_staff_apis(self,input_data):
+    def update_staff_apis(self, input_data):
         """
         更新人员信息
         @param input_data:
@@ -53,7 +53,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def delete_staff_apis(self,staff_ids):
+    def delete_staff_apis(self, staff_ids):
         """
         删除人员
         @param staff_ids:
@@ -70,7 +70,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def hire_staff_apis(self,staff_ids):
+    def hire_staff_apis(self, staff_ids):
         """
         办理入职
         @param staff_ids:
@@ -87,7 +87,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def resign_staff_apis(self,staff_ids):
+    def resign_staff_apis(self, staff_ids):
         """
         办理离职
         @param staff_ids:
@@ -104,7 +104,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def rehire_staff_apis(self,staff_ids):
+    def rehire_staff_apis(self, staff_ids):
         """
         办理重新入职
         @param staff_ids:
@@ -121,7 +121,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def archive_staff_apis(self,staff_ids):
+    def archive_staff_apis(self, staff_ids):
         """
         归档人员
         @param staff_ids:
@@ -138,7 +138,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def restore_staff_apis(self,staff_ids):
+    def restore_staff_apis(self, staff_ids):
         """
         恢复人员
         @param staff_ids:
@@ -150,6 +150,23 @@ class Staff(GetTokenHeader):
         data = endpoint(op)
         try:
             res = (op + data).restore_staff
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
+    def create_staff_account_apis(self, input_data):
+        """
+        创建人员账号
+        @param input_data:
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.update_staff(input=input_data)
+        data = endpoint(op)
+        try:
+            res = (op + data).update_staff
             return res
         except:
             res = data.get("errors")[0].get("message")

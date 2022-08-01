@@ -29,10 +29,13 @@ user:
 
 
   user_list:
-    includeChildrenOrganizations: false
-    includeDisabledUsers: false
-    organizations:
-      - id:
+    searchBy:
+      - account
+      - name
+      - phoneNumber
+      - email
+
+
 staff:
   staff_list:
     includeChildrenOrganizations: true
@@ -60,6 +63,12 @@ staff:
     phoneNumber:
     remark:
     id:
+  create_staff_account:
+    account:
+    id:
+    isAccountEnabled: True
+    password: teletraan
+    roles:
 
 organization:
   create_organization:

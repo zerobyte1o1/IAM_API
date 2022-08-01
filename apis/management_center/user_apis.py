@@ -31,21 +31,7 @@ class User(GetTokenHeader):
         res = (op + data).user
         return res
 
-    def create_user(self, variables):
-        """
-        create a user
-        @param variables:dict
-        """
-        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
-        op = Operation(Mutation)
-        op.create_user(input=variables)
-        data = endpoint(op)
-        try:
-            res = (op + data).create_user
-            return res
-        except:
-            res = data.get("errors")[0].get("message")
-            return res
+
 
     def get_user_list(self, variables):
         """
@@ -58,35 +44,35 @@ class User(GetTokenHeader):
         res = (op + data).user_list
         return res
 
-    def enable_users(self, ids: list):
+    def enable_accounts_apis(self, ids: list):
         """
-        启用用户
+        启用账号
         @param ids:list
         @return: True or False
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.enable_users(ids=ids)
+        op.enable_accounts(ids=ids)
         data = endpoint(op)
         try:
-            res = (op + data).enable_users
+            res = (op + data).enable_accounts
             return res
         except:
             res = data.get("errors")[0].get("message")
             return res
 
-    def disable_users(self, ids: list):
+    def disable_accounts_apis(self, ids: list):
         """
-        禁用用户
+        禁用账号
         @param ids : list
         @return: True or False
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.disable_users(ids=ids)
+        op.disable_accounts(ids=ids)
         data = endpoint(op)
         try:
-            res = (op + data).disable_users
+            res = (op + data).disable_accounts
             return res
         except:
             res = data.get("errors")[0].get("message")

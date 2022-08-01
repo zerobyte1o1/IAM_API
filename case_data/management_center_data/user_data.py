@@ -13,31 +13,19 @@ class UserData(BaseApi):
     org_id = org.get_organization_tree_nodes()[0]["id"]
     role_id = role.get_role_list().data[0].id
 
-    def user_list_filter(self, org_ids, include_children_organizations=None, include_disabled_users=None):
+    def user_list_filter(self, search=None,roles=None):
         """
-        @param include_disabled_users: [booleam]是否需要包括禁用用户
-        @param include_children_organizations: [booleam]是否需要包括子组织的user
-        @param org_ids: 组织id
+
+        @param search: 关键字查询，默认无
+        @param roles: 角色筛选,默认无
+        @return:
         """
         variables_temp = self.get_variables(module_name="user", variables_name="user_list")
-        args = [("organizations", org_ids)]
-        if include_children_organizations is not None:
-            args.append(("includeChildrenOrganizations", include_children_organizations))
-        if include_disabled_users is not None:
-            args.append(("includeDisabledUsers", include_disabled_users))
-
-        variables = self.modify_variables(target_json=variables_temp, args=args)
-        return variables
-
-    def create_user(self):
-        user_account = self.mock.mock_data("account")
-        user_name = self.mock.mock_data("name")
-        variables_temp = self.get_variables(module_name="user", variables_name="create_user")
-
-        args = [("account", user_account),
-                ("name", user_name),
-                ("organizations", [{"id": self.org_id}])
-                ]
+        args = list()
+        if search is not None:
+            args.append(("search",search))
+        if roles is not None:
+            args.append(("roles",roles))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -143,7 +131,7 @@ if __name__ == '__main__':
     # s = UserData()
     # print(s.create_user())
     a = UserData()
-
+    b =User()
     # data = UserData().get_direct_authorization_rules_id_of_user("3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38")
     # print(data)
     # res = a.set_authorization_rules_to_user_api(data)
@@ -151,5 +139,6 @@ if __name__ == '__main__':
     # data = UserData().update_authorization_rules_of_user("0c84960e-d04c-4c2d-9bc3-62eb860633ba")
     # print(data)
     # res = a.update_authorization_rules_of_user_api(data)
-    res=a.create_user()
+    data = a.user_list_filter()
+    res=b.get_user_list(data)
     print(res)
