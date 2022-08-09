@@ -13,8 +13,7 @@ class Tenant(GetTokenHeader):
         @param tenant_name: 企业名称
         @return: 返回企业列表
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.tenant_list(filter={'search': tenant_name})
         data = endpoint(op)
@@ -22,8 +21,7 @@ class Tenant(GetTokenHeader):
         return res
 
     def get_tenant_industry_tree_nodes(self):
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.tenant_industry_tree_nodes()
         data = endpoint(op)
@@ -36,8 +34,7 @@ class Tenant(GetTokenHeader):
         @param variables: 创建企业的请求数据
         @return: 返回企业id
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_tenant(input=variables)
         data = endpoint(op)
@@ -54,8 +51,7 @@ class Tenant(GetTokenHeader):
         @param tenant_id: 企业id
         @return: 返回企业信息
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.tenant(id=tenant_id)
         data = endpoint(op)
@@ -69,8 +65,7 @@ class Tenant(GetTokenHeader):
         @param args: 筛选数据剩余内容【"id"】
         @return: 返回企业已添加的app
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         tenant_app_list = op.tenant_app_list(filter={"tenant": {"id": tenant_id}})
         if args:
@@ -85,8 +80,7 @@ class Tenant(GetTokenHeader):
         @param args: 筛选返回内容 【"id"】
         @return: 返回所有app
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         my_tenant_app_list = op.my_tenant_app_list()
         if args:
@@ -101,8 +95,7 @@ class Tenant(GetTokenHeader):
         @param variables:企业添加app的请求数据
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.assign_tenant_apps(input=variables)
         data = endpoint(op)
@@ -119,8 +112,7 @@ class Tenant(GetTokenHeader):
         @param variables: 企业删除app的请求数据
         @return: True or False
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.un_assign_tenant_apps(input=variables)
         data = endpoint(op)
@@ -137,9 +129,9 @@ class Tenant(GetTokenHeader):
         @param variables: 创建owner请求数据
         @return: password and userId
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
+
         op.create_tenant_owner(input=variables)
         data = endpoint(op)
         try:
@@ -155,8 +147,7 @@ class Tenant(GetTokenHeader):
         @param kwargs:tenant_id and user_id
         @return: 12位密码
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.reset_tenant_owner_password(
             tenant_id=kwargs["tenantId"],
@@ -176,8 +167,7 @@ class Tenant(GetTokenHeader):
         @param variables: 企业更新请求内容
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_tenant(input=variables)
         data = endpoint(op)
@@ -194,8 +184,7 @@ class Tenant(GetTokenHeader):
         @param tenant_id: 企业id
         @return: True or False
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.disable_tenant(id=tenant_id)
         data = endpoint(op)
@@ -208,8 +197,7 @@ class Tenant(GetTokenHeader):
         @param tenant_id: 企业id
         @return: True or False
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.enable_tenant(id=tenant_id)
         data = endpoint(op)
@@ -222,28 +210,14 @@ class Tenant(GetTokenHeader):
         @param tenant_id: 企业id
         @return: True or False
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_tenant(id=tenant_id)
         data = endpoint(op)
         res = (op + data).delete_tenant
         return res
 
-    def assignable_permissions_of_tenant_api(self, tenant_id):
-        """
-        查询出所有企业可以被添加的权限
-        @param tenant_id: 企业id
-        @return:
-        """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
-        op = Operation(Query)
-        assignable_permissions_of_tenant = op.assignable_permissions_of_tenant(filter={"types": ["MENU"]},
-                                                                               tenant_id=tenant_id)
-        assignable_permissions_of_tenant.__fields__("id")
-        data = endpoint(op)
-        return data["data"]["assignablePermissionsOfTenant"]
+
 
     def permissions_of_tenant_api(self, tenant_id):
         """
@@ -251,8 +225,7 @@ class Tenant(GetTokenHeader):
         @param tenant_id: 企业id
         @return:
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         permissions_of_tenant = op.permissions_of_tenant(filter={"types": ["MENU"]},
                                                          tenant_id=tenant_id)
@@ -266,8 +239,7 @@ class Tenant(GetTokenHeader):
         @param variables:已配置好的未添加的单一权限
         @return: Ture or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.set_permissions_to_tenant(input=variables)
         data = endpoint(op)
@@ -284,8 +256,7 @@ class Tenant(GetTokenHeader):
         @param tenant_id:企业id
         @return:返回一个模板id
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.assignable_meta_template_list_of_tenant(tenant_id=tenant_id)
         data = endpoint(op)
@@ -298,8 +269,7 @@ class Tenant(GetTokenHeader):
         @param variables:
         @return: True or False
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.add_meta_templates_to_tenant(ids=variables["ids"],
                                         tenant_id=variables["tenantId"])
@@ -317,8 +287,7 @@ class Tenant(GetTokenHeader):
         @param tenant_id:企业id
         @return:
         """
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.message_template_list_of_tenant(tenant_id=tenant_id)
         data = endpoint(op)
@@ -326,8 +295,7 @@ class Tenant(GetTokenHeader):
         return res
 
     def delete_message_templates_of_tenant_api(self, variables):
-        headers = GetTokenHeader.get_headers(self)
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_message_templates_of_tenant(ids=variables["ids"],
                                               tenant_id=variables["tenantId"])
@@ -335,8 +303,34 @@ class Tenant(GetTokenHeader):
         res = (op + data).delete_message_templates_of_tenant
         return res
 
+    def accept_tenant_certification_api(self, tenant_id):
+        """
+        通过认证
+        @param tenant_id: 企业id
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.accept_tenant_certification(id=tenant_id)
+        data = endpoint(op)
+        res = (op + data).accept_tenant_certification
+        return res
+
+    def reject_tenant_certification_api(self, tenant_id):
+        """
+        认证失败
+        @param tenant_id: 企业id
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.reject_tenant_certification(id=tenant_id,reason="不给予通过")
+        data = endpoint(op)
+        res = (op + data).reject_tenant_certification
+        return res
 
 if __name__ == '__main__':
     a = Tenant()
-    res = a.get_message_template_list_of_tenant("5990efbf-845b-4d4a-b156-5f0b8b72133b")
+
+    res = a.create_tenant_owner_api("3d296cf6-2c7b-47ad-b349-3e7abc607b5b").owner
     print(res)

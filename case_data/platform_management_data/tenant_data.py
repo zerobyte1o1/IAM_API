@@ -13,7 +13,6 @@ class TenantData(BaseApi):
         @return: dict
         """
         industry_id=self.tenant.get_tenant_industry_tree_nodes()[0].id
-        print(industry_id)
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant")
         args = [("address", self.faker.address()),
                 ("code", self.faker.ean8()),
@@ -77,6 +76,7 @@ class TenantData(BaseApi):
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant_owner")
         args = [("account", self.mock.mock_data("owner")),
                 ("email", self.faker.email()),
+                ("name",self.mock.mock_data("name")),
                 ("phoneNumber", self.faker.phone_number()),
                 ("tenant", {"id": tenant_id})]
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -112,5 +112,6 @@ class TenantData(BaseApi):
 if __name__ == '__main__':
     td = TenantData()
     ta = Tenant()
-    data = td.create_tenant_ask()
-    print(data)
+    data = td.create_tenant_owner_ask("866db136-1995-45e3-8a20-8cc412b9d718")
+    res=ta.create_tenant_owner_api(data)
+    print(res)

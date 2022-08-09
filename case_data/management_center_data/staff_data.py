@@ -62,5 +62,5 @@ if __name__ == '__main__':
     sd = StaffData()
     s = Staff()
     data=sd.staff_list_data()
-    res = s.get_staff_list(data).data
-    print('9bdff1ff-9bc9-4505-9752-c79bcaaa264f' in str(res))
+    res = s.get_staff_list(data)
+    print(res)

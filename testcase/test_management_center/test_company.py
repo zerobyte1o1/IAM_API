@@ -1,10 +1,9 @@
 from hamcrest import *
 import allure
 from apis.management_center.company_apis import Company
-from apis.management_center.user_apis import User
 from apis.platform_management.tenant_apis import Tenant
-from case_data.management_center_data.user_data import UserData
-
+from apis.management_center.staff_apis import Staff
+from case_data.management_center_data.staff_data import StaffData
 from case_data.platform_management_data.tenant_data import TenantData
 
 
@@ -13,39 +12,44 @@ class TestCompany:
         # 创建并更换普通企业账号，并创建企业人员。
         self.tenant = Tenant()
         self.t_data = TenantData()
-        self.u_data = UserData()
+        self.s_data = StaffData()
         tenant_create_data = self.t_data.create_tenant_ask()
         self.tenant_id = self.tenant.create_tenant_api(tenant_create_data)
         # 添加企业app
         tenant_app_data = self.t_data.assign_tenant_apps_ask(self.tenant_id)
         self.tenant.assign_tenant_apps_api(tenant_app_data)
-        # 添加企业app权限
-        tenant_permission_data = self.t_data.set_permissions_to_tenant_ask(self.tenant_id)
-        self.tenant.set_permissions_to_tenant_api(tenant_permission_data)
+        # 添加企业功能包
+
         # 创建企业拥有者
         tenant_create_owner_data = self.t_data.create_tenant_owner_ask(self.tenant_id)
         owner = self.tenant.create_tenant_owner_api(tenant_create_owner_data)
         account = self.tenant.get_tenant(self.tenant_id).owner.account
         self.company = Company(account=account, password=owner.password, tenant_code=tenant_create_data["code"])
-        self.user = User(account=account, password=owner.password, tenant_code=tenant_create_data["code"])
+        self.staff = Staff(account=account, password=owner.password, tenant_code=tenant_create_data["code"])
+        # 认证租户
+        self.company.apply_for_tenant_certification_api("159")
+        self.tenant.accept_tenant_certification_api(self.tenant_id)
         # 创建企业用户
-        user_create_data = self.u_data.create_user()
-        self.n_user=self.user.create_user(user_create_data).user_id
+        staff_create_data = self.s_data.create_staff_data()
+        staff_id = self.staff.create_staff_apis(staff_create_data)
+        staff_create_account_data = self.s_data.create_staff_account_data(staff_id)
+        self.n_user = self.staff.create_staff_account_apis(staff_create_account_data)
 
-    def teardown_class(self):
-        tenant = Tenant()
-        tenant.disable_tenant_api(self.tenant_id)
-        tenant.delete_tenant_api(self.tenant_id)
+    # def teardown_class(self):
+    #     tenant = Tenant()
+    #     tenant.disable_tenant_api(self.tenant_id)
+    #     tenant.delete_tenant_api(self.tenant_id)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/95", name="管理员列表")
-    def test_admin_user_list(self):
-        res=self.company.get_admin_user_list()
+    def test_admin_account_list(self):
+        res = self.company.get_admin_account_list()
+        print(res)
         assert_that(res.total_count > 0)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/65", name="添加管理员")
     def test_set_admin_users(self):
-        res=self.company.set_admin_users_api([self.n_user])
-        assert_that(res,equal_to(True))
+        res = self.company.set_admin_users_api([self.n_user])
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/66", name="删除管理员")
     def test_unset_admin_users(self):
@@ -54,5 +58,5 @@ class TestCompany:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/64", name="转移拥有者")
     def test_transfer_tenant_owner(self):
-        res=self.company.transfer_tenant_owner_api(self.n_user)
-        assert_that(res,equal_to(True))
+        res = self.company.transfer_tenant_owner_api(self.n_user)
+        assert_that(res, equal_to(True))

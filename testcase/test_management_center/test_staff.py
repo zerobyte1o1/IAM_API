@@ -35,41 +35,41 @@ class TestStaff:
         assert_that("-" in res)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/98", name="编辑人员")
-    def test_update_staff(self,pre_staff):
-        data=self.staff_data.update_staff_data(pre_staff)
-        res=self.staff.update_staff_apis(data)
-        assert_that(res,equal_to(True))
+    def test_update_staff(self, pre_staff):
+        data = self.staff_data.update_staff_data(pre_staff)
+        res = self.staff.update_staff_apis(data)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/100", name="办理入职")
-    def test_hire_staff(self,pre_staff):
-        res=self.staff.hire_staff_apis(pre_staff)
-        assert_that(res,equal_to(True))
+    def test_hire_staff(self, pre_staff):
+        res = self.staff.hire_staff_apis(pre_staff)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/101", name="办理离职")
-    def test_resign_staff(self,pre_staff):
-        res=self.staff.resign_staff_apis(pre_staff)
-        assert_that(res,equal_to(True))
+    def test_resign_staff(self, pre_staff):
+        res = self.staff.resign_staff_apis(pre_staff)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/103", name="归档人员")
-    def test_archive_staff(self,pre_staff):
-        res=self.staff.archive_staff_apis(pre_staff)
-        assert_that(res,equal_to(True))
+    def test_archive_staff(self, pre_staff):
+        res = self.staff.archive_staff_apis(pre_staff)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/104", name="恢复人员")
-    def test_restore_staff(self,pre_staff):
-        res=self.staff.restore_staff_apis(pre_staff)
-        assert_that(res,equal_to(True))
+    def test_restore_staff(self, pre_staff):
+        res = self.staff.restore_staff_apis(pre_staff)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/102", name="重新入职")
-    def test_rehire_staff(self,pre_staff):
-        res=self.staff.rehire_staff_apis(pre_staff)
-        assert_that(res,equal_to(True))
+    def test_rehire_staff(self, pre_staff):
+        res = self.staff.rehire_staff_apis(pre_staff)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/105", name="创建账号")
-    def test_create_staff_account(self,pre_staff):
-        data=self.staff_data.create_staff_account_data(pre_staff)
-        res=self.staff.create_staff_account_apis(data)
-        assert_that(res,equal_to(True))
+    def test_create_staff_account(self, pre_staff):
+        data = self.staff_data.create_staff_account_data(pre_staff)
+        res = self.staff.create_staff_account_apis(data)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/99", name="删除人员")
     def test_delete_staff(self, pre_staff):

@@ -49,17 +49,17 @@ def pre_condition_for_the_satiation():
 
 @pytest.fixture(scope="session", autouse=True)
 def pre_message():
-    template_data = mt_data.create_meta_template_ask()
-    meta_template_id = meta_template.create_meta_template_api(template_data)
-    add_meta_template_data = t_data.add_meta_templates_to_tenant_ask(user.get_me().tenant.id)
-    tenant.add_meta_templates_to_tenant_api(add_meta_template_data)
-    yield meta_template_id
-    try:
-        meta_template.update_status_of_template_api(meta_template_id, "DISABLED")
-        meta_template.delete_meta_template_api(meta_template_id)
-    except Exception as e:
-        pass
-
+    # template_data = mt_data.create_meta_template_ask()
+    # meta_template_id = meta_template.create_meta_template_api(template_data)
+    # add_meta_template_data = t_data.add_meta_templates_to_tenant_ask(user.get_me().tenant.id)
+    # tenant.add_meta_templates_to_tenant_api(add_meta_template_data)
+    # yield meta_template_id
+    # try:
+    #     meta_template.update_status_of_template_api(meta_template_id, "DISABLED")
+    #     meta_template.delete_meta_template_api(meta_template_id)
+    # except Exception as e:
+    #     pass
+    pass
 
 if __name__ == '__main__':
     pre_message()
