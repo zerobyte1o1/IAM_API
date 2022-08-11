@@ -399,6 +399,58 @@
           "inputFields": [
             {
               "defaultValue": null,
+              "name": "accountIds",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "roleIds",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "AddAccountRolesInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
               "name": "backlog",
               "type": {
                 "kind": "NON_NULL",
@@ -1607,6 +1659,15 @@
                   "name": "IDInput",
                   "ofType": null
                 }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "tenantId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             }
           ],
@@ -8074,19 +8135,15 @@
               "defaultValue": null,
               "name": "applicableIndustries",
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
+                  "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "StringIDInput",
-                      "ofType": null
-                    }
+                    "kind": "INPUT_OBJECT",
+                    "name": "StringIDInput",
+                    "ofType": null
                   }
                 }
               }
@@ -20646,6 +20703,9 @@
               "name": "PHONE_VERIFY_CODE"
             },
             {
+              "name": "SSO"
+            },
+            {
               "name": "WECHAT"
             }
           ],
@@ -22201,6 +22261,33 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
+                      "name": "AddAccountRolesInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "addAccountRoles",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
                       "name": "AddFeaturePackToTenant",
                       "ofType": null
                     }
@@ -22374,6 +22461,33 @@
               "args": [
                 {
                   "defaultValue": null,
+                  "name": "accountId",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "adminUnbindWecomUser",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
                   "name": "input",
                   "type": {
                     "kind": "NON_NULL",
@@ -22495,41 +22609,6 @@
                 }
               ],
               "name": "approveThingRepair",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [
-                {
-                  "defaultValue": null,
-                  "name": "ids",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "LIST",
-                      "name": null,
-                      "ofType": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                          "kind": "SCALAR",
-                          "name": "String",
-                          "ofType": null
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
-              "name": "archiveStaff",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -26904,41 +26983,6 @@
               "args": [
                 {
                   "defaultValue": null,
-                  "name": "ids",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "LIST",
-                      "name": null,
-                      "ofType": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                          "kind": "SCALAR",
-                          "name": "String",
-                          "ofType": null
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
-              "name": "hireStaff",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [
-                {
-                  "defaultValue": null,
                   "name": "company",
                   "type": {
                     "kind": "INPUT_OBJECT",
@@ -28444,41 +28488,6 @@
               "args": [
                 {
                   "defaultValue": null,
-                  "name": "ids",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "LIST",
-                      "name": null,
-                      "ofType": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                          "kind": "SCALAR",
-                          "name": "String",
-                          "ofType": null
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
-              "name": "restoreStaff",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [
-                {
-                  "defaultValue": null,
                   "name": "input",
                   "type": {
                     "kind": "NON_NULL",
@@ -29210,6 +29219,33 @@
                 }
               ],
               "name": "setLoginModesToTenant",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "SetOrganizationUsersInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "setOrganizationStaffs",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -30208,6 +30244,33 @@
               "args": [
                 {
                   "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "TransferOrganizationInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "transferOrganization",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
                   "name": "targetUserId",
                   "type": {
                     "kind": "NON_NULL",
@@ -30580,17 +30643,7 @@
               }
             },
             {
-              "args": [
-                {
-                  "defaultValue": null,
-                  "name": "accountId",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
-              ],
+              "args": [],
               "name": "unbindWecomUser",
               "type": {
                 "kind": "NON_NULL",
@@ -32351,6 +32404,33 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "LoginInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "wecomAppLogin",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AuthInfo",
                   "ofType": null
                 }
               }
@@ -34792,6 +34872,15 @@
             },
             {
               "defaultValue": null,
+              "name": "search",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
               "name": "types",
               "type": {
                 "kind": "LIST",
@@ -35430,41 +35519,6 @@
                     "ofType": {
                       "kind": "ENUM",
                       "name": "LoginMode",
-                      "ofType": null
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "args": [
-                {
-                  "defaultValue": null,
-                  "name": "organizationId",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  }
-                }
-              ],
-              "name": "assignableManagersOfOrganization",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "User",
                       "ofType": null
                     }
                   }
@@ -39185,6 +39239,33 @@
                 }
               ],
               "name": "isFactoryExists",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "name": "name",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "name": "isFeaturePackExists",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -48178,6 +48259,55 @@
         },
         {
           "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "name": "authorization_rule_id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "name": "role_id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "RoleAuthorizationRule",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
           "fields": null,
           "inputFields": [
             {
@@ -49278,6 +49408,50 @@
           "interfaces": null,
           "kind": "ENUM",
           "name": "SetOption",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "name": "organizationId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "staffIds",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "SetOrganizationUsersInput",
           "possibleTypes": null
         },
         {
@@ -54601,16 +54775,10 @@
         {
           "enumValues": [
             {
-              "name": "ARCHIVED"
-            },
-            {
               "name": "ON_THE_JOB"
             },
             {
               "name": "RESIGNED"
-            },
-            {
-              "name": "TO_BE_HIRED"
             }
           ],
           "fields": null,
@@ -54622,6 +54790,9 @@
         },
         {
           "enumValues": [
+            {
+              "name": "EXTERNAL"
+            },
             {
               "name": "FORMAL"
             },
@@ -68867,6 +69038,63 @@
           "inputFields": [
             {
               "defaultValue": null,
+              "name": "originOrganizationId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "staffIds",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "name": "targetOrganizationId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "TransferOrganizationInput",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
               "name": "attachment",
               "type": {
                 "kind": "LIST",
@@ -76231,6 +76459,55 @@
           "interfaces": [],
           "kind": "OBJECT",
           "name": "User",
+          "possibleTypes": null
+        },
+        {
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "name": "authorization_rule_id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "name": "id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "name": "user_id",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "UserAuthorizationRule",
           "possibleTypes": null
         },
         {
