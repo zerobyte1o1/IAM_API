@@ -274,8 +274,7 @@ feature_pack:
     remark: 说明
   update_feature_pack:
     applicableIndustries:
-    name:
-    remark: 说明
+    remark: 说明2
   set_permissions_to_feature_pack:
     permissions:
       - id: admin

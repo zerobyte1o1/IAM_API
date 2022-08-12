@@ -31,8 +31,6 @@ class User(GetTokenHeader):
         res = (op + data).user
         return res
 
-
-
     def get_user_list(self, variables):
         """
         获取用户列表数据
@@ -159,6 +157,7 @@ class User(GetTokenHeader):
         data = endpoint(op)
         res = (op + data).all_permissions_of_user
         return res
+
     def get_direct_authorization_rules_of_user(self, args=None, **kwargs):
 
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
