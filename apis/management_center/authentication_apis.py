@@ -13,7 +13,7 @@ class Authentication(GetTokenHeader):
         @return: TRUE OR FALSE
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_authentication_configuration(id=id)
         data = endpoint(op)
@@ -30,7 +30,7 @@ class Authentication(GetTokenHeader):
         @return: 存在时返回基本信息，不存在时返回NULL
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.authentication_configuration()
         data = endpoint(op)
@@ -44,7 +44,7 @@ class Authentication(GetTokenHeader):
         @return: id
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_oauth2_authentication_configuration(input=variables)
         data = endpoint(op)
@@ -62,7 +62,7 @@ class Authentication(GetTokenHeader):
         @return: id
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_open_idconnect1_authentication_configuration(input=variables)
         data = endpoint(op)
@@ -80,7 +80,7 @@ class Authentication(GetTokenHeader):
         @return:TRUE OR FALSE
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_oauth2_authentication_configuration(input=variables)
         data = endpoint(op)
@@ -98,7 +98,7 @@ class Authentication(GetTokenHeader):
         @return:TRUE OR FALSE
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_open_idconnect1_authentication_configuration(input=variables)
         data = endpoint(op)

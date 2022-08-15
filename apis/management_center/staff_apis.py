@@ -155,7 +155,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def create_staff_account_apis(self, input_data):
+    def create_account_apis(self, input_data):
         """
         创建人员账号
         @param input_data:
@@ -163,10 +163,10 @@ class Staff(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.update_staff(input=input_data)
+        op.create_account(input=input_data)
         data = endpoint(op)
         try:
-            res = (op + data).update_staff
+            res = (op + data).create_account
             return res
         except:
             res = data.get("errors")[0].get("message")

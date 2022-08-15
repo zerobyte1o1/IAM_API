@@ -6,11 +6,12 @@ from utils.mock import Mock
 
 
 class StaffData(BaseApi):
-    org = Organization()
-    role=Role()
-    org_id = org.get_organization_tree_nodes()[0]["id"]
-    role_id = role.get_role_list().data[0].id
-    mock = Mock()
+    def __init__(self,**kwargs):
+        self.org = Organization(**kwargs)
+        self.role = Role(**kwargs)
+        self.org_id = self.org.get_organization_tree_nodes()[0]["id"]
+        self.role_id = self.role.get_role_list().data[0].id
+        self.mock = Mock()
 
     def staff_list_data(self, **kwargs):
         """
@@ -35,6 +36,7 @@ class StaffData(BaseApi):
         args.append(("name", self.mock.mock_data("staff")))
         args.append(("organizations", [{"id": self.org_id}]))
         args.append(("phoneNumber", self.faker.phone_number()))
+        args.append(("jobNumber", self.faker.unix_time()))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -49,18 +51,18 @@ class StaffData(BaseApi):
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
-    def create_staff_account_data(self,staff_id):
+    def create_account_data(self, staff_id):
         variables_temp = self.get_variables(module_name="staff", variables_name="create_staff_account")
         args = list()
-        args.append(("id", staff_id))
-        args.append(("account",self.mock.mock_data("account")))
-        args.append(("roles",[{"id":self.role_id}]))
+        args.append(("staff", {"id": staff_id}))
+        args.append(("account", self.mock.mock_data("account")))
+        # args.append(("roles", [{"id": self.role_id}]))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
+
 if __name__ == '__main__':
-    sd = StaffData()
-    s = Staff()
-    data=sd.staff_list_data()
-    res = s.get_staff_list(data)
-    print(res)
+    staff = Staff()
+    sd = StaffData(account="company01", tenant_code="company01", password="123456")
+
+

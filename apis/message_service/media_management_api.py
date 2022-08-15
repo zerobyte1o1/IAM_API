@@ -12,7 +12,7 @@ class MediaManagement(GetTokenHeader):
         @return: 返回所有媒介信息
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.meta_channels()
         data = endpoint(op)
@@ -26,7 +26,7 @@ class MediaManagement(GetTokenHeader):
         @return:True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_meta_channel(input=variables)
         data = endpoint(op)

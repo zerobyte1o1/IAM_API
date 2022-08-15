@@ -82,6 +82,6 @@ class BaseApi:
 
 if __name__ == '__main__':
     b = BaseApi()
-    t = b.get_variables(module_name="user", variables_name="create_role")
+    t = b.get_variables(module_name="function_script", variables_name="create_role")
     res1 = b.modify_variables(target_json=t, args=[("a?", "jojo5"), ("code", "jojo5")])
     print(res1)

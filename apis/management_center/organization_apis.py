@@ -6,12 +6,12 @@ from schema.platform_schema import Mutation, Query
 
 
 class Organization(GetTokenHeader):
-    def get_organization_list(self,variables:dict ):
+    def get_organization_list(self,variables:dict):
         """
         查看组织下的子组织
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.organization_list(
             filter=variables
@@ -26,8 +26,8 @@ class Organization(GetTokenHeader):
         @param args:过滤结果需要的数据，如：id,name,totalUserCount
         @return:所有的组织节点及其信息
         """
-        headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        self.headersheaders = self.get_headers()
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         organization_tree_nodes = op.organization_tree_nodes()
         if args:
@@ -43,7 +43,7 @@ class Organization(GetTokenHeader):
         @return: true or false
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_organization(input=variables)
         data = endpoint(op)
@@ -61,7 +61,7 @@ class Organization(GetTokenHeader):
         @return: True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_organization(input=variables)
         data = endpoint(op)
@@ -79,7 +79,7 @@ class Organization(GetTokenHeader):
         @return: True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_organization(id=org_id)
         data = endpoint(op)
@@ -98,5 +98,5 @@ if __name__ == '__main__':
     # })
     # b = Organization().get_organization_tree_nodes()[0].id
     # print(b)
-    a=Organization().get_organization_tree_nodes()
+    a=Organization(account="company01", tenant_code="company01", password="123456").get_organization_tree_nodes()[0].id
     print(a)

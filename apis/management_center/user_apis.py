@@ -195,7 +195,7 @@ class User(GetTokenHeader):
         """
         删除用户的一条权限规则
         @param ids:[list] rules id
-        @param userId:[str] user id
+        @param userId:[str] function_script id
         @return: True or False
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)

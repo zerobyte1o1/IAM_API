@@ -13,7 +13,7 @@ class MetaTemplate(GetTokenHeader):
         @return: 返回所有推送模板
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.meta_template_list()
         data = endpoint(op)
@@ -26,7 +26,7 @@ class MetaTemplate(GetTokenHeader):
         @return: 返回app数据
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.my_app_list()
         data = endpoint(op)
@@ -40,7 +40,7 @@ class MetaTemplate(GetTokenHeader):
         @return: template_id
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_meta_template(input=variables)
         data = endpoint(op)
@@ -58,7 +58,7 @@ class MetaTemplate(GetTokenHeader):
         @return:True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_meta_template(input=variables)
         data = endpoint(op)
@@ -76,7 +76,7 @@ class MetaTemplate(GetTokenHeader):
         @return: True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.overwrite_message_template(id=template_id)
         data = endpoint(op)
@@ -95,7 +95,7 @@ class MetaTemplate(GetTokenHeader):
         @return: Ture or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_status_of_template(id=template_id,
                                        status=status)
@@ -109,7 +109,7 @@ class MetaTemplate(GetTokenHeader):
 
     def delete_meta_template_api(self, template_id):
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_meta_template(id=template_id)
         data = endpoint(op)

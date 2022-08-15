@@ -571,6 +571,8 @@ class UserInfoRequestMethod(sgqlc.types.Enum):
 
 
 
+
+
 ########################################################################
 # Input Objects
 ########################################################################
@@ -4693,7 +4695,7 @@ class UserFilterInput(sgqlc.types.Input):
 
 class UserListFilter(sgqlc.types.Input):
     __schema__ = platform_schema
-    __field_names__ = ('company', 'current_only', 'department', 'ids', 'is_active', 'role', 'search', 'search_name', 'uid')
+    __field_names__ = ('company', 'current_only', 'department', 'ids', 'is_active', 'role', 'search', 'search_name',  'uid')
     company = sgqlc.types.Field(IntIDInput, graphql_name='company')
     current_only = sgqlc.types.Field(Boolean, graphql_name='currentOnly')
     department = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(IntIDInput)), graphql_name='department')
@@ -4703,6 +4705,14 @@ class UserListFilter(sgqlc.types.Input):
     search = sgqlc.types.Field(String, graphql_name='search')
     search_name = sgqlc.types.Field(String, graphql_name='searchName')
     uid = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name='uid')
+
+
+class WecomAppLoginInput(sgqlc.types.Input):
+    __schema__ = platform_schema
+    __field_names__ = ('account', 'password', 'tenant_id')
+    account = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='account')
+    password = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='password')
+    tenant_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='tenantId')
 
 
 class WriteoffSparePartReceiptInput(sgqlc.types.Input):
@@ -7362,7 +7372,7 @@ class Mutation(sgqlc.types.Type):
 ))
     )
     wecom_app_login = sgqlc.types.Field(sgqlc.types.non_null(AuthInfo), graphql_name='wecomAppLogin', args=sgqlc.types.ArgDict((
-        ('input', sgqlc.types.Arg(sgqlc.types.non_null(LoginInput), graphql_name='input', default=None)),
+        ('input', sgqlc.types.Arg(sgqlc.types.non_null(WecomAppLoginInput), graphql_name='input', default=None)),
 ))
     )
     wecom_login = sgqlc.types.Field(sgqlc.types.non_null(AuthInfo), graphql_name='wecomLogin', args=sgqlc.types.ArgDict((

@@ -38,7 +38,7 @@ class Log(GetTokenHeader):
                         __typename
                       }
                     }"""
-        request = requests.post(self.url, headers=self.get_headers(),
+        request = requests.post(self.url, headers=self.headers,
                                 json={'query': query, 'variables': {'filter': filter}}, verify=False)
         return request.json()
 

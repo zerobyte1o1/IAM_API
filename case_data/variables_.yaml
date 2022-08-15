@@ -48,27 +48,30 @@ staff:
       - email
   create_staff:
     email:
-    jobStatus: TO_BE_HIRED
+    jobNumber:
+    jobStatus: ON_THE_JOB
     jobType: FORMAL
     name:
     organizations:
     phoneNumber:
     remark:
+
   update_staff:
     email:
-    jobStatus: TO_BE_HIRED
+    jobStatus: ON_THE_JOB
     jobType: FORMAL
     name:
     organizations:
     phoneNumber:
     remark:
     id:
+
   create_staff_account:
     account:
-    id:
-    isAccountEnabled: True
+    staff:
+    isAllowedToLogin: True
     password: teletraan
-    roles:
+    roles: []
 
 organization:
   create_organization:
@@ -195,6 +198,12 @@ tenant:
     tenant:
       id:
 
+  add_feature_pack_to_tenant:
+    expiredAt:
+    featurePack:
+    isAlwaysEffective: False
+    tenant:
+
 meta_template:
   create_meta_template:
     app: f58c2e04-0ab6-4bea-b465-acd92d25dbd4
@@ -288,16 +297,16 @@ feature_pack:
       - id: admin:staff-archive:page
       - id: admin:staff-restore:page
       - id: admin:staff-rehire:page
-      - id: admin:user-add:page
-      - id: admin:user:menu
-      - id: admin:user-view:page
-      - id: admin:user-detail:page
-      - id: admin:user-overview_permission:page
-      - id: admin:user-view_permission:page
-      - id: admin:user-add_permission:page
-      - id: admin:user-edit_permission:page
-      - id: admin:user-delete_permission:page
-      - id: admin:user-edit:page
+      - id: admin:function_script-add:page
+      - id: admin:function_script:menu
+      - id: admin:function_script-view:page
+      - id: admin:function_script-detail:page
+      - id: admin:function_script-overview_permission:page
+      - id: admin:function_script-view_permission:page
+      - id: admin:function_script-add_permission:page
+      - id: admin:function_script-edit_permission:page
+      - id: admin:function_script-delete_permission:page
+      - id: admin:function_script-edit:page
       - id: admin:role:menu
       - id: admin:role-view:page
       - id: admin:role-add:page

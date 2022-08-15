@@ -12,7 +12,7 @@ class ReadDB:
     host = cf.get("test2", "host")
     port = cf.get("test2", "port")
     db = cf.get("test2", "db")
-    user = cf.get("test2", "user")
+    user = cf.get("test2", "function_script")
     password = cf.get("test2", "password")
     conn = psycopg2.connect(
         host=host, port=port, user=user, password=password, dbname=db)

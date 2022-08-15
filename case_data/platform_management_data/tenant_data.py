@@ -1,3 +1,5 @@
+import time
+
 from apis.base.base_api import BaseApi
 from apis.platform_management.tenant_apis import Tenant
 from utils.mock import Mock
@@ -12,7 +14,7 @@ class TenantData(BaseApi):
 
         @return: dict
         """
-        industry_id=self.tenant.get_tenant_industry_tree_nodes()[0].id
+        industry_id = self.tenant.get_tenant_industry_tree_nodes()[0].id
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant")
         args = [("address", self.faker.address()),
                 ("code", self.faker.ean8()),
@@ -20,7 +22,7 @@ class TenantData(BaseApi):
                 ("name", self.faker.company()),
                 ("phone", self.faker.phone_number()),
                 ("uscc", self.faker.ean13()),
-                ("industry",{"id":industry_id})]
+                ("industry", {"id": industry_id})]
 
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
@@ -76,7 +78,7 @@ class TenantData(BaseApi):
         variables_temp = self.get_variables(module_name="tenant", variables_name="create_tenant_owner")
         args = [("account", self.mock.mock_data("owner")),
                 ("email", self.faker.email()),
-                ("name",self.mock.mock_data("name")),
+                ("name", self.mock.mock_data("name")),
                 ("phoneNumber", self.faker.phone_number()),
                 ("tenant", {"id": tenant_id})]
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -108,10 +110,18 @@ class TenantData(BaseApi):
         }
         return variables
 
+    def add_feature_pack_to_tenant_data(self, tenant_id, feature_id):
+        variables_temp = self.get_variables(module_name="tenant", variables_name="add_feature_pack_to_tenant")
+        args = [("expiredAt", 1692115200000),
+                ("featurePack", {"id": feature_id}),
+                ("tenant", {"id": tenant_id})]
+        variables = self.modify_variables(target_json=variables_temp, args=args)
+        return variables
+
 
 if __name__ == '__main__':
     td = TenantData()
     ta = Tenant()
-    data = td.create_tenant_owner_ask("866db136-1995-45e3-8a20-8cc412b9d718")
-    res=ta.create_tenant_owner_api(data)
+    data = td.add_feature_pack_to_tenant_data("cd359902-f3a3-4f6b-8263-1ae11d058174","b48aaf3a-d5d6-497a-9a38-c7147bf878a7")
+    res=ta.add_feature_pack_to_tenant_api(data)
     print(res)

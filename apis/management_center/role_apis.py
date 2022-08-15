@@ -13,7 +13,7 @@ class Role(GetTokenHeader):
         @param kwargs: dict
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         users_info = op.role_list(
             filter=eval(f"{kwargs}")
@@ -30,7 +30,7 @@ class Role(GetTokenHeader):
         @param variables: dict
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_role(input=variables)
         data = endpoint(op)
@@ -47,7 +47,7 @@ class Role(GetTokenHeader):
         @param variables: dict
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_role(input=variables)
         data = endpoint(op)
@@ -65,7 +65,7 @@ class Role(GetTokenHeader):
         @return: True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_role(ids=ids)
         data = endpoint(op)
@@ -83,7 +83,7 @@ class Role(GetTokenHeader):
         @return: True or False
         """
         headers = self.get_headers()
-        endpoint = HTTPEndpoint(url=self.url, base_headers=headers)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.set_authorization_rules_to_role(input=variables)
         data = endpoint(op)

@@ -38,20 +38,20 @@ def pre_condition_for_the_satiation():
     # elif role_count < 2:
     #     for i in range(2-role_count):
     #         v_create_role = data.create_role()
-    #         user.create_role(variables=v_create_role)
+    #         function_script.create_role(variables=v_create_role)
     # if user_count >= 5:
     #     pass
     # elif user_count < 5:
     #     for i in range(5-user_count):
     #         v_create_user = data.create_user()
-    #         user.create_user(variables=v_create_user)
+    #         function_script.create_user(variables=v_create_user)
 
 
 @pytest.fixture(scope="session", autouse=True)
 def pre_message():
     # template_data = mt_data.create_meta_template_ask()
     # meta_template_id = meta_template.create_meta_template_api(template_data)
-    # add_meta_template_data = t_data.add_meta_templates_to_tenant_ask(user.get_me().tenant.id)
+    # add_meta_template_data = t_data.add_meta_templates_to_tenant_ask(function_script.get_me().tenant.id)
     # tenant.add_meta_templates_to_tenant_api(add_meta_template_data)
     # yield meta_template_id
     # try:

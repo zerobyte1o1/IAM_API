@@ -20,7 +20,7 @@ class UserData(BaseApi):
         @param roles: 角色筛选,默认无
         @return:
         """
-        variables_temp = self.get_variables(module_name="user", variables_name="user_list")
+        variables_temp = self.get_variables(module_name="function_script", variables_name="user_list")
         args = list()
         if search is not None:
             args.append(("search",search))
@@ -39,7 +39,7 @@ class UserData(BaseApi):
         fake_email = self.faker.email()
         fake_phone = self.faker.phone_number()
         fake_remark = self.faker.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None)
-        variables_temp = self.get_variables(module_name="user", variables_name="update_user")
+        variables_temp = self.get_variables(module_name="function_script", variables_name="update_user")
         args = [("id", user_id),
                 ("name", user_name),
                 ("email", fake_email),
@@ -97,11 +97,11 @@ class UserData(BaseApi):
         """
         rule_id = self.get_one_permissions_of_user()
 
-        variables_temp = self.get_variables(module_name="user", variables_name="set_authorization_rules_to_user")
+        variables_temp = self.get_variables(module_name="function_script", variables_name="set_authorization_rules_to_user")
         args = [
             ("authorizationRules",
              [{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission": {"id": rule_id}, "isAllowed": True}]),
-            ("user", {"id": userId})
+            ("function_script", {"id": userId})
         ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
@@ -123,7 +123,7 @@ class UserData(BaseApi):
                 },
                 "id": data[i].id
             })
-        variables = {"authorizationRules": data_tange, "user": {"id": userId}}
+        variables = {"authorizationRules": data_tange, "function_script": {"id": userId}}
         return variables
 
 

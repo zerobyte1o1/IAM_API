@@ -217,8 +217,6 @@ class Tenant(GetTokenHeader):
         res = (op + data).delete_tenant
         return res
 
-
-
     def permissions_of_tenant_api(self, tenant_id):
         """
         查询出企业已经添加的权限
@@ -324,10 +322,24 @@ class Tenant(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.reject_tenant_certification(id=tenant_id,reason="不给予通过")
+        op.reject_tenant_certification(id=tenant_id, reason="不给予通过")
         data = endpoint(op)
         res = (op + data).reject_tenant_certification
         return res
+
+    def add_feature_pack_to_tenant_api(self, input_feature):
+        """
+        企业添加
+        @param input_feature:
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.add_feature_pack_to_tenant(input=input_feature)
+        data = endpoint(op)
+        res = (op + data).add_feature_pack_to_tenant
+        return res
+
 
 if __name__ == '__main__':
     a = Tenant()

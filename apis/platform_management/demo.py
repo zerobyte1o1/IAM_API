@@ -23,7 +23,9 @@ class Demo(GetTokenHeader):
         data = endpoint(op)
         res = (op + data).department
         return res
+
+
 if __name__ == '__main__':
-    td=Demo()
-    res=td.get_department()
+    td = Demo()
+    res = td.get_department()
     print(res)
