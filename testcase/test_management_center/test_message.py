@@ -1,15 +1,8 @@
 import allure
-import pytest
 from hamcrest import *
 
 from apis.management_center.message_apis import Message
-from apis.management_center.user_apis import User
-from apis.message_service.meta_template_apis import MetaTemplate
-from apis.platform_management.tenant_apis import Tenant
 from case_data.management_center_data.message_data import MessageData
-from case_data.management_center_data.user_data import UserData
-from case_data.message_service.meta_template_data import MetaTemplateData
-from case_data.platform_management_data.tenant_data import TenantData
 
 
 class TestMessage:

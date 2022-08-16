@@ -153,7 +153,7 @@ log:
 
 message:
   set_channels_of_message_template:
-    channelIds: [inbox]
+    channelIds: inbox
     messageTemplateId:
     tenantId:
 
@@ -203,6 +203,12 @@ tenant:
     featurePack:
     isAlwaysEffective: False
     tenant:
+
+  set_login_modes_to_tenant:
+    modes:
+      - ACCOUNT_PASSWORD
+      - PHONE_VERIFY_CODE
+      - EMAIL_PASSWORD
 
 meta_template:
   create_meta_template:
@@ -286,54 +292,57 @@ feature_pack:
     remark: 说明2
   set_permissions_to_feature_pack:
     permissions:
-      - id: admin
-      - id: admin:staff:menu
-      - id: admin:staff-view:page
-      - id: admin:staff-add:page
-      - id: admin:staff-edit:page
-      - id: admin:staff-delete:page
-      - id: admin:staff-hire:page
-      - id: admin:staff-resign:page
-      - id: admin:staff-archive:page
-      - id: admin:staff-restore:page
-      - id: admin:staff-rehire:page
-      - id: admin:function_script-add:page
-      - id: admin:function_script:menu
-      - id: admin:function_script-view:page
-      - id: admin:function_script-detail:page
-      - id: admin:function_script-overview_permission:page
-      - id: admin:function_script-view_permission:page
-      - id: admin:function_script-add_permission:page
-      - id: admin:function_script-edit_permission:page
-      - id: admin:function_script-delete_permission:page
-      - id: admin:function_script-edit:page
-      - id: admin:role:menu
-      - id: admin:role-view:page
-      - id: admin:role-add:page
-      - id: admin:role-edit:page
-      - id: admin:role-delete:page
-      - id: admin:role-set_page_perm:page
-      - id: admin:role-set_feature_perm:page
-      - id: admin:role-edit_permission:page
-      - id: admin:organization:menu
-      - id: admin:organization-view:page
-      - id: admin:organization-add:page
-      - id: admin:organization-edit:page
-      - id: admin:organization-delete:page
-      - id: admin:authentication:menu
-      - id: admin:log-edit:page
-      - id: admin:tenant-settings:page
-      - id: admin:tenant-info:page
-      - id: admin:tenant-info-view:page
-      - id: admin:general-config:page
-      - id: admin:general-config-view:page
-      - id: admin:log:menu
-      - id: admin:log-view:page
-      - id: admin:umc:menu
-      - id: admin:umc-message:page
-      - id: admin:umc-message-view:page
-      - id: admin:umc-message-set:page
-      - id: admin:umc-channel:page
-      - id: admin:umc-channel-open:page
-      - id: admin:umc-channel-close:page
-      - id: admin:umc-channel-set_template:page
+    - id: admin
+    - id: admin:staff:menu
+    - id: admin:staff-view:page
+    - id: admin:staff-add:page
+    - id: admin:staff-edit:page
+    - id: admin:staff-delete:page
+    - id: admin:staff-hire:page
+    - id: admin:staff-resign:page
+    - id: admin:user-add:page
+    - id: admin:transfer-organization:page
+    - id: admin:user:menu
+    - id: admin:role-assign:page
+    - id: admin:role-remove:page
+    - id: admin:user-view:page
+    - id: admin:user-detail:page
+    - id: admin:user-overview_permission:page
+    - id: admin:user-view_permission:page
+    - id: admin:user-add_permission:page
+    - id: admin:user-edit_permission:page
+    - id: admin:user-delete_permission:page
+    - id: admin:account-config-role:page
+    - id: admin:account-config-login:page
+    - id: admin:delete-account:page
+    - id: admin:role:menu
+    - id: admin:role-view:page
+    - id: admin:role-add:page
+    - id: admin:role-edit:page
+    - id: admin:role-delete:page
+    - id: admin:role-set_page_perm:page
+    - id: admin:role-set_feature_perm:page
+    - id: admin:role-edit_permission:page
+    - id: admin:role-config_account:page
+    - id: admin:organization:menu
+    - id: admin:organization-view:page
+    - id: admin:organization-add:page
+    - id: admin:organization-edit:page
+    - id: admin:organization-delete:page
+    - id: admin:organization-config-role:page
+    - id: admin:tenant-settings:page
+    - id: admin:tenant-info:page
+    - id: admin:tenant-info-view:page
+    - id: admin:general-config:page
+    - id: admin:general-config-view:page
+    - id: admin:log:menu
+    - id: admin:log-view:page
+    - id: admin:umc:menu
+    - id: admin:umc-message:page
+    - id: admin:umc-message-view:page
+    - id: admin:umc-message-set:page
+    - id: admin:umc-channel:page
+    - id: admin:umc-channel-open:page
+    - id: admin:umc-channel-close:page
+    - id: admin:umc-channel-set_template:page
+        

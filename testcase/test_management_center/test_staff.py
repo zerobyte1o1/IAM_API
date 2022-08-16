@@ -66,9 +66,9 @@ class TestStaff:
         assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/105", name="创建账号")
-    def test_create_staff_account(self, pre_staff):
-        data = self.staff_data.create_staff_account_data(pre_staff)
-        res = self.staff.create_staff_account_apis(data)
+    def test_create_account(self, pre_staff):
+        data = self.staff_data.create_account_data(pre_staff)
+        res = self.staff.create_account_apis(data)
         assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/99", name="删除人员")

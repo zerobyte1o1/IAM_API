@@ -10,7 +10,7 @@ class StaffData(BaseApi):
         self.org = Organization(**kwargs)
         self.role = Role(**kwargs)
         self.org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        self.role_id = self.role.get_role_list().data[0].id
+        # self.role_id = self.role.get_role_list().data[0].id
         self.mock = Mock()
 
     def staff_list_data(self, **kwargs):
@@ -56,7 +56,6 @@ class StaffData(BaseApi):
         args = list()
         args.append(("staff", {"id": staff_id}))
         args.append(("account", self.mock.mock_data("account")))
-        # args.append(("roles", [{"id": self.role_id}]))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 

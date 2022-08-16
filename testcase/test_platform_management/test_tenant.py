@@ -3,6 +3,8 @@ import pytest
 from hamcrest import *
 
 from apis.platform_management.tenant_apis import Tenant
+from apis.platform_management.feature_pack import FeaturePack
+from case_data.platform_management_data.feature_pack_data import FeaturePackData
 from case_data.platform_management_data.tenant_data import TenantData
 
 
@@ -10,6 +12,13 @@ class TestTenant:
     def setup_class(self):
         self.tenant = Tenant()
         self.tenant_data = TenantData()
+        self.feature = FeaturePack()
+        self.f_data = FeaturePackData()
+        add_data = self.f_data.create_feature_pack_data()
+        self.feature_id = self.feature.create_feature_pack_api(add_data)
+        add_power_data = self.f_data.set_permissions_to_feature_pack_data(self.feature_id)
+        self.feature.set_permissions_to_feature_pack_api(add_power_data)
+        self.feature.confirm_feature_pack_api(self.feature_id)
 
     @pytest.fixture(scope="class")
     def pre_tenant(self):
@@ -25,6 +34,7 @@ class TestTenant:
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/72", name="企业列表")
     def test_tenant_list(self, pre_tenant):
         res = self.tenant.get_tenant_list()
+        print(res)
         assert_that(len(res) > 0)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/73", name="查看企业详情")
@@ -32,17 +42,22 @@ class TestTenant:
         res = self.tenant.get_tenant(pre_tenant)
         assert_that(res["id"], equal_to(pre_tenant))
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/73", name="企业订阅app")
-    def test_assign_tenant_apps(self, pre_tenant):
-        data = self.tenant_data.assign_tenant_apps_ask(pre_tenant)
-        res = self.tenant.assign_tenant_apps_api(data)
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/126", name="添加功能包")
+    def test_add_feature_pack_to_tenant(self, pre_tenant):
+        data = self.tenant_data.add_feature_pack_to_tenant_data(pre_tenant, self.feature_id)
+        res = self.tenant.add_feature_pack_to_tenant_api(data)
         assert_that(res, equal_to(True))
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/83", name="编辑企业权限")
-    def test_set_permissions_to_tenant(self, pre_tenant):
-        data = self.tenant_data.set_permissions_to_tenant_ask(pre_tenant)
-        res = self.tenant.set_permissions_to_tenant_api(data)
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/128", name="通用配置")
+    def test_set_login_modes_to_tenant(self, pre_tenant):
+        data = self.tenant_data.set_login_modes_to_tenant_data(pre_tenant)
+        res = self.tenant.set_login_modes_to_tenant_api(data)
         assert_that(res, equal_to(True))
+
+    # @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/127", name="删除功能包")
+    # def test_remove_feature_pack_subscription(self):
+    #     res = self.tenant.remove_feature_pack_subscription_api(self.feature_id)
+    #     assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/84", name="添加消息模板")
     def test_add_meta_templates_to_tenant(self, pre_tenant):
@@ -54,12 +69,6 @@ class TestTenant:
     def test_delete_message_templates_of_tenant(self, pre_tenant):
         data = self.tenant_data.delete_message_templates_of_tenant_ask(pre_tenant)
         res = self.tenant.delete_message_templates_of_tenant_api(data)
-        assert_that(res, equal_to(True))
-
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/74", name="企业删除app")
-    def test_un_assign_tenant_apps(self, pre_tenant):
-        data = self.tenant_data.un_assign_tenant_apps_ask(pre_tenant)
-        res = self.tenant.un_assign_tenant_apps_api(data)
         assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/76", name="创建拥有者")

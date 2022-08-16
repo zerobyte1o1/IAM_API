@@ -1,9 +1,7 @@
-from apis.base.get_token_headers import GetTokenHeader
-from apis.management_center.user_apis import User
 from apis.management_center.staff_apis import Staff
-from case_data.management_center_data.user_data import UserData
 from case_data.management_center_data.staff_data import StaffData
 
+# 创建人员总数
 num = 1
 tenant_code = "company01"
 account = "company01"
@@ -22,6 +20,6 @@ def create_staff_and_user(**kwargs):
 
 if __name__ == '__main__':
     for i in range(num):
-        print("正在创建第"+str(i+1)+"个用户")
+        print("正在创建第" + str(i + 1) + "个用户")
         create_staff_and_user(account=account, tenant_code=tenant_code, password=password)
-    print(str(num)+"个用户创建完成。")
+    print(str(num) + "个用户创建完成。")

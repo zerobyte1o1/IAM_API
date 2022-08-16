@@ -15,43 +15,38 @@ class TestCompany:
         self.tenant = Tenant()
         self.feature = FeaturePack()
         self.t_data = TenantData()
-        self.s_data = StaffData()
         self.f_data = FeaturePackData()
         tenant_create_data = self.t_data.create_tenant_ask()
         self.tenant_id = self.tenant.create_tenant_api(tenant_create_data)
-        # 添加企业app
-        tenant_app_data = self.t_data.assign_tenant_apps_ask(self.tenant_id)
-        self.tenant.assign_tenant_apps_api(tenant_app_data)
+
         # 添加企业功能包
         self.feature_id=self.feature.create_feature_pack_api(self.f_data.create_feature_pack_data())
         self.feature.set_permissions_to_feature_pack_api(self.f_data.set_permissions_to_feature_pack_data(self.feature_id))
         self.feature.confirm_feature_pack_api(self.feature_id)
-
+        data_add=self.t_data.add_feature_pack_to_tenant_data(self.tenant_id,self.feature_id)
+        self.tenant.add_feature_pack_to_tenant_api(data_add)
         # 创建企业拥有者
         tenant_create_owner_data = self.t_data.create_tenant_owner_ask(self.tenant_id)
         owner = self.tenant.create_tenant_owner_api(tenant_create_owner_data)
         account = self.tenant.get_tenant(self.tenant_id).owner.account
         self.company = Company(account=account, password=owner.password, tenant_code=tenant_create_data["code"])
         self.staff = Staff(account=account, password=owner.password, tenant_code=tenant_create_data["code"])
-        # 认证租户
-        self.company.apply_for_tenant_certification_api("159")
-        self.tenant.accept_tenant_certification_api(self.tenant_id)
+        self.s_data = StaffData(account=account, password=owner.password, tenant_code=tenant_create_data["code"])
         # 创建企业用户
         staff_create_data = self.s_data.create_staff_data()
         staff_id = self.staff.create_staff_apis(staff_create_data)
-        staff_create_account_data = self.s_data.create_staff_account_data(staff_id)
-        self.n_user = self.staff.create_staff_account_apis(staff_create_account_data)
+        create_account_data = self.s_data.create_account_data(staff_id)
+        self.n_user = self.staff.create_account_apis(create_account_data)["account_id"]
 
-    # def teardown_class(self):
-    #     tenant = Tenant()
-    #     tenant.disable_tenant_api(self.tenant_id)
-    #     tenant.delete_tenant_api(self.tenant_id)
-    #     self.feature.delete_feature_pack_api(self.feature_id)
+    def teardown_class(self):
+        tenant = Tenant()
+        tenant.disable_tenant_api(self.tenant_id)
+        tenant.delete_tenant_api(self.tenant_id)
+        self.feature.delete_feature_pack_api(self.feature_id)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/95", name="管理员列表")
     def test_admin_account_list(self):
         res = self.company.get_admin_account_list()
-        print(res)
         assert_that(res.total_count > 0)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/65", name="添加管理员")

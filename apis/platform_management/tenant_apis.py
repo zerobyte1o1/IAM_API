@@ -329,7 +329,7 @@ class Tenant(GetTokenHeader):
 
     def add_feature_pack_to_tenant_api(self, input_feature):
         """
-        企业添加
+        企业添加功能包
         @param input_feature:
         @return:
         """
@@ -340,6 +340,26 @@ class Tenant(GetTokenHeader):
         res = (op + data).add_feature_pack_to_tenant
         return res
 
+    def remove_feature_pack_subscription_api(self, feature_id):
+        """
+        移除企业功能包
+        @param feature_id: 功能包id
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.remove_feature_pack_subscription(id=feature_id)
+        data = endpoint(op)
+        res = (op + data).remove_feature_pack_subscription
+        return res
+
+    def set_login_modes_to_tenant_api(self,input_data):
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.set_login_modes_to_tenant(input=input_data)
+        data = endpoint(op)
+        res = (op + data).set_login_modes_to_tenant
+        return res
 
 if __name__ == '__main__':
     a = Tenant()
