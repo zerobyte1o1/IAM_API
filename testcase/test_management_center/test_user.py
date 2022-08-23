@@ -2,8 +2,8 @@ import allure
 import pytest
 from hamcrest import *
 
-from apis.management_center.user_apis import User
-from case_data.management_center_data.user_data import UserData
+from apis.management_center.account_apis import User
+from case_data.management_center_data.account_data import UserData
 
 
 class TestUser:

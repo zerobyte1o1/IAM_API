@@ -1,7 +1,7 @@
 from apis.base.get_token_headers import GetTokenHeader
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import User
 from apis.management_center.staff_apis import Staff
-from case_data.management_center_data.user_data import UserData
+from case_data.management_center_data.account_data import UserData
 from case_data.management_center_data.staff_data import StaffData
 
 num = 1

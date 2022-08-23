@@ -1,26 +1,25 @@
 from apis.base.base_api import BaseApi
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import Account
 from apis.management_center.organization_apis import Organization
 from apis.management_center.role_apis import Role
-from utils.mock import Mock
 
 
-class UserData(BaseApi):
-    mock = Mock()
-    u = User()
-    role = Role()
-    org = Organization()
-    org_id = org.get_organization_tree_nodes()[0]["id"]
-    role_id = role.get_role_list().data[0].id
+class AccountData(BaseApi):
+    def __init__(self, **kwargs):
+        self.u = Account(**kwargs)
+        self.role = Role(**kwargs)
+        self.org = Organization(**kwargs)
+        # org_id = org.get_organization_tree_nodes()[0]["id"]
+        self.role_id = self.role.get_role_list().data[0].id
 
-    def user_list_filter(self, search=None,roles=None):
+    def account_list_filter(self, search=None,roles=None):
         """
 
         @param search: 关键字查询，默认无
         @param roles: 角色筛选,默认无
         @return:
         """
-        variables_temp = self.get_variables(module_name="function_script", variables_name="user_list")
+        variables_temp = self.get_variables(module_name="user", variables_name="user_list")
         args = list()
         if search is not None:
             args.append(("search",search))
@@ -29,24 +28,16 @@ class UserData(BaseApi):
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
-    def update_user(self, userId):
+    def update_account_data(self, account_id,isAllowedToLogin=None):
         """
-        @param userId:被修改用户的id
-        @return ：修改了name和roles的variables
+
+        @param account_id: 账号id
+        @param isAllowedToLogin: 是否允许登录
+        @return:
         """
-        user_id = userId
-        user_name = self.mock.mock_data("name")
-        fake_email = self.faker.email()
-        fake_phone = self.faker.phone_number()
-        fake_remark = self.faker.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None)
-        variables_temp = self.get_variables(module_name="function_script", variables_name="update_user")
-        args = [("id", user_id),
-                ("name", user_name),
-                ("email", fake_email),
-                ("phoneNumber", fake_phone),
-                ("remark", fake_remark),
-                ("organizations", [{"id": self.org_id}])
-                ]
+        variables_temp = self.get_variables(module_name="user", variables_name="update_account")
+        args = [("id", account_id),
+                ("role",[{"id":self.role_id}])]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -97,11 +88,11 @@ class UserData(BaseApi):
         """
         rule_id = self.get_one_permissions_of_user()
 
-        variables_temp = self.get_variables(module_name="function_script", variables_name="set_authorization_rules_to_user")
+        variables_temp = self.get_variables(module_name="user", variables_name="set_authorization_rules_to_user")
         args = [
             ("authorizationRules",
              [{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission": {"id": rule_id}, "isAllowed": True}]),
-            ("function_script", {"id": userId})
+            ("user", {"id": userId})
         ]
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
@@ -123,22 +114,14 @@ class UserData(BaseApi):
                 },
                 "id": data[i].id
             })
-        variables = {"authorizationRules": data_tange, "function_script": {"id": userId}}
+        variables = {"authorizationRules": data_tange, "user": {"id": userId}}
         return variables
 
 
 if __name__ == '__main__':
-    # s = UserData()
-    # print(s.create_user())
-    a = UserData()
-    b =User()
-    # data = UserData().get_direct_authorization_rules_id_of_user("3fffa3c1-ca9d-4455-b133-8a2fbb8ecb38")
-    # print(data)
-    # res = a.set_authorization_rules_to_user_api(data)
-    # print(res)
-    # data = UserData().update_authorization_rules_of_user("0c84960e-d04c-4c2d-9bc3-62eb860633ba")
-    # print(data)
-    # res = a.update_authorization_rules_of_user_api(data)
-    data = a.user_list_filter()
-    res=b.get_user_list(data)
+    a = AccountData()
+    b =Account()
+
+    data = a.update_account_data("97d9fa27-d373-465d-abd5-047c7f298f0c")
+    res=b.update_account_api(data)
     print(res)

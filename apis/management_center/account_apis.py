@@ -5,7 +5,7 @@ from apis.base.get_token_headers import GetTokenHeader
 from schema.platform_schema import *
 
 
-class User(GetTokenHeader):
+class Account(GetTokenHeader):
     def get_me(self):
         """
         :return:class User; 如果想要tcompany_id, 可以使用:
@@ -19,27 +19,27 @@ class User(GetTokenHeader):
         res = (op + data).me
         return res
 
-    def get_user(self, id):
+    def account_api(self, account_id):
         """
-        获取user基本信息
-        @param id : tenant id
+        获取account基本信息
+        @param account_id : account_id
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        op.user(id=id)
+        op.account(id=account_id)
         data = endpoint(op)
-        res = (op + data).user
+        res = (op + data).account
         return res
 
-    def get_user_list(self, variables):
+    def get_account_list(self, variables):
         """
         获取用户列表数据
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        op.user_list(filter=variables)
+        op.account_list(filter=variables)
         data = endpoint(op)
-        res = (op + data).user_list
+        res = (op + data).account_list
         return res
 
     def enable_accounts_apis(self, ids: list):
@@ -76,24 +76,24 @@ class User(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def delete_users(self, ids: list):
+    def delete_account_api(self, ids):
         """
-        删除用户
-        @param ids: list,用户id集合
+        删除账号
+        @param ids: 账号id
         @return: True or False
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.delete_users(ids=ids)
+        op.delete_account(ids=[ids])
         data = endpoint(op)
         try:
-            res = (op + data).delete_users
+            res = (op + data).delete_account
             return res
         except:
             res = data.get("errors")[0].get("message")
             return res
 
-    def reset_user_password(self, id: str):
+    def reset_account_password_api(self, id: str):
         """
         重置用户密码
         @param id:用户id
@@ -101,27 +101,27 @@ class User(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.reset_user_password(id=id)
+        op.reset_account_password(id=id)
         data = endpoint(op)
         try:
-            res = (op + data).reset_user_password
+            res = (op + data).reset_account_password
             return res
         except:
             res = data.get("errors")[0].get("message")
             return res
 
-    def update_user(self, variables: dict):
+    def update_account_api(self, variables: dict):
         """
-        更新用户信息
-        @param variables: 更新用户请求数据
+        更新账号，角色和登录状态
+        @param variables: 更新账号请求数据
         @return: True or False
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.update_user(input=variables)
+        op.update_account(input=variables)
         data = endpoint(op)
         try:
-            res = (op + data).update_user
+            res = (op + data).update_account
             return res
         except:
             res = data.get("errors")[0].get("message")
@@ -235,15 +235,42 @@ class User(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        authorization_rule_and_dependencies = op.authorization_rule_and_dependencies(id=rule_id)
+        op.authorization_rule_and_dependencies(id=rule_id)
         data = endpoint(op)
         res = (op + data).authorization_rule_and_dependencies
         return res
 
+    def ordinary_staff_app_list_of_my_tenant_api(self, staff_id):
+        """
+        获取该人员已有的所有appid
+        @param staff_id:人员id
+        @return: 管理中心的appid
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Query)
+        op.ordinary_staff_app_list_of_my_tenant(staff_id=staff_id)
+        data = endpoint(op)
+        res = (op + data).ordinary_staff_app_list_of_my_tenant
+
+        return [i["id"] for i in res.data if i["name"] == "管理中心"][0]
+
+    def all_authorizations_of_user_api(self,staff_id):
+        app_keys=self.ordinary_staff_app_list_of_my_tenant_api(staff_id)
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Query)
+        op.all_authorizations_of_user(filter={"appKeys":app_keys,
+                                             "isLeafOnly":True,
+                                             "search":None},
+                                     user_id=staff_id)
+        data = endpoint(op)
+        res = (op + data).all_authorizations_of_user
+
+        return res
+
 
 if __name__ == '__main__':
-    a = User()
+    a = Account()
 
     # res = a.get_user("3d327a12-89d3-41b6-93e7-42b668d5e455")
-    res = a.get_me()
+    res = a.all_authorizations_of_user_api("97d9fa27-d373-465d-abd5-047c7f298f0c")
     print(res)

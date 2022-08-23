@@ -2,12 +2,11 @@ import time
 
 from apis.base.base_api import BaseApi
 from apis.platform_management.tenant_apis import Tenant
-from utils.mock import Mock
 
 
 class TenantData(BaseApi):
-    tenant = Tenant()
-    mock = Mock()
+    def __init__(self, **kwargs):
+        self.tenant = Tenant(**kwargs)
 
     def create_tenant_ask(self):
         """

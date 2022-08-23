@@ -2,7 +2,6 @@ from apis.base.base_api import BaseApi
 from apis.management_center.staff_apis import Staff
 from apis.management_center.organization_apis import Organization
 from apis.management_center.role_apis import Role
-from utils.mock import Mock
 
 
 class StaffData(BaseApi):
@@ -11,7 +10,6 @@ class StaffData(BaseApi):
         self.role = Role(**kwargs)
         self.org_id = self.org.get_organization_tree_nodes()[0]["id"]
         # self.role_id = self.role.get_role_list().data[0].id
-        self.mock = Mock()
 
     def staff_list_data(self, **kwargs):
         """
@@ -62,6 +60,6 @@ class StaffData(BaseApi):
 
 if __name__ == '__main__':
     staff = Staff()
-    sd = StaffData(account="company01", tenant_code="company01", password="123456")
+    # sd = StaffData(account="testadmin1", tenant_code="teletraan", password="kangshifu")
 
 

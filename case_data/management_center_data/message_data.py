@@ -1,12 +1,13 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.message_apis import Message
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import User
 from apis.platform_management.tenant_apis import Tenant
 
 
 class MessageData(BaseApi):
-    user = User()
-    tenant = Tenant()
+    def __init__(self, **kwargs):
+        self.user = User(**kwargs)
+        self.tenant = Tenant(**kwargs)
 
     def set_channels_of_message_template_data(self):
         tenant_id = self.user.get_me().tenant.id

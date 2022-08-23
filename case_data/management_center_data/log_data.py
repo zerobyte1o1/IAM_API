@@ -1,6 +1,6 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.log_apis import Log
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import User
 import time
 import datetime
 

@@ -1,5 +1,5 @@
 from apis.base.base_api import BaseApi
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import User
 from apis.message_service.media_management_api import MediaManagement
 from utils.mock import Mock
 

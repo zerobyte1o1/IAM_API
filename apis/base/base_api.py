@@ -6,6 +6,7 @@ import yaml
 
 import urllib3
 from utils.env import Env
+from utils.mock import Mock
 from utils.switch import Switch
 from faker import Faker
 
@@ -19,6 +20,7 @@ class BaseApi:
     env_name = get_env.get_env_name()
     env_debug=get_env.get_debug()
     faker = Faker(locale='zh_CN')
+    mock=Mock()
 
     def __init__(self, proxy_=None):
         """

@@ -2,7 +2,7 @@ from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 from apis.base.get_token_headers import GetTokenHeader
 from schema.platform_schema import *
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import User
 
 
 class FeaturePack(GetTokenHeader):

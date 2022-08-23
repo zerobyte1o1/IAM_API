@@ -1,13 +1,12 @@
 from apis.base.base_api import BaseApi
-from apis.management_center.user_apis import User
+from apis.management_center.account_apis import User
 from apis.message_service.meta_template_apis import MetaTemplate
-from utils.mock import Mock
 
 
 class MetaTemplateData(BaseApi):
-    meta_template = MetaTemplate()
-    mock = Mock()
-    user = User()
+    def __init__(self, **kwargs):
+        self.meta_template = MetaTemplate(**kwargs)
+        self.user = User(**kwargs)
 
     def create_meta_template_ask(self):
         apps = self.meta_template.get_app_list()
@@ -33,6 +32,7 @@ class MetaTemplateData(BaseApi):
 if __name__ == '__main__':
     mtd = MetaTemplateData()
     mt = MetaTemplate()
-    data = mtd.update_meta_template_ask("6123d6a8-efff-4401-890e-b7fe9d9c9537")
-    res = mt.update_meta_template_api(data)
-    print(res)
+    for i in range(800):
+        data = mtd.create_meta_template_ask()
+        res = mt.create_meta_template_api(data)
+        print(res)

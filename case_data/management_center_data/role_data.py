@@ -1,16 +1,18 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.role_apis import Role
-from case_data.management_center_data.user_data import UserData
-from apis.management_center.user_apis import User
+from case_data.management_center_data.account_data import UserData
+from apis.management_center.account_apis import User
 from utils.mock import Mock
 
 
 class RoleData(BaseApi):
-    role = Role()
-    mock = Mock()
-    user = User()
-    role_name = mock.mock_data("role")
-    userdata = UserData()
+    def __init__(self,**kwargs):
+        self.role = Role(**kwargs)
+        self.mock = Mock(**kwargs)
+        self.user = User(**kwargs)
+        self.role_name = self.mock.mock_data("role")
+        self.userdata = UserData(**kwargs)
+
 
     def role_count(self):
         """
@@ -56,5 +58,11 @@ class RoleData(BaseApi):
 
 
 if __name__ == '__main__':
-    a = RoleData().set_authorization_rules_to_role("7873981c-3ec2-495c-9353-1b86f7bef6b6")
-    print(a)
+
+    for i in range(1):
+        b = Role()
+        a = RoleData()
+        data=a.create_role_ask()
+        res=b.create_role(data)
+
+        print(res)

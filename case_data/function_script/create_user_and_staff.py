@@ -2,9 +2,9 @@ from apis.management_center.staff_apis import Staff
 from case_data.management_center_data.staff_data import StaffData
 
 # 创建人员总数
-num = 1
-tenant_code = "company01"
-account = "company01"
+num = 60
+tenant_code = "teamsit"
+account = "teamsit"
 password = "123456"
 
 
