@@ -35,9 +35,10 @@ class AccountData(BaseApi):
         @param isAllowedToLogin: 是否允许登录
         @return:
         """
+        args=list()
         variables_temp = self.get_variables(module_name="user", variables_name="update_account")
-        args = [("id", account_id),
-                ("role",[{"id":self.role_id}])]
+        args.append(("id", account_id))
+        args.append(("role",[{"id":self.role_id}]))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 

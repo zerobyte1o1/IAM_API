@@ -10,24 +10,22 @@ class MessageData(BaseApi):
         self.tenant = Tenant(**kwargs)
 
     def set_channels_of_message_template_data(self):
+        args=list()
         tenant_id = self.user.get_me().tenant.id
         message_template_id=self.tenant.get_message_template_list_of_tenant(tenant_id)["data"][0].id
         variables_temp = self.get_variables(module_name="message", variables_name="set_channels_of_message_template")
-        args = [
-            ("messageTemplateId",message_template_id),
-            ("tenantId", tenant_id)
-        ]
+        args.append(("messageTemplateId",message_template_id))
+        args.append(("tenantId", tenant_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
     def set_channel_of_message_templates_data(self):
+        args=list()
         tenant_id = self.user.get_me().tenant.id
         message_template_id = self.tenant.get_message_template_list_of_tenant(tenant_id)["data"][0].id
         variables_temp = self.get_variables(module_name="message", variables_name="set_channel_of_message_templates")
-        args = [
-            ("messageTemplateIds", [message_template_id]),
-            ("tenantId", tenant_id)
-        ]
+        args.append(("messageTemplateIds", [message_template_id]))
+        args.append(("tenantId", tenant_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 

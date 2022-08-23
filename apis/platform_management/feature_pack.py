@@ -2,12 +2,12 @@ from sgqlc.endpoint.http import HTTPEndpoint
 from sgqlc.operation import Operation
 from apis.base.get_token_headers import GetTokenHeader
 from schema.platform_schema import *
-from apis.management_center.account_apis import User
+from apis.management_center.account_apis import Account
 
 
 class FeaturePack(GetTokenHeader):
-    user = User()
-    tenant_id = user.get_me().tenant.id
+    account = Account()
+    tenant_id = account.get_me().tenant.id
 
     def tenant_industry_tree_nodes_api(self):
         """

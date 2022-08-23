@@ -9,10 +9,10 @@ class AuthenticationData(BaseApi):
         @param id: id为None时为创建参数，id有值时为修改参数
         @return: dict
         """
-        args = None
+        args = list()
         variables_temp = self.get_variables(module_name="authentication", variables_name="create_oauth2")
         if id is not None:
-            args = [("id", id)]
+            args.append(("id", id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -22,10 +22,10 @@ class AuthenticationData(BaseApi):
         @param id: d: id为None时为创建参数，id有值时为修改参数
         @return: dict
         """
-        args = None
+        args = list()
         variables_temp = self.get_variables(module_name="authentication", variables_name="create_oidc1")
         if id is not None:
-            args = [("id", id)]
+            args.append(("id", id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 

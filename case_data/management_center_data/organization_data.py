@@ -29,17 +29,16 @@ class OrganizationData(BaseApi):
         @param org_id: 组织id [{"id":id}] None时为默认创建在根节点下
         @return:返回
         """
+        args=list()
         variables_temp = self.get_variables(module_name="organization", variables_name="create_organization")
         if org_id is None:
             org_id = self.org.get_organization_tree_nodes()[0]["id"]
         user_list_filter = self.user_data.user_list_filter([{"id": org_id}])
         org_user = self.user.get_user_list(user_list_filter).data[0].id
-        args = [
-            ("name", self.mock.mock_data("organization")),
-            ("manager", {"id": org_user}),
-            ("code", self.faker.msisdn()),
-            ("parent", {"id": org_id})
-        ]
+        args.append(("name", self.mock.mock_data("organization")))
+        args.append(("manager", {"id": org_user}))
+        args.append(("code", self.faker.msisdn()))
+        args.append(("parent", {"id": org_id}))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -49,17 +48,15 @@ class OrganizationData(BaseApi):
         @param org_id: 组织id [{"id":id}] 注意该组织必须有user存在
         @return:返回
         """
+        args=list()
         variables_temp = self.get_variables(module_name="organization", variables_name="update_organization")
-
         org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
         user_list_filter = self.user_data.user_list_filter(org_ids=[{"id": org_gen_id}])
         org_user = self.user.get_user_list(user_list_filter).data[0].id
-        args = [
-            ("name", self.mock.mock_data("organization")),
-            ("manager", {"id": org_user}),
-            ("code", self.faker.msisdn()),
-            ("id", org_id)
-        ]
+        args.append(("name", self.mock.mock_data("organization")))
+        args.append(("manager", {"id": org_user}))
+        args.append(("code", self.faker.msisdn()))
+        args.append(("id", org_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 

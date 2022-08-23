@@ -1,6 +1,6 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.role_apis import Role
-from case_data.management_center_data.account_data import UserData
+from case_data.management_center_data.account_data import AccountData
 from apis.management_center.account_apis import User
 from utils.mock import Mock
 
@@ -11,7 +11,7 @@ class RoleData(BaseApi):
         self.mock = Mock(**kwargs)
         self.user = User(**kwargs)
         self.role_name = self.mock.mock_data("role")
-        self.userdata = UserData(**kwargs)
+        self.account_data = AccountData(**kwargs)
 
 
     def role_count(self):
@@ -24,8 +24,10 @@ class RoleData(BaseApi):
 
     def create_role_ask(self):
         """"""
+        args=list()
         variables_temp = self.get_variables(module_name="role", variables_name="create_role")
-        args = [("name", self.role_name), ("description", self.faker.text(max_nb_chars=20))]
+        args.append(("name", self.role_name))
+        args.append(("description", self.faker.text(max_nb_chars=20)))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -35,8 +37,11 @@ class RoleData(BaseApi):
         @param role_id: 被修改的角色id
         @return:  [dict] 更新请求数据
         """
+        args=list()
         variables_temp = self.get_variables(module_name="role", variables_name="update_role")
-        args = [("name", self.role_name), ("description", self.faker.text(max_nb_chars=20)), ("id", role_id)]
+        args.append(("name", self.role_name))
+        args.append(("description", self.faker.text(max_nb_chars=20)))
+        args.append(("id", role_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -46,13 +51,11 @@ class RoleData(BaseApi):
         @param roleId:角色id
         @return : 只有一条权限的角色配置权限variables
         """
-        rule_id = self.userdata.get_one_permissions_of_user()
+        args=list()
+        rule_id = self.account_data.get_one_permissions_of_user()
         variables_temp = self.get_variables(module_name="role", variables_name="set_authorization_rules_to_user")
-        args = [
-            ("authorizationRules",
-             [{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission": {"id": rule_id}, "isAllowed": True}]),
-            ("role", {"id": roleId})
-        ]
+        args.append(("authorizationRules",[{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission": {"id": rule_id}, "isAllowed": True}]))
+        args.append(("role", {"id": roleId}))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
