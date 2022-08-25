@@ -104,6 +104,11 @@ role:
         isAllowed: true
     role:
       id:
+  set_role_accounts:
+    accountIds:
+    roleId:
+  update_authorization_role:
+    dataRange:
 
 authentication:
   create_oauth2:

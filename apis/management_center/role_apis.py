@@ -12,7 +12,7 @@ class Role(GetTokenHeader):
         @param args:list [""]
         @param kwargs: dict
         """
-        headers = self.get_headers()
+
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         users_info = op.role_list(
@@ -29,7 +29,7 @@ class Role(GetTokenHeader):
         创建角色
         @param variables: dict
         """
-        headers = self.get_headers()
+
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_role(input=variables)
@@ -46,7 +46,7 @@ class Role(GetTokenHeader):
         更新角色的基础信息
         @param variables: dict
         """
-        headers = self.get_headers()
+
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_role(input=variables)
@@ -64,7 +64,7 @@ class Role(GetTokenHeader):
         @param ids:[list]
         @return: True or False
         """
-        headers = self.get_headers()
+
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_role(ids=ids)
@@ -108,6 +108,53 @@ class Role(GetTokenHeader):
                 break
         return flags
 
+    def set_role_accounts_api(self, input_data):
+        """
+        为角色批量设置账号
+        @param input_data:
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.set_role_accounts(input=input_data)
+        data = endpoint(op)
+        try:
+            res = (op + data).set_role_accounts
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
+
+    def all_authorization_roles_of_role_api(self,role_id):
+        """
+        获取角色下所有权限详情
+        @param role_id:
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Query)
+        all_authorization_rules_of_role=op.all_authorization_rules_of_role(filter={
+            "permissionTypes": [
+                "FEATURE"
+            ],
+            "requireDataRanges": True
+        },
+        role_id=role_id)
+        all_authorization_rules_of_role.__fields__("data_range","id","is_allowed")
+        data = endpoint(op)
+        return data["data"]["allAuthorizationRulesOfRole"]
+
+    def update_authorization_rule_api(self,input_data):
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.update_authorization_rule(input=input_data)
+        data = endpoint(op)
+        try:
+            res = (op + data).update_authorization_rule
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
 
 if __name__ == '__main__':
     role = Role()

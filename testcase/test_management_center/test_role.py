@@ -34,18 +34,32 @@ class TestRole:
         res = self.role.update_role(data_update)
         assert_that(res, equal_to(True))
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/52", name="删除角色")
-    def test_delete_role(self, pre_role):
-        res = self.role.delete_role([pre_role])
-        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/54", name="查看权限列表")
     def test_role_list(self):
         res = self.role.get_role_list()
         assert_that(len(res) > 0)
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/53", name="权限配置")
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/53", name="功能权限配置")
     def test_set_authorization_roles_to_role(self,pre_role):
         data_set=self.data.set_authorization_rules_to_role(pre_role)
         res=self.role.set_authorization_rules_to_role_api(data_set)
         assert_that(res,equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/133", name="配置数据权限")
+    def test_update_authorization_rule(self, pre_role):
+        data = self.role.all_authorization_roles_of_role_api(pre_role)
+        res = self.role.update_authorization_rule_api(data)
+        assert_that(res, equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/132", name="角色配置账号")
+    def test_set_role_accounts(self,pre_role):
+        data=self.data.set_role_accounts_data(pre_role)
+        res=self.role.set_role_accounts_api(data)
+        assert_that(res,equal_to(True))
+
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/52", name="删除角色")
+    def test_delete_role(self, pre_role):
+        res = self.role.delete_role([pre_role])
+        assert_that(res, equal_to(True))

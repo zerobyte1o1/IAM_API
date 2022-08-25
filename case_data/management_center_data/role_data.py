@@ -1,7 +1,7 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.role_apis import Role
 from case_data.management_center_data.account_data import AccountData
-from apis.management_center.account_apis import User
+from apis.management_center.account_apis import Account
 from utils.mock import Mock
 
 
@@ -9,7 +9,7 @@ class RoleData(BaseApi):
     def __init__(self,**kwargs):
         self.role = Role(**kwargs)
         self.mock = Mock(**kwargs)
-        self.user = User(**kwargs)
+        self.account=Account()
         self.role_name = self.mock.mock_data("role")
         self.account_data = AccountData(**kwargs)
 
@@ -59,13 +59,28 @@ class RoleData(BaseApi):
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
+    def set_role_accounts_data(self,role_id):
+        """
+        所有账号与一个角色
+        @param role_id:
+        @return:
+        """
+        args=list()
+        account_list_data=self.account_data.account_list_filter()
+        account_list=self.account.get_account_list(account_list_data).data
+        variables_temp = self.get_variables(module_name="role", variables_name="set_role_accounts")
+        args.append(("accountIds",[i["id"] for i in account_list]))
+        args.append(("roleId",role_id))
+        variables = self.modify_variables(target_json=variables_temp, args=args)
+        return variables
+
+
 
 if __name__ == '__main__':
 
     for i in range(1):
         b = Role()
         a = RoleData()
-        data=a.create_role_ask()
-        res=b.create_role(data)
-
+        data=b.all_authorization_roles_of_role_api("736f5948-f10a-4e6b-9f37-b086674c1b4e")
+        res=b.update_authorization_rule_api(data)
         print(res)
