@@ -30,6 +30,7 @@ class Organization(GetTokenHeader):
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         organization_tree_nodes = op.organization_tree_nodes()
+        print(op.__repr__())
         if args:
             organization_tree_nodes.__fields__(*args)
         data = endpoint(op)
@@ -98,5 +99,5 @@ if __name__ == '__main__':
     # })
     # b = Organization().get_organization_tree_nodes()[0].id
     # print(b)
-    a=Organization(account="company01", tenant_code="company01", password="123456").get_organization_tree_nodes()[0].id
+    a=Organization().get_organization_tree_nodes()[0].id
     print(a)

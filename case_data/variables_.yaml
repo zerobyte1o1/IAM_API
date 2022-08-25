@@ -1,4 +1,4 @@
-user:
+account:
   create_user:
     account: aaaaas
     isAccountEnabled: true
@@ -22,14 +22,15 @@ user:
         isAllowed: true
     user:
       id:
-
-
-  user_list:
+  account_list:
     searchBy:
       - account
       - name
       - phoneNumber
       - email
+  add_account_roles:
+    accountIds:
+    roleIds:
 
 
 staff:

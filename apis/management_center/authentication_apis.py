@@ -12,7 +12,6 @@ class Authentication(GetTokenHeader):
         @param id: 认证设置id
         @return: TRUE OR FALSE
         """
-        headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_authentication_configuration(id=id)
@@ -29,7 +28,6 @@ class Authentication(GetTokenHeader):
         查看当前企业的认证设置信息
         @return: 存在时返回基本信息，不存在时返回NULL
         """
-        headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.authentication_configuration()
@@ -43,7 +41,6 @@ class Authentication(GetTokenHeader):
         @param variables: 认证请求
         @return: id
         """
-        headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_oauth2_authentication_configuration(input=variables)
@@ -61,7 +58,6 @@ class Authentication(GetTokenHeader):
         @param variables: 认证请求
         @return: id
         """
-        headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_open_idconnect1_authentication_configuration(input=variables)
@@ -79,7 +75,6 @@ class Authentication(GetTokenHeader):
         @param variables: 修改请求数据
         @return:TRUE OR FALSE
         """
-        headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_oauth2_authentication_configuration(input=variables)
@@ -97,7 +92,6 @@ class Authentication(GetTokenHeader):
         @param variables: 修改请求数据
         @return:TRUE OR FALSE
         """
-        headers = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_open_idconnect1_authentication_configuration(input=variables)

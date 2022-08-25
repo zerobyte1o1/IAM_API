@@ -12,33 +12,33 @@ class AccountData(BaseApi):
         # org_id = org.get_organization_tree_nodes()[0]["id"]
         self.role_id = self.role.get_role_list().data[0].id
 
-    def account_list_filter(self, search=None,roles=None):
+    def account_list_filter(self, search=None, roles=None):
         """
 
         @param search: 关键字查询，默认无
         @param roles: 角色筛选,默认无
         @return:
         """
-        variables_temp = self.get_variables(module_name="user", variables_name="user_list")
+        variables_temp = self.get_variables(module_name="account", variables_name="account_list")
         args = list()
         if search is not None:
-            args.append(("search",search))
+            args.append(("search", search))
         if roles is not None:
-            args.append(("roles",roles))
+            args.append(("roles", roles))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
-    def update_account_data(self, account_id,isAllowedToLogin=None):
+    def update_account_data(self, account_id, isAllowedToLogin=None):
         """
 
         @param account_id: 账号id
         @param isAllowedToLogin: 是否允许登录
         @return:
         """
-        args=list()
-        variables_temp = self.get_variables(module_name="user", variables_name="update_account")
+        args = list()
+        variables_temp = self.get_variables(module_name="account", variables_name="update_account")
         args.append(("id", account_id))
-        args.append(("role",[{"id":self.role_id}]))
+        args.append(("role", [{"id": self.role_id}]))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
@@ -89,7 +89,7 @@ class AccountData(BaseApi):
         """
         rule_id = self.get_one_permissions_of_user()
 
-        variables_temp = self.get_variables(module_name="user", variables_name="set_authorization_rules_to_user")
+        variables_temp = self.get_variables(module_name="account", variables_name="set_authorization_rules_to_user")
         args = [
             ("authorizationRules",
              [{"dataRange": {"code": "ALL", "name": "全部数据"}, "permission": {"id": rule_id}, "isAllowed": True}]),
@@ -118,11 +118,21 @@ class AccountData(BaseApi):
         variables = {"authorizationRules": data_tange, "user": {"id": userId}}
         return variables
 
+    def add_and_remove_account_roles_data(self,account_id):
+        args = list()
+        list_data = self.account_list_filter()
+        roles = self.role.get_role_list().data
+        variables_temp = self.get_variables(module_name="account", variables_name="add_account_roles")
+        args.append(("accountIds", [account_id]))
+        args.append(("roleIds", [i["id"] for i in roles]))
+        variables = self.modify_variables(target_json=variables_temp, args=args)
+        return variables
+
 
 if __name__ == '__main__':
     a = AccountData()
-    b =Account()
+    b = Account()
 
-    data = a.update_account_data("97d9fa27-d373-465d-abd5-047c7f298f0c")
-    res=b.update_account_api(data)
+    data = a.add_and_remove_account_roles_data()
+    res=b.remove_account_roles_api(data)
     print(res)

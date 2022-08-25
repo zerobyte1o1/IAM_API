@@ -13,7 +13,6 @@ class Account(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-
         op.me()
         data = endpoint(op)
         res = (op + data).me
@@ -59,7 +58,7 @@ class Account(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def disable_accounts_apis(self, ids: list):
+    def disable_accounts_apis(self, id):
         """
         禁用账号
         @param ids : list
@@ -67,7 +66,7 @@ class Account(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
-        op.disable_accounts(ids=ids)
+        op.disable_accounts(ids=[id])
         data = endpoint(op)
         try:
             res = (op + data).disable_accounts
@@ -148,12 +147,12 @@ class Account(GetTokenHeader):
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        direct_authorization_rules_of_user = op.all_permissions_of_user(
+        all_permissions_of_user = op.all_permissions_of_user(
             filter=eval(f"{kwargs['kwargs']['filter']}"),
             user_id=kwargs['kwargs']['userId']
         )
         if args:
-            direct_authorization_rules_of_user.__fields__(*args)
+            all_permissions_of_user.__fields__(*args)
         data = endpoint(op)
         res = (op + data).all_permissions_of_user
         return res
@@ -255,6 +254,11 @@ class Account(GetTokenHeader):
         return [i["id"] for i in res.data if i["name"] == "管理中心"][0]
 
     def all_authorizations_of_user_api(self, staff_id):
+        """
+        查看所有权限
+        @param staff_id:
+        @return:
+        """
         app_keys = self.ordinary_staff_app_list_of_my_tenant_api(staff_id)
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
@@ -267,10 +271,36 @@ class Account(GetTokenHeader):
 
         return res
 
+    def add_account_roles_api(self, input_data):
+        """
+        批量添加角色
+        @param input_data:
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.add_account_roles(input=input_data)
+        data = endpoint(op)
+        res = (op + data).add_account_roles
+        return res
+
+    def remove_account_roles_api(self, input_data):
+        """
+        批量移除角色
+        @param input_data:
+        @return:
+        """
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.remove_account_roles(input=input_data)
+        data = endpoint(op)
+        res = (op + data).remove_account_roles
+        return res
+
 
 if __name__ == '__main__':
     a = Account()
 
     # res = a.get_user("3d327a12-89d3-41b6-93e7-42b668d5e455")
-    res = a.all_authorizations_of_user_api("97d9fa27-d373-465d-abd5-047c7f298f0c")
+    res = a.ordinary_staff_app_list_of_my_tenant_api("dc228c87-7873-462d-b5cd-c613583923c6")
     print(res)

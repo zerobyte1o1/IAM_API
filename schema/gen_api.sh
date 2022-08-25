@@ -1,4 +1,5 @@
 python3 -m sgqlc.introspection \
+--exclude-deprecated \
 --exclude-description \
 https://test3.teletraan.io/graphql/ \
 platform_schema.json || exit 1

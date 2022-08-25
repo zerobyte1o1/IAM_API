@@ -1,12 +1,12 @@
 from apis.base.base_api import BaseApi
-from apis.management_center.account_apis import User
+from apis.management_center.account_apis import Account
 from apis.message_service.meta_template_apis import MetaTemplate
 
 
 class MetaTemplateData(BaseApi):
     def __init__(self, **kwargs):
         self.meta_template = MetaTemplate(**kwargs)
-        self.user = User(**kwargs)
+        self.account = Account(**kwargs)
 
     def create_meta_template_ask(self):
         args=list()
@@ -21,7 +21,7 @@ class MetaTemplateData(BaseApi):
 
     def update_meta_template_ask(self, template_id):
         args=list()
-        tenant_id=self.user.get_me().tenant.id
+        tenant_id=self.account.get_me().tenant.id
         variables_temp = self.get_variables(module_name="meta_template", variables_name="update_meta_template")
         args.append(("id", template_id))
         args.append(("name", self.mock.mock_data("meta_template")))

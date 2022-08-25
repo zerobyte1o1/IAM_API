@@ -3,15 +3,13 @@ import sys
 
 import pytest
 
-from apis.management_center.account_apis import User
 from apis.message_service.meta_template_apis import MetaTemplate
 from apis.platform_management.tenant_apis import Tenant
-from case_data.management_center_data.account_data import UserData
+from case_data.management_center_data.account_data import AccountData
 from case_data.message_service.meta_template_data import MetaTemplateData
 from case_data.platform_management_data.tenant_data import TenantData
 
-data = UserData()
-user = User()
+data = AccountData()
 tenant = Tenant()
 t_data = TenantData()
 meta_template = MetaTemplate()
