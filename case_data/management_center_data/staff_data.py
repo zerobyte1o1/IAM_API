@@ -30,7 +30,7 @@ class StaffData(BaseApi):
     def create_staff_data(self):
         variables_temp = self.get_variables(module_name="staff", variables_name="create_staff")
         args = list()
-        args.append(("email", self.faker.email()))
+        args.append(("email", self.mock.mock_data("email")+self.faker.email()))
         args.append(("name", self.mock.mock_data("staff")))
         args.append(("organizations", [{"id": self.org_id}]))
         args.append(("phoneNumber", self.faker.phone_number()))

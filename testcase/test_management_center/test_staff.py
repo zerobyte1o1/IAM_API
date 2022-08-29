@@ -59,5 +59,6 @@ class TestStaff:
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/99", name="删除人员")
     def test_delete_staff(self, pre_staff):
+        self.staff.resign_staff_apis(pre_staff)
         res = self.staff.delete_staff_apis(pre_staff)
         assert_that(res, equal_to(True))
