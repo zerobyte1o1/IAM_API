@@ -155,7 +155,8 @@ log:
 
 message:
   set_channels_of_message_template:
-    channelIds: inbox
+    channelIds:
+      - "inbox"
     messageTemplateId:
     tenantId:
 

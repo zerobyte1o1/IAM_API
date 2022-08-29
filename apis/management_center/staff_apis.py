@@ -121,39 +121,7 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def archive_staff_apis(self, staff_ids):
-        """
-        归档人员
-        @param staff_ids:
-        @return:
-        """
-        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
-        op = Operation(Mutation)
-        op.archive_staff(ids=[staff_ids])
-        data = endpoint(op)
-        try:
-            res = (op + data).archive_staff
-            return res
-        except:
-            res = data.get("errors")[0].get("message")
-            return res
 
-    def restore_staff_apis(self, staff_ids):
-        """
-        恢复人员
-        @param staff_ids:
-        @return:
-        """
-        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
-        op = Operation(Mutation)
-        op.restore_staff(ids=[staff_ids])
-        data = endpoint(op)
-        try:
-            res = (op + data).restore_staff
-            return res
-        except:
-            res = data.get("errors")[0].get("message")
-            return res
 
     def create_account_apis(self, input_data):
         """

@@ -12,7 +12,7 @@ class Message(GetTokenHeader):
         @param variables:
         @return: True or False
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.set_channels_of_message_template(channel_ids=variables["channelIds"],
@@ -32,7 +32,7 @@ class Message(GetTokenHeader):
         @param id: 媒介id
         @return: True or False
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.deactivate_message_channel(id=id)
@@ -50,7 +50,7 @@ class Message(GetTokenHeader):
         @param id: 媒介id
         @return: True or False
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.active_message_channel(id=id)
@@ -68,7 +68,7 @@ class Message(GetTokenHeader):
         @param variables:
         @return: True or False
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.set_channel_of_message_templates(channel_id=variables["channelId"],
