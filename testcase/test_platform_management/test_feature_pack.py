@@ -11,7 +11,7 @@ class TestFeaturePack:
         self.feature = FeaturePack()
         self.feature_date = FeaturePackData()
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def pre_feature_pack(self):
         feature = FeaturePack()
         feature_data = FeaturePackData()
