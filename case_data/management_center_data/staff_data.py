@@ -9,7 +9,6 @@ class StaffData(BaseApi):
         self.org = Organization(**kwargs)
         self.role = Role(**kwargs)
         self.org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        print(self.org_id)
         # self.role_id = self.role.get_role_list().data[0].id
 
     def staff_list_data(self, **kwargs):

@@ -12,7 +12,6 @@ class Role(GetTokenHeader):
         @param args:list [""]
         @param kwargs: dict
         """
-
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         users_info = op.role_list(
@@ -125,26 +124,21 @@ class Role(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
-    def all_authorization_roles_of_role_api(self,role_id):
+    def all_authorization_roles_of_role_api(self, args=None, **kwargs):
         """
         获取角色下所有权限详情
-        @param role_id:
         @return:
         """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        all_authorization_rules_of_role=op.all_authorization_rules_of_role(filter={
-            "permissionTypes": [
-                "FEATURE"
-            ],
-            "requireDataRanges": True
-        },
-        role_id=role_id)
-        all_authorization_rules_of_role.__fields__("data_range","id","is_allowed")
+        all_authorization_rules_of_role = op.all_authorization_rules_of_role(filter=kwargs["filter"],
+                                                                             role_id=kwargs["role_id"])
+        if args:
+            all_authorization_rules_of_role.__fields__(*args)
         data = endpoint(op)
         return data["data"]["allAuthorizationRulesOfRole"]
 
-    def update_authorization_rule_api(self,input_data):
+    def update_authorization_rule_api(self, input_data):
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_authorization_rule(input=input_data)
@@ -156,13 +150,6 @@ class Role(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
+
 if __name__ == '__main__':
     role = Role()
-    res = role.get_role_list(args=["id"]).data
-    flag = False
-    for i in range(len(res)):
-        if res[i].id == "431b2f8b-6883-469f-bd12-0caee613f4c2":
-            flag = True
-            break
-    print(flag)
-    print(res)

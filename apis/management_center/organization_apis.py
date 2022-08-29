@@ -10,7 +10,7 @@ class Organization(GetTokenHeader):
         """
         查看组织下的子组织
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         op.organization_list(
@@ -26,11 +26,9 @@ class Organization(GetTokenHeader):
         @param args:过滤结果需要的数据，如：id,name,totalUserCount
         @return:所有的组织节点及其信息
         """
-        self.headersheaders = self.get_headers()
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
         organization_tree_nodes = op.organization_tree_nodes()
-        print(op.__repr__())
         if args:
             organization_tree_nodes.__fields__(*args)
         data = endpoint(op)
@@ -43,7 +41,7 @@ class Organization(GetTokenHeader):
         @param variables:[dict]
         @return: true or false
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_organization(input=variables)
@@ -61,7 +59,7 @@ class Organization(GetTokenHeader):
         @param variables: [dict]
         @return: True or False
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.update_organization(input=variables)
@@ -79,7 +77,7 @@ class Organization(GetTokenHeader):
         @param org_id: 组织id
         @return: True or False
         """
-        headers = self.get_headers()
+         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.delete_organization(id=org_id)

@@ -254,6 +254,7 @@ class Account(GetTokenHeader):
         return [i["id"] for i in res.data if i["name"] == "管理中心"][0]
 
     def all_authorizations_of_user_api(self, staff_id):
+        # 这个接口有鬼
         """
         查看所有权限
         @param staff_id:

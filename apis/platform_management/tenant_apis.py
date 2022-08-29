@@ -71,7 +71,6 @@ class Tenant(GetTokenHeader):
         if args:
             tenant_app_list.data.__fields__(*args)
         data = endpoint(op)
-        res = (op + data).tenant_app_list.data
         return data["data"]["tenantAppList"]["data"]
 
     def get_my_tenant_app_list(self, args=None):
