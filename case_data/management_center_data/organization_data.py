@@ -33,10 +33,10 @@ class OrganizationData(BaseApi):
         variables_temp = self.get_variables(module_name="organization", variables_name="create_organization")
         if org_id is None:
             org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        account_list_filter = self.account_data.account_list_filter([{"id": org_id}])
-        org_user = self.account.get_account_list(account_list_filter).data[0].id
+        # account_list_filter = self.account_data.account_list_filter([{"id": org_id}])
+        # org_user = self.account.get_account_list(account_list_filter).data[0].id
         args.append(("name", self.mock.mock_data("organization")))
-        args.append(("manager", {"id": org_user}))
+        # args.append(("manager", {"id": org_user}))
         args.append(("code", self.faker.msisdn()))
         args.append(("parent", {"id": org_id}))
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -50,11 +50,11 @@ class OrganizationData(BaseApi):
         """
         args=list()
         variables_temp = self.get_variables(module_name="organization", variables_name="update_organization")
-        org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
-        account_list_filter = self.account.user_account_filter(org_ids=[{"id": org_gen_id}])
-        org_account = self.user.get_uaccount_list(account_list_filter).data[0].id
+        # org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
+        # account_list_filter = self.account_data.account_list_filter(org_ids=[{"id": org_gen_id}])
+        # org_account = self.account.get_account_list(account_list_filter).data[0].id
         args.append(("name", self.mock.mock_data("organization")))
-        args.append(("manager", {"id": org_account}))
+        # args.append(("manager", {"id": org_account}))
         args.append(("code", self.faker.msisdn()))
         args.append(("id", org_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # Organization().update_organization_api(a)
 
     # # res = org.get_organization_tree_nodes()
-    data = a.create_organization_ask()
-    res = org.create_organization_api(data)
-
+    data = a.update_organization_ask("8c93996f-7a9f-4d0f-b663-50ea4fb92421")
+    print(data)
+    res = org.update_organization_api({'code': '9449796571756', 'id': '8c93996f-7a9f-4d0f-b663-50ea4fb92421', 'manager': None, 'name': 'organization_CVGIAd'})
     print(res)

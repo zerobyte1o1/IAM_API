@@ -610,6 +610,8 @@ class UserInfoRequestMethod(sgqlc.types.Enum):
 
 
 
+
+
 ########################################################################
 # Input Objects
 ########################################################################
@@ -6911,7 +6913,7 @@ class PageList(sgqlc.types.Type):
 
 class Permission(sgqlc.types.Type):
     __schema__ = platform_schema
-    __field_names__ = ('apis', 'app', 'data_ranges', 'dependencies', 'id', 'name', 'parent_id', 'path_name', 'type')
+    __field_names__ = ('apis', 'app', 'data_ranges', 'dependencies', 'id', 'name', 'parent_id', 'path_name', 'rank', 'type')
     apis = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null(Api)), graphql_name='apis')
     app = sgqlc.types.Field(sgqlc.types.non_null(App), graphql_name='app')
     data_ranges = sgqlc.types.Field(sgqlc.types.list_of(sgqlc.types.non_null('PermissionDataRange')), graphql_name='dataRanges')
@@ -6920,6 +6922,7 @@ class Permission(sgqlc.types.Type):
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='name')
     parent_id = sgqlc.types.Field(String, graphql_name='parentId')
     path_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='pathName')
+    rank = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='rank')
     type = sgqlc.types.Field(sgqlc.types.non_null(PermissionType), graphql_name='type')
 
 

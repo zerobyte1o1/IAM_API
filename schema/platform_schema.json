@@ -31147,6 +31147,19 @@
             },
             {
               "args": [],
+              "name": "rank",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
               "name": "type",
               "type": {
                 "kind": "NON_NULL",

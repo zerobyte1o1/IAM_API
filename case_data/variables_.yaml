@@ -74,16 +74,13 @@ organization:
   create_organization:
     code:
     manager:
-      id:
     name:
     parent:
-      id:
 
   update_organization:
     code:
     id:
     manager:
-      id:
     name:
 
 role:

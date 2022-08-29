@@ -35,13 +35,12 @@ class Organization(GetTokenHeader):
         res = (op + data).organization_tree_nodes
         return res
 
-    def create_organization_api(self, variables:dict):
+    def create_organization_api(self, variables):
         """
         创建组织
         @param variables:[dict]
         @return: true or false
         """
-         
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.create_organization(input=variables)
@@ -62,8 +61,11 @@ class Organization(GetTokenHeader):
          
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
+        print(op)
         op.update_organization(input=variables)
+        print(op)
         data = endpoint(op)
+        print(data)
         try:
             res = (op + data).update_organization
             return res
@@ -91,11 +93,12 @@ class Organization(GetTokenHeader):
 
 
 if __name__ == '__main__':
+
     # a = Organization().get_organization_list(kwargs={
     #     "id": "a1c97533-4149-4a13-bf73-e4a3bf08a25a",
     #     "isChildrenIncluded": True
     # })
     # b = Organization().get_organization_tree_nodes()[0].id
     # print(b)
-    a=Organization().get_organization_tree_nodes()[0].id
+    a=Organization().create_organization_api({ "code":  "6722151120809",  "manager": None,  "name":  "organization_Ip0wwmFi",  "parent": { "id":  "a1c97533-4149-4a13-bf73-e4a3bf08a25a"}})
     print(a)
