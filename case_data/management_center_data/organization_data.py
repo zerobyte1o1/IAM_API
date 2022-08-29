@@ -1,15 +1,15 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.organization_apis import Organization
 from utils.mock import Mock
-from apis.management_center.account_apis import User
-from case_data.management_center_data.account_data import UserData
+from apis.management_center.account_apis import Account
+from case_data.management_center_data.account_data import AccountData
 
 
 class OrganizationData(BaseApi):
     def __init__(self, **kwargs):
         self.org = Organization(**kwargs)
-        self.user = User(**kwargs)
-        self.user_data = UserData(**kwargs)
+        self.account = Account(**kwargs)
+        self.account_data = AccountData(**kwargs)
 
     def get_organization_list_ask(self, organization_id=None, flag=True):
         """
@@ -33,8 +33,8 @@ class OrganizationData(BaseApi):
         variables_temp = self.get_variables(module_name="organization", variables_name="create_organization")
         if org_id is None:
             org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        user_list_filter = self.user_data.user_list_filter([{"id": org_id}])
-        org_user = self.user.get_user_list(user_list_filter).data[0].id
+        account_list_filter = self.account_data.account_list_filter([{"id": org_id}])
+        org_user = self.account.get_account_list(account_list_filter).data[0].id
         args.append(("name", self.mock.mock_data("organization")))
         args.append(("manager", {"id": org_user}))
         args.append(("code", self.faker.msisdn()))
@@ -51,10 +51,10 @@ class OrganizationData(BaseApi):
         args=list()
         variables_temp = self.get_variables(module_name="organization", variables_name="update_organization")
         org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
-        user_list_filter = self.user_data.user_list_filter(org_ids=[{"id": org_gen_id}])
-        org_user = self.user.get_user_list(user_list_filter).data[0].id
+        account_list_filter = self.account.user_account_filter(org_ids=[{"id": org_gen_id}])
+        org_account = self.user.get_uaccount_list(account_list_filter).data[0].id
         args.append(("name", self.mock.mock_data("organization")))
-        args.append(("manager", {"id": org_user}))
+        args.append(("manager", {"id": org_account}))
         args.append(("code", self.faker.msisdn()))
         args.append(("id", org_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)

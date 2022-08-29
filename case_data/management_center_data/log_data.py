@@ -1,12 +1,12 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.log_apis import Log
-from apis.management_center.account_apis import User
+from apis.management_center.account_apis import Account
 import time
 import datetime
 
 
 class LogData(BaseApi):
-    user = User()
+    account = Account()
 
     def get_log_list_filter(self, end=None, search=None, start=None):
         """
@@ -16,7 +16,7 @@ class LogData(BaseApi):
         @param start: 开始时间，默认为7天前
         @return:生成loglist的filter
         """
-        account = self.user.get_me().account
+        account = self.account.get_me().account
         if start is None:
             start = int(
                 time.mktime(time.strptime(str(datetime.date.today() + datetime.timedelta(days=-6)), '%Y-%m-%d'))) * 1000
@@ -32,9 +32,6 @@ class LogData(BaseApi):
 
 
 if __name__ == '__main__':
-    a = LogData()
-    res = a.get_log_list_filter()
-    print(res)
-    b = Log()
-    res2 = b.get_log_list(res)
+    a = Account()
+    res2= a.get_me().account
     print(res2)
