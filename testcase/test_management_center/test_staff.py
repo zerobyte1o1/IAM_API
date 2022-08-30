@@ -56,7 +56,7 @@ class TestStaff:
     def test_create_account(self, pre_staff):
         data = self.staff_data.create_account_data(pre_staff)
         res = self.staff.create_account_apis(data)
-        assert_that("-" in res)
+        assert_that("-" in res["account_id"])
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/99", name="删除人员")
     def test_delete_staff(self, pre_staff):

@@ -1,3 +1,0 @@
-2022-08-29 17:02:20 [ERROR] GraphQL query failed with 1 errors (base.py:213)
-2022-08-29 17:02:20 [INFO] Error #0: (base.py:220)
-2022-08-29 17:02:20 [INFO]    | reduce() of empty iterable with no initial value (base.py:222)

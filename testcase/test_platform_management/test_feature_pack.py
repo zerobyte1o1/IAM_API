@@ -18,7 +18,8 @@ class TestFeaturePack:
         create_data = feature_data.create_feature_pack_data()
         feature_id = feature.create_feature_pack_api(create_data)
         yield feature_id
-        if feature.feature_pack_list_api(create_data["name"]).total_count > 0:
+        pre_feature = feature.feature_pack_list_api(create_data["name"])
+        if pre_feature.total_count > 0 and pre_feature.data[0]["is_be_used"] == False:
             self.feature.delete_feature_pack_api(feature_id)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/118", name="功能包列表")
@@ -49,17 +50,16 @@ class TestFeaturePack:
         assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/123", name="查看功能包基本信息")
-    def test_feature_pack(self,pre_feature_pack):
-        res=self.feature.feature_pack_api(pre_feature_pack)
+    def test_feature_pack(self, pre_feature_pack):
+        res = self.feature.feature_pack_api(pre_feature_pack)
         assert_that("id" in res)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/124", name="确认功能包")
-    def test_confirm_feature_pack(self,pre_feature_pack):
-        res=self.feature.confirm_feature_pack_api(pre_feature_pack)
-        assert_that(res,equal_to(True))
+    def test_confirm_feature_pack(self, pre_feature_pack):
+        res = self.feature.confirm_feature_pack_api(pre_feature_pack)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/121", name="删除功能包")
-    def test_delete_feature_pack(self,pre_feature_pack):
-        res=self.feature.delete_feature_pack_api(pre_feature_pack)
-        assert_that(res,equal_to(True))
-
+    def test_delete_feature_pack(self, pre_feature_pack):
+        res = self.feature.delete_feature_pack_api(pre_feature_pack)
+        assert_that(res, equal_to(True))
