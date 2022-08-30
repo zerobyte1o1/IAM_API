@@ -339,6 +339,15 @@ class Tenant(GetTokenHeader):
         res = (op + data).add_feature_pack_to_tenant
         return res
 
+    def feature_pack_subscriptions_of_tenant_api(self,tenant_id):
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Query)
+        op.feature_pack_subscriptions_of_tenant(tenant_id=tenant_id)
+        data = endpoint(op)
+        res = (op + data).feature_pack_subscriptions_of_tenant
+        return res
+
+
     def remove_feature_pack_subscription_api(self, feature_id):
         """
         移除企业功能包
@@ -353,6 +362,11 @@ class Tenant(GetTokenHeader):
         return res
 
     def set_login_modes_to_tenant_api(self,input_data):
+        """
+        设置登录方式
+        @param input_data:
+        @return:
+        """
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Mutation)
         op.set_login_modes_to_tenant(input=input_data)
@@ -363,5 +377,6 @@ class Tenant(GetTokenHeader):
 if __name__ == '__main__':
     a = Tenant()
 
-    res = a.create_tenant_owner_api("3d296cf6-2c7b-47ad-b349-3e7abc607b5b").owner
+
+    res = a.feature_pack_subscriptions_of_tenant_api("0a3149c8-d47e-453d-970c-d42c4c778418")[0]
     print(res)

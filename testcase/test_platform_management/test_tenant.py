@@ -34,7 +34,6 @@ class TestTenant:
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/72", name="企业列表")
     def test_tenant_list(self, pre_tenant):
         res = self.tenant.get_tenant_list()
-        print(res)
         assert_that(len(res) > 0)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/73", name="查看企业详情")
@@ -54,10 +53,11 @@ class TestTenant:
         res = self.tenant.set_login_modes_to_tenant_api(data)
         assert_that(res, equal_to(True))
 
-    # @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/127", name="删除功能包")
-    # def test_remove_feature_pack_subscription(self):
-    #     res = self.tenant.remove_feature_pack_subscription_api(self.feature_id)
-    #     assert_that(res, equal_to(True))
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/127", name="删除功能包")
+    def test_remove_feature_pack_subscription(self,pre_tenant):
+        feature_pack_id=self.tenant.feature_pack_subscriptions_of_tenant_api(pre_tenant)[0]["id"]
+        res = self.tenant.remove_feature_pack_subscription_api(feature_pack_id)
+        assert_that(res, equal_to(True))
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/84", name="添加消息模板")
     def test_add_meta_templates_to_tenant(self, pre_tenant):

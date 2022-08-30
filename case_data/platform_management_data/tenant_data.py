@@ -137,6 +137,6 @@ class TenantData(BaseApi):
 if __name__ == '__main__':
     td = TenantData()
     ta = Tenant()
-    data = td.set_login_modes_to_tenant_data("856af57b-8018-4e34-87c2-1a8be49ded73")
-    res = ta.set_login_modes_to_tenant_api(data)
+    data = td.add_feature_pack_to_tenant_data("483c8d81-dccc-4a97-ba26-340a7268408b","61a53595-dda6-42f3-8f42-123e936fdb42")
+    res = ta.add_feature_pack_to_tenant_api(data)
     print(res)
