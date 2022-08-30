@@ -2,19 +2,19 @@ import allure
 import pytest
 from hamcrest import *
 
-from apis.management_center.authentication_apis import Authentication
-from case_data.management_center_data.authentication_data import AuthenticationData
+from apis.management_center.general_settings_apis import GeneralSettings
+from case_data.management_center_data.general_settings_data import GeneralSettingsData
 
 
 class TestAuthentication:
     def setup_class(self):
-        self.au = Authentication()
-        self.au_data = AuthenticationData()
+        self.au = GeneralSettings()
+        self.au_data = GeneralSettingsData()
 
     @pytest.fixture(scope="function")
     def pre_auth(self):
-        au = Authentication()
-        au_data = AuthenticationData()
+        au = GeneralSettings()
+        au_data = GeneralSettingsData()
         res = au.authentication_configuration_api()
         if "id" not in res:
             create_data = au_data.get_oauth2_ask()
@@ -26,8 +26,8 @@ class TestAuthentication:
 
     @pytest.fixture(scope="function")
     def pre_oidc(self):
-        au = Authentication()
-        au_data = AuthenticationData()
+        au = GeneralSettings()
+        au_data = GeneralSettingsData()
         res = au.authentication_configuration_api()
         if "id" not in res:
             create_data = au_data.get_oidc1_ask()
@@ -71,3 +71,14 @@ class TestAuthentication:
     def test_delete_authentication_configuration(self, pre_auth):
         res = self.au.delete_authentication_configuration_api(pre_auth)
         assert_that(res, equal_to(True))
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/134", name="重置通用配置信息")
+    def test_login_config_of_my_tenant(self):
+        res=self.au.login_config_of_my_tenant_api()
+        assert_that("assignable_modes" in res)
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/135", name="设置通用配置")
+    def test_set_login_config_to_my_tenant(self):
+        data=self.au_data.set_login_config_to_my_tenant_data()
+        res=self.au.set_login_config_to_my_tenant_api(data)
+        assert_that(res,equal_to(True))

@@ -109,7 +109,7 @@ role:
   update_authorization_role:
     dataRange:
 
-authentication:
+general_settings:
   create_oauth2:
     accessTokenAttributePath: http://teletraan.io
     accountAttributePath: account
@@ -146,6 +146,11 @@ authentication:
     phoneNumberAttributePath: phone
     scope: asdasdsadasd
 
+  set_login_config_to_my_tenant:
+    defaultMode: PHONE_VERIFY_CODE
+    modes:
+      - ACCOUNT_PASSWORD
+      - PHONE_VERIFY_CODE
 log:
   role_list_filter:
     end:
