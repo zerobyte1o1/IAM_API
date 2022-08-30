@@ -74,6 +74,7 @@ organization:
   create_organization:
     code:
     manager:
+      id:
     name:
     parent:
 
@@ -81,6 +82,7 @@ organization:
     code:
     id:
     manager:
+      id:
     name:
 
 role:

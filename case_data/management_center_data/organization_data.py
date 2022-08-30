@@ -1,15 +1,15 @@
 from apis.base.base_api import BaseApi
 from apis.management_center.organization_apis import Organization
 from utils.mock import Mock
-from apis.management_center.account_apis import Account
-from case_data.management_center_data.account_data import AccountData
+from apis.management_center.staff_apis import Staff
+from case_data.management_center_data.staff_data import StaffData
 
 
 class OrganizationData(BaseApi):
     def __init__(self, **kwargs):
         self.org = Organization(**kwargs)
-        self.account = Account(**kwargs)
-        self.account_data = AccountData(**kwargs)
+        self.staff = Staff(**kwargs)
+        self.staff_data = StaffData(**kwargs)
 
     def get_organization_list_ask(self, organization_id=None, flag=True):
         """
@@ -33,10 +33,10 @@ class OrganizationData(BaseApi):
         variables_temp = self.get_variables(module_name="organization", variables_name="create_organization")
         if org_id is None:
             org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        # account_list_filter = self.account_data.account_list_filter([{"id": org_id}])
-        # org_user = self.account.get_account_list(account_list_filter).data[0].id
+        data=self.staff_data.staff_list_data()
+        staff_id=self.staff.get_staff_list(data).data[0]["id"]
         args.append(("name", self.mock.mock_data("organization")))
-        # args.append(("manager", {"id": org_user}))
+        args.append(("manager", {"id": staff_id}))
         args.append(("code", self.faker.msisdn()))
         args.append(("parent", {"id": org_id}))
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -51,10 +51,10 @@ class OrganizationData(BaseApi):
         args=list()
         variables_temp = self.get_variables(module_name="organization", variables_name="update_organization")
         # org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
-        # account_list_filter = self.account_data.account_list_filter(org_ids=[{"id": org_gen_id}])
-        # org_account = self.account.get_account_list(account_list_filter).data[0].id
+        data = self.staff_data.staff_list_data()
+        staff_id = self.staff.get_staff_list(data).data[0]["id"]
         args.append(("name", self.mock.mock_data("organization")))
-        # args.append(("manager", {"id": org_account}))
+        args.append(("manager", {"id": staff_id}))
         args.append(("code", self.faker.msisdn()))
         args.append(("id", org_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # Organization().update_organization_api(a)
 
     # # res = org.get_organization_tree_nodes()
-    data = a.update_organization_ask("8c93996f-7a9f-4d0f-b663-50ea4fb92421")
+    data = a.update_organization_ask("ac277180-c3af-4233-a124-438a18163780")
     print(data)
-    res = org.update_organization_api({'code': '9449796571756', 'id': '8c93996f-7a9f-4d0f-b663-50ea4fb92421', 'manager': None, 'name': 'organization_CVGIAd'})
+    res = org.update_organization_api(data)
     print(res)

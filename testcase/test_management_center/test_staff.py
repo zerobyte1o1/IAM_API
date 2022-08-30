@@ -25,6 +25,7 @@ class TestStaff:
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/96", name="人员列表")
     def test_staff_list(self):
         data = self.staff_data.staff_list_data()
+        print(data)
         res = self.staff.get_staff_list(data)
         assert_that(res.total_count > 0)
 

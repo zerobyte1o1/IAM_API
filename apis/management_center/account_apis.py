@@ -303,5 +303,5 @@ if __name__ == '__main__':
     a = Account()
 
     # res = a.get_user("3d327a12-89d3-41b6-93e7-42b668d5e455")
-    res = a.ordinary_staff_app_list_of_my_tenant_api("dc228c87-7873-462d-b5cd-c613583923c6")
+    res = a.get_me()
     print(res)

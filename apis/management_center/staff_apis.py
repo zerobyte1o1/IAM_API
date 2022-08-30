@@ -139,3 +139,10 @@ class Staff(GetTokenHeader):
         except:
             res = data.get("errors")[0].get("message")
             return res
+
+
+if __name__ == '__main__':
+
+    a=Staff()
+    res=a.get_staff_list({'includeChildrenOrganizations': True, 'organizations': [{'id': 'a1c97533-4149-4a13-bf73-e4a3bf08a25a'}], 'search': None, 'searchBy': ['name', 'account', 'phoneNumber', 'email']})
+    print(res)

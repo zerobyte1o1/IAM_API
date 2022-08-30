@@ -33,7 +33,7 @@ class MessageData(BaseApi):
 if __name__ == '__main__':
     md = MessageData()
     m=Message()
-    res=md.set_channels_of_message_template_data()
-    res2=m.set_channels_of_message_template_api(res)
+    res=md.set_channel_of_message_templates_data()
+    res2=m.set_channel_of_message_templates_api(res)
     print(res)
     print(res2)
