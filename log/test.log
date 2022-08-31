@@ -1,0 +1,3 @@
+2022-08-31 13:48:09 [ERROR] GraphQL query failed with 1 errors (base.py:213)
+2022-08-31 13:48:09 [INFO] Error #0: (base.py:220)
+2022-08-31 13:48:09 [INFO]    | 只有已离职的用户才能删除 (base.py:222)

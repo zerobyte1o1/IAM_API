@@ -16,6 +16,7 @@ class Staff(GetTokenHeader):
         op = Operation(Query)
         op.staff_list(filter=filter_data)
         data = endpoint(op)
+        print(data)
         res = (op + data).staff_list
         return res
 
@@ -140,6 +141,17 @@ class Staff(GetTokenHeader):
             res = data.get("errors")[0].get("message")
             return res
 
+    def transfer_organization_api(self,input_data):
+        endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
+        op = Operation(Mutation)
+        op.transfer_organization(input=input_data)
+        data = endpoint(op)
+        try:
+            res = (op + data).transfer_organization
+            return res
+        except:
+            res = data.get("errors")[0].get("message")
+            return res
 
 if __name__ == '__main__':
 

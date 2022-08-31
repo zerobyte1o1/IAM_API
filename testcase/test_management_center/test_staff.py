@@ -41,11 +41,16 @@ class TestStaff:
         res = self.staff.update_staff_apis(data)
         assert_that(res, equal_to(True))
 
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/136", name="转移人员")
+    def test_transfer_organization(self, pre_staff):
+        data = self.staff_data.transfer_organization_data(pre_staff)
+        res = self.staff.transfer_organization_api(data)
+        assert_that(res, equal_to(True))
+
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/101", name="办理离职")
     def test_resign_staff(self, pre_staff):
         res = self.staff.resign_staff_apis(pre_staff)
         assert_that(res, equal_to(True))
-
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/102", name="重新入职")
     def test_rehire_staff(self, pre_staff):
