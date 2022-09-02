@@ -16,7 +16,6 @@ class Staff(GetTokenHeader):
         op = Operation(Query)
         op.staff_list(filter=filter_data)
         data = endpoint(op)
-        print(data)
         res = (op + data).staff_list
         return res
 

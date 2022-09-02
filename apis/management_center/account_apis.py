@@ -260,12 +260,11 @@ class Account(GetTokenHeader):
         @param staff_id:
         @return:
         """
-        app_keys = self.ordinary_staff_app_list_of_my_tenant_api(staff_id)
         endpoint = HTTPEndpoint(url=self.url, base_headers=self.headers)
         op = Operation(Query)
-        op.all_authorizations_of_user(filter={"appKeys": app_keys,
+        op.all_authorizations_of_user(filter={"types": ["FEATURE"],
                                               "isLeafOnly": True,
-                                              "search": None},
+                                              "requireDataRanges": True},
                                       user_id=staff_id)
         data = endpoint(op)
         res = (op + data).all_authorizations_of_user

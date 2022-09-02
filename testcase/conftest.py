@@ -5,12 +5,14 @@ import pytest
 
 from apis.message_service.meta_template_apis import MetaTemplate
 from apis.platform_management.tenant_apis import Tenant
+from apis.management_center.account_apis import Account
 from case_data.management_center_data.account_data import AccountData
 from case_data.message_service.meta_template_data import MetaTemplateData
 from case_data.platform_management_data.tenant_data import TenantData
 
 data = AccountData()
 tenant = Tenant()
+account= Account()
 t_data = TenantData()
 meta_template = MetaTemplate()
 mt_data = MetaTemplateData()
@@ -49,7 +51,7 @@ def pre_condition_for_the_satiation():
 def pre_message():
     # template_data = mt_data.create_meta_template_ask()
     # meta_template_id = meta_template.create_meta_template_api(template_data)
-    # add_meta_template_data = t_data.add_meta_templates_to_tenant_ask(function_script.get_me().tenant.id)
+    # add_meta_template_data = t_data.add_meta_templates_to_tenant_ask(account.get_me().tenant.id)
     # tenant.add_meta_templates_to_tenant_api(add_meta_template_data)
     # yield meta_template_id
     # try:

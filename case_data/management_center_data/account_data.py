@@ -81,7 +81,7 @@ class AccountData(BaseApi):
             if res[i]["dependencies"]:
                 return res[i]["id"]
 
-    def set_authorization_rules_to_user(self, userId):
+    def set_authorization_rules_to_user_data(self, userId):
         """
         为user添加一个权限
         @param userId:用户id

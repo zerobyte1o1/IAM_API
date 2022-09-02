@@ -68,17 +68,19 @@ class TestAccount:
         res = self.account.set_authorization_rules_to_user_api(data)
         assert_that(res, equal_to(True))
 
-    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/107", name="权限概览")
-    def test_all_authorizations_of_user(self, pre_account):
-        staff_id = self.account.account_api(pre_account).staff.id
-        res = self.account.all_authorizations_of_user_api(staff_id)
-        print(res)
+
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/116", name="添加功能权限")
     def test_set_authorization_roles_to_user(self,pre_account):
         staff_id = self.account.account_api(pre_account).staff.id
-        data=self.account_data.set_authorization_rules_to_user(staff_id)
+        data=self.account_data.set_authorization_rules_to_user_data(staff_id)
         res=self.account.set_authorization_rules_to_user_api(data)
+        print(res)
+
+    @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/107", name="权限概览")
+    def test_all_authorizations_of_user(self, pre_account):
+        staff_id = self.account.account_api(pre_account).staff.id
+        res = self.account.all_authorizations_of_user_api(staff_id)
         print(res)
 
     @allure.testcase(url="https://teletraan.coding.net/p/auto/testing/cases/110", name="禁用账号")
