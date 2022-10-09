@@ -29,12 +29,12 @@ class OrganizationData(BaseApi):
         @param org_id: 组织id [{"id":id}] None时为默认创建在根节点下
         @return:返回
         """
-        args=list()
+        args = list()
         variables_temp = self.get_variables(module_name="organization", variables_name="create_organization")
         if org_id is None:
             org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        data=self.staff_data.staff_list_data()
-        staff_id=self.staff.get_staff_list(data).data[0]["id"]
+        data = self.staff_data.staff_list_data()
+        staff_id = self.staff.get_staff_list(data).data[0]["id"]
         args.append(("name", self.mock.mock_data("organization")))
         args.append(("manager", {"id": staff_id}))
         args.append(("code", self.faker.msisdn()))
@@ -48,7 +48,7 @@ class OrganizationData(BaseApi):
         @param org_id: 组织id [{"id":id}] 注意该组织必须有user存在
         @return:返回
         """
-        args=list()
+        args = list()
         variables_temp = self.get_variables(module_name="organization", variables_name="update_organization")
         # org_gen_id = self.org.get_organization_tree_nodes()[0]["id"]
         data = self.staff_data.staff_list_data()
@@ -63,13 +63,9 @@ class OrganizationData(BaseApi):
 
 if __name__ == '__main__':
     org = Organization()
-    a = OrganizationData()
-    # a = OrganizationData().update_organization_ask()
-    # a.
-    # Organization().update_organization_api(a)
 
-    # # res = org.get_organization_tree_nodes()
-    data = a.update_organization_ask("ac277180-c3af-4233-a124-438a18163780")
-    print(data)
-    res = org.update_organization_api(data)
-    print(res)
+    for i in range(50):
+        a = OrganizationData()
+        data = a.create_organization_ask("9f55fdf1-9230-44c3-97eb-d8c3af390994")
+        res = org.create_organization_api(data)
+        print(res)

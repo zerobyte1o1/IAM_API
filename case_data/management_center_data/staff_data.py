@@ -5,12 +5,12 @@ from apis.management_center.role_apis import Role
 
 
 class StaffData(BaseApi):
-    def __init__(self,**kwargs):
+    def __init__(self, **kwargs):
         self.org = Organization(**kwargs)
         self.role = Role(**kwargs)
-        self.staff=Staff(**kwargs)
+        self.staff = Staff(**kwargs)
         self.org_id = self.org.get_organization_tree_nodes()[0]["id"]
-        self.org_id_last=self.org.get_organization_tree_nodes()[-1]["id"]
+        self.org_id_last = self.org.get_organization_tree_nodes()[-1]["id"]
 
         # self.role_id = self.role.get_role_list().data[0].id
 
@@ -33,7 +33,7 @@ class StaffData(BaseApi):
     def create_staff_data(self):
         variables_temp = self.get_variables(module_name="staff", variables_name="create_staff")
         args = list()
-        args.append(("email", self.mock.mock_data("email")+self.faker.email()))
+        args.append(("email", self.mock.mock_data("email") + self.faker.email()))
         args.append(("name", self.mock.mock_data("staff")))
         args.append(("organizations", [{"id": self.org_id}]))
         args.append(("phoneNumber", self.faker.phone_number()))
@@ -60,17 +60,18 @@ class StaffData(BaseApi):
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
-    def transfer_organization_data(self,staff_id):
+    def transfer_organization_data(self, staff_id):
         variables_temp = self.get_variables(module_name="staff", variables_name="transfer_organization")
         args = list()
-        args.append(("targetOrganizationId",self.org_id_last))
-        args.append(("staffIds",[staff_id]))
-        args.append(("originOrganizationId",self.org_id))
+        args.append(("targetOrganizationId", self.org_id_last))
+        args.append(("staffIds", [staff_id]))
+        args.append(("originOrganizationId", self.org_id))
         variables = self.modify_variables(target_json=variables_temp, args=args)
         return variables
 
+
 if __name__ == '__main__':
     staff_data = StaffData()
-    sd = staff_data.transfer_organization_data(staff_id="1b0df721-6cb7-41c4-aade-274662576fac",target_organization_id=2)
+    sd = staff_data.transfer_organization_data(staff_id="1b0df721-6cb7-41c4-aade-274662576fac",
+                                               target_organization_id=2)
     s
-

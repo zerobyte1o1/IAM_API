@@ -3,11 +3,11 @@ from case_data.management_center_data.staff_data import StaffData
 
 # 创建人员总数
 num = 60
-tenant_code = "teamsit"
-account = "teamsit"
-password = "123456"
+tenant_code = "1234"
+account = "eam1234"
+password = "teletraan"
 
-
+# 创建用户和账号
 def create_staff_and_user(**kwargs):
     staff = Staff(**kwargs)
     sd = StaffData(**kwargs)
