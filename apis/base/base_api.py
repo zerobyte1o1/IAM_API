@@ -68,11 +68,11 @@ class BaseApi:
 
     def modify_variables(self, target_json, args: list = None):
         """
-        CAUTION: 多级dict用:隔开即可;
+        CAUTION: 多级dict用:隔开即可;列表层级用>隔开即可
 
         :param target_json: 目标Json, 配合method get_variables使用
         :param args: 列表形式的参数, 记录目标参数和修改后的效果。for instance:
-            args=[("addr:area", "jojo"), ("code", "jojo")]
+            args=[("addr>0:area", "jojo"), ("code", "jojo")]
         :return: Json after modified
         """
         json_temp = target_json
@@ -86,9 +86,10 @@ class BaseApi:
 
         return json_temp
 
-    def deep_target(self, json_temp, keys, change_to, digit=0, num=0):
+    def deep_target(self, json_temp, keys, change_to, digit=0, num=0, list_digit=None):
         """
         多层级dict递归赋值
+        :param list_digit:列表层数
         :param json_temp:目标Json, 配合method get_variables使用
         :param keys:多级dict的key值拆分的list
         :param change_to:赋值value
@@ -98,11 +99,21 @@ class BaseApi:
         if digit == 0:
             num = len(keys)
         key = keys[digit]
-        digit += 1
-        if digit == num:
-            json_temp[key] = change_to
+        if list_digit is None:
+            if ">" in key:
+                list_digit = int(key.split(">")[1])
+                key = key.split(">")[0]
+                self.deep_target(json_temp[key], keys, change_to, digit, num, list_digit)
+            else:
+                digit += 1
+                if digit == num:
+                    json_temp[key] = change_to
+                else:
+                    self.deep_target(json_temp[key], keys, change_to, digit, num)
         else:
-            self.deep_target(json_temp[key], keys, change_to, digit, num)
+            digit += 1
+            self.deep_target(json_temp[list_digit], keys, change_to, digit, num, None)
+
 
 if __name__ == '__main__':
     b = BaseApi()
