@@ -80,7 +80,6 @@ class BaseApi:
             for (target, change_to) in args:
                 if ":" in target:
                     keys = target.split(":")
-                    print(keys)
                     self.deep_target(json_temp, keys, change_to)
                 else:
                     json_temp[target] = change_to
