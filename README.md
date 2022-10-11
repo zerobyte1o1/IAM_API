@@ -33,4 +33,4 @@ pytest testcase/ --alluredir=./result
 
 # 更新日志
 ## 2022.10.11
-- 更新base_api中的modify_variables方法，能够深层的赋值，只需要用":"隔开即可。
+- 更新base_api中的modify_variables方法，能够深层的赋值，只需要用":"隔开即可,列表用>隔开。
