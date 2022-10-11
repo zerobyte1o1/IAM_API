@@ -68,19 +68,42 @@ class BaseApi:
 
     def modify_variables(self, target_json, args: list = None):
         """
-        CAUTION: 只支持一级字段;
+        CAUTION: 多级dict用:隔开即可;
 
         :param target_json: 目标Json, 配合method get_variables使用
         :param args: 列表形式的参数, 记录目标参数和修改后的效果。for instance:
-            args=[("name", "jojo"), ("code", "jojo")]
+            args=[("addr:area", "jojo"), ("code", "jojo")]
         :return: Json after modified
         """
         json_temp = target_json
         if args is not None:
             for (target, change_to) in args:
-                json_temp[target] = change_to
+                if ":" in target:
+                    keys = target.split(":")
+                    print(keys)
+                    self.deep_target(json_temp, keys, change_to)
+                else:
+                    json_temp[target] = change_to
+
         return json_temp
 
+    def deep_target(self, json_temp, keys, change_to, digit=0, num=0):
+        """
+        多层级dict递归赋值
+        :param json_temp:目标Json, 配合method get_variables使用
+        :param keys:多级dict的key值拆分的list
+        :param change_to:赋值value
+        :param digit:当次层级计数
+        :param num:总层级数
+        """
+        if digit == 0:
+            num = len(keys)
+        key = keys[digit]
+        digit += 1
+        if digit == num:
+            json_temp[key] = change_to
+        else:
+            self.deep_target(json_temp[key], keys, change_to, digit, num)
 
 if __name__ == '__main__':
     b = BaseApi()

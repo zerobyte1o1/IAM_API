@@ -30,3 +30,7 @@ pytest testcase/ --alluredir=./result
 # 代码调试说明
 - 调试单个测试用例时，在utils/env.yml文件中将debug改为True即可。
 - run.py 运行时改为False
+
+# 更新日志
+## 2022.10.11
+- 更新base_api中的modify_variables方法，能够深层的赋值，只需要用":"隔开即可。
