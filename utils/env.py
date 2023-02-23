@@ -7,7 +7,7 @@ class Env:
     rootPath = os.path.dirname(os.path.abspath(__file__))
     configPath = os.path.join(rootPath, "env.yaml")
     env = yaml.safe_load(open(configPath))
-    url = "https://env.teletraan.io/graphql"
+    url = "https://env.XXX.io/graphql"
 
     def get_env(self):
         url_new = self.url.replace("env", self.env["env"][self.env["default"]]["name"])
