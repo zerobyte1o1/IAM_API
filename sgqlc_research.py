@@ -60,11 +60,11 @@ class Request:
     # 这是sgqlc提供的更优雅的请求方式
     def login_right(self):
         headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
-        endpoint = HTTPEndpoint(url="http://test3.teletraan.io/graphql", base_headers=headers, timeout=3)
+        endpoint = HTTPEndpoint(url="", base_headers=headers, timeout=3)
         variables = {
-            "account": "admin",
-            "password": "admin",
-            "tenant_code": "teletraan"
+            "account": "",
+            "password": "",
+            "tenant_code": ""
           }
         op = Operation(Mutation)
         login = op.login(input=variables)
