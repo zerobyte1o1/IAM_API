@@ -146,7 +146,7 @@ general_settings:
     emailAttributePath: email
     isActive: true
     kind: OPENID_CONNECT_1
-    name: teletraan外部认证
+    name: 
     nameAttributePath: name
     phoneNumberAttributePath: phone
     scope: asdasdsadasd
