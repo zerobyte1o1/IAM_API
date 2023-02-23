@@ -12,14 +12,14 @@ from schema.platform_schema import Mutation, Query
 
 # # 这是简单的发GraphQL请求示例，不依赖自动生成的schema
 def login_simple():
-    url = "https://test2.teletraan.io/graphql"
+    url = ""
     headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
     query = 'mutation login($input: LoginInput!) {login(input: $input) {token}}'
     variables = '''
     {
       "input": {
-        "account": "admin",
-        "password": "teletraan@2022"
+        "account": "",
+        "password": ""
       }
     }
         '''
