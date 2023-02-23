@@ -67,7 +67,7 @@ staff:
     account:
     staff:
     isAllowedToLogin: True
-    password: teletraan
+    password: 
     roles: []
 
   transfer_organization:
@@ -116,32 +116,32 @@ role:
 
 general_settings:
   create_oauth2:
-    accessTokenAttributePath: http://teletraan.io
+    accessTokenAttributePath: 
     accountAttributePath: account
-    authorizationUrl: http://teletraan.io
+    authorizationUrl: http://.io
     clientAuthenticationMethod: BASIC_HTTP_AUTHENTICATION_SCHEME
     clientId: asdasgwf21rdvevwe
     clientSecret: dskjhehi0qhh
     doUpdateLocalUserInfoWhenLogin: true
     emailAttributePath: email
     isActive: true
-    name: teletraan外部认证
+    name: 
     nameAttributePath: name
     phoneNumberAttributePath: phone
-    scope: http://teletraan.io
+    scope: http://.io
     supportState: true
     tokenResponseFormat: JSON
-    tokenUrl: http://teletraan.io
+    tokenUrl: http://.io
     userInfoAuthenticationMethod: BASIC_HTTP_AUTHENTICATION_SCHEME
     userInfoRequestMethod: POST
     userInfoResponseFormat: FORM
-    userInfoUrl: http://teletraan.io
+    userInfoUrl: http://.io
 
   create_oidc1:
     accountAttributePath: account
     clientId: d2qdscs
     clientSecret: 3faevewv
-    configurationUrl: http://teletraan.io
+    configurationUrl: http://.io
     doUpdateLocalUserInfoWhenLogin: true
     emailAttributePath: email
     isActive: true
